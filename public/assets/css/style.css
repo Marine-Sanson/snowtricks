@@ -2,3 +2,15 @@ a:hover,
 button{
     cursor: url("../img/icon.png"), pointer;
 }
+
+#hero {
+    background: url("../img/hero.jpg") no-repeat center;
+    min-height: 60rem;
+    position: relative;
+    max-width: 100%;
+    background-size: cover;
+}
+
+#heroP{
+    letter-spacing: .2rem;
+}
