@@ -35,9 +35,13 @@ class Trick
     #[ORM\ManyToMany(targetEntity: Group::class, inversedBy: 'tricks')]
     private Collection $trickGroup;
 
+    #[ORM\ManyToMany(targetEntity: Media::class, inversedBy: 'tricks')]
+    private Collection $media;
+
     public function __construct()
     {
         $this->trickGroup = new ArrayCollection();
+        $this->media = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,6 +129,30 @@ class Trick
     public function removeTrickGroup(Group $trickGroup): static
     {
         $this->trickGroup->removeElement($trickGroup);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Media>
+     */
+    public function getMedia(): Collection
+    {
+        return $this->media;
+    }
+
+    public function addMedium(Media $medium): static
+    {
+        if (!$this->media->contains($medium)) {
+            $this->media->add($medium);
+        }
+
+        return $this;
+    }
+
+    public function removeMedium(Media $medium): static
+    {
+        $this->media->removeElement($medium);
 
         return $this;
     }
