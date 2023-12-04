@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Group;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -31,7 +32,7 @@ class Trick
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updatedAt = null;
 
-    #[ORM\ManyToMany(targetEntity: group::class, inversedBy: 'tricks')]
+    #[ORM\ManyToMany(targetEntity: Group::class, inversedBy: 'tricks')]
     private Collection $trickGroup;
 
     public function __construct()
@@ -105,14 +106,14 @@ class Trick
     }
 
     /**
-     * @return Collection<int, group>
+     * @return Collection<int, Group>
      */
     public function getTrickGroup(): Collection
     {
         return $this->trickGroup;
     }
 
-    public function addTrickGroup(group $trickGroup): static
+    public function addTrickGroup(Group $trickGroup): static
     {
         if (!$this->trickGroup->contains($trickGroup)) {
             $this->trickGroup->add($trickGroup);
@@ -121,7 +122,7 @@ class Trick
         return $this;
     }
 
-    public function removeTrickGroup(group $trickGroup): static
+    public function removeTrickGroup(Group $trickGroup): static
     {
         $this->trickGroup->removeElement($trickGroup);
 

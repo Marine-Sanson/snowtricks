@@ -13,15 +13,22 @@
     </section>
     <section id="homeTricks" class="container text-center mt-5">
         <h2>Les Tricks</h2>
-<div class="card-deck row mx-auto justify-content-center">
-            <div class="card border-primary m-3" style="max-width: 18rem;">
-                <div class="card-header">Groupe</div>
-                <div class="card-body">
-                    <h4 class="card-title">Trick title</h4>
-                    <img class="card-img" src="/assets/img/hero2.jpg">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+        {{ dump(tricks) }}
+            <div class="card-deck row mx-auto justify-content-center">
+            {% for trick in tricks %}
+                <div class="card border-primary m-3" style="max-width: 18rem;">
+                    <div class="card-header">{% for eachGroup in trick.trickGroup %}
+                        {{ eachGroup.name }}
+                    {% endfor %}</div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{ trick.name }}</h4>
+                        <img class="card-img" src="/assets/img/hero2.jpg">
+                        <p class="card-text">{{ trick.description }}</p>
+                    </div>
+                    <div class="card-footer">{{ trick.updatedAt | date('d/m/Y') }}</div>
                 </div>
-            </div>
+            {% endfor %}
 
             <div class="card border-primary m-3" style="max-width: 18rem;">
                 <div class="card-header">Groupe</div>
@@ -108,14 +115,6 @@
                 <div class="card-body">
                     <h4 class="card-title">Trick title</h4>
                     <img class="card-img" src="/assets/img/hero2.jpg">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-            <div class="card border-primary m-3" style="max-width: 18rem;">
-                <div class="card-header">Groupe</div>
-                <div class="card-body">
-                    <h4 class="card-title">Trick title</h4>
-                    <img class="card-img" src="/assets/img/hero.jpg">
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>
             </div>
