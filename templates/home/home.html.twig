@@ -12,21 +12,20 @@
     <section id="homeTricks" class="container text-center mt-5">
         <h2>Les Tricks</h2>
 
-        {{ dump(tricks) }}
-            <div class="card-deck row mx-auto justify-content-center">
-            {% for trick in tricks %}
-                <div class="card border-primary m-3" style="max-width: 18rem;">
-                    <div class="card-header">{% for eachGroup in trick.trickGroup %}
-                        {{ eachGroup.name }}
-                    {% endfor %}</div>
-                    <div class="card-body">
-                        <h4 class="card-title">{{ trick.name }}</h4>
-                        <img class="card-img" src="/assets/img/hero2.jpg">
-                        <p class="card-text">{{ trick.description }}</p>
-                    </div>
-                    <div class="card-footer">{{ trick.updatedAt | date('d/m/Y') }}</div>
+        <div class="card-deck row mx-auto justify-content-center">
+        {% for trick in tricks %}
+            <div class="card border-primary m-3" style="max-width: 18rem;">
+                <div class="card-header">{% for eachGroup in trick.trickGroup %}
+                    {{ eachGroup.name }}
+                {% endfor %}</div>
+                <div class="card-body">
+                    <h4 class="card-title">{{ trick.name }}</h4>
+                    <img class="card-img" src="/assets/img/hero2.jpg">
+                    <p class="card-text">{{ trick.description }}</p>
                 </div>
-            {% endfor %}
+                <div class="card-footer">{{ trick.updatedAt | date('d/m/Y') }}</div>
+            </div>
+        {% endfor %}
 
             <div class="card border-primary m-3" style="max-width: 18rem;">
                 <div class="card-header">Groupe</div>
