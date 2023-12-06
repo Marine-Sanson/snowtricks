@@ -5,7 +5,7 @@ namespace App\Model;
 use App\Model\HomeGroup;
 use App\Model\HomeMedia;
 
-class HomeTrick
+class TrickDetails
 {
 
     public function __construct(

@@ -14,3 +14,20 @@ button{
 #heroP{
     letter-spacing: .2rem;
 }
+
+#singleTrick{
+    margin: 10rem auto;
+}
+
+.singleTrickMedias{
+    max-width: 15rem;
+    border-radius: 25px;
+}
+
+@media (max-width: 576px)
+{
+    #singleTrick{
+        max-width: 80vw;
+        margin: 5rem auto;
+    }
+}
