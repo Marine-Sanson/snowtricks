@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Snowtricks - {{ trick.name }}{% endblock %}
+
+{% block body %}
+    <div class="container card border-primary" id="singleTrick">
+        <div class="position-relative m-sd-2 m-5">
+            <img src="{{ trick.media[0].url }}" class="card-img-top" alt="{{ trick.media[0].alt }}">
+            <h1 class="text-primary card-title position-absolute top-50 start-50 translate-middle">{{ trick.name }}</h1>
+        </div>
+        <div class="card-body">
+            {% for oneMedia in trick.media %}
+                <img src="{{ oneMedia.url }}" class="singleTrickMedias m-3" alt="{{ oneMedia.alt }}">
+            {% endfor %}
+            <p class="card-text m-5">{{ trick.description }}</p>
+            <div class="text-center">
+                <span class="badge bg-primary p-2 m-2">Dernière modification : {{ trick.updatedAt | date('d/m/Y') }}</span>
+                {% for eachGroup in trick.trickGroup %}
+                    <span class="badge bg-primary p-2 m-2">Groupe : {{ eachGroup.name }}</span>
+                {% endfor %}
+            <div>
+        </div>
+    </div>
+{% endblock %}
