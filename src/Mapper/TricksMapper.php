@@ -32,7 +32,7 @@ class TricksMapper
     public function getHomeTrick(Trick $trick): HomeTrick
     {
 
-        $creationDate = $trick->getUpdatedAt();
+        $updatedAt = $trick->getUpdatedAt();
 
         $trickGroup = $trick->getTrickGroup()->toArray();
         $trickGroupModel = $this->getTrickGroupModel($trickGroup);
@@ -45,7 +45,7 @@ class TricksMapper
             $trick->getName(),
             $trick->getDescription(),
             $trick->getSlug(),
-            $creationDate,
+            $updatedAt,
             $trickGroupModel,
             $mediasModel
         );
