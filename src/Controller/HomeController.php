@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Trick;
 use App\Service\TrickService;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,14 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     public function __construct(private readonly TrickService $trickService)
-    {
-
-    }
+    { }
 
     #[Route('/', name: 'home')]
-    public function home(EntityManagerInterface $entityManager): Response
+    public function home(): Response
     {
-        $tricks = $entityManager->getRepository(Trick::class)->findAll();
+        $tricks = $this->trickService->getHomeTricks();
 
         return $this->render('home/home.html.twig', [
             'controller_name' => 'HomeController',
