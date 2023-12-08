@@ -3,9 +3,10 @@
 namespace App\Controller;
 
 use App\Service\TrickService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
@@ -13,9 +14,15 @@ class HomeController extends AbstractController
     { }
 
     #[Route('/', name: 'home', methods: ['GET', 'HEAD'])]
-    public function home(): Response
+    public function home(Request $request): Response
     {
-        $tricks = $this->trickService->getHomeTricks();
+        $limit = 2;
+
+        $page = (int)$request->get("page", 1);
+
+        $tricks = $this->trickService->getPaginatedHomeTricks($limit, $page);
+
+
 
         return $this->render('home/home.html.twig', [
             'controller_name' => 'HomeController',

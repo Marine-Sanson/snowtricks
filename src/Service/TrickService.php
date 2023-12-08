@@ -11,11 +11,12 @@ class TrickService
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly TricksMapper $tricksMapper
+        private readonly TricksMapper $tricksMapper,
         ) { }
 
-    public function getHomeTricks(): array
+    public function getPaginatedHomeTricks(int $limit, int $page): array
     {
+        
         $tricks = $this->entityManager->getRepository(Trick::class)->findAll();
         return $this->tricksMapper->transformToTricksDetails($tricks);
     }
