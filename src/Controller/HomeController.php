@@ -12,7 +12,7 @@ class HomeController extends AbstractController
     public function __construct(private readonly TrickService $trickService)
     { }
 
-    #[Route('/', name: 'home')]
+    #[Route('/', name: 'home', methods: ['GET', 'HEAD'])]
     public function home(): Response
     {
         $tricks = $this->trickService->getHomeTricks();

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Snowtricks - {{ trick.name }}{% endblock %}
+
+{% block body %}
+    <div class="container card border-primary" id="singleTrick">
+        <div class="position-relative text-center my-sd-2 my-5 mx-auto">
+            {% if trick.media == false %}
+                <img class="card-img-top rounded" src="{{ asset('assets/img/tricks/photo_default.jpg') }}"
+                     alt="image alternative" id="singleTrickImgTop">
+            {% else %}
+                <img src="{{ trick.media[0].url }}" class="card-img-top rounded" alt="{{ trick.media[0].alt }}"
+                     id="singleTrickImgTop">
+            {% endif %}
+            <h1 class="text-primary card-title bg-secondary position-absolute top-50 start-50 translate-middle p-2 rounded"
+                style="--bs-bg-opacity: .7;">{{ trick.name }}</h1>
+        </div>
+        <div class="card-body text-center">
+            {% for oneMedia in trick.media %}
+                <div class="d-inline-flex">
+                    {% if oneMedia.typeMedia == 1 %}
+                        <img src="{{ oneMedia.url }}" class="singleTrickMedias my-3 mx-auto" alt="{{ oneMedia.alt }}">
+                    {% else %}
+                        <span class="singleTrickMedias my-3 mx-auto">
+                            <iframe width="240" height="160" src="https://www.youtube.com/embed/{{oneMedia.url}}"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <p class="card-text m-5">{{ trick.description }}</p>
+            <div class="text-center">
+                <span class="badge bg-primary p-2 m-2">Dernière modification : {{ trick.updatedAt | date('d/m/Y') }}</span>
+                {% for eachGroup in trick.trickGroup %}
+                    <span class="badge bg-primary p-2 m-2">Groupe : {{ eachGroup.name }}</span>
+                {% endfor %}
+            <div>
+        </div>
+    </div>
+{% endblock %}
