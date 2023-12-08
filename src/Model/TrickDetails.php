@@ -9,13 +9,13 @@ class TrickDetails
 {
 
     public function __construct(
-        private int $id,
-        private string $name,
-        private string $description,
-        private string $slug,
-        private \DateTimeInterface $updatedAt,
-        private array $trickGroup,
-        private array $media
+        private readonly int $id,
+        private readonly string $name,
+        private readonly string $description,
+        private readonly string $slug,
+        private readonly \DateTimeInterface $updatedAt,
+        private readonly array $trickGroup,
+        private readonly array $media
     ) { }
 
     public function getId(): int
@@ -28,23 +28,9 @@ class TrickDetails
         return $this->name;
     }
 
-    public function setName(string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
     public function getDescription(): string
     {
         return $this->description;
-    }
-
-    public function setDescription(string $description): static
-    {
-        $this->description = $description;
-
-        return $this;
     }
 
     public function getSlug(): string
@@ -52,23 +38,9 @@ class TrickDetails
         return $this->slug;
     }
 
-    public function setSlug(string $slug): static
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
     public function getUpdatedAt(): \DateTimeInterface
     {
         return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): static
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 
     /**

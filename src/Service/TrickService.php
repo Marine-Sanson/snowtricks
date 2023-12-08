@@ -16,8 +16,7 @@ class TrickService
 
     public function getPaginatedHomeTricks(int $limit, int $page): array
     {
-        
-        $tricks = $this->entityManager->getRepository(Trick::class)->findAll();
+        $tricks = $this->trickRepository->findAll();
         return $this->tricksMapper->transformToTricksDetails($tricks);
     }
 
