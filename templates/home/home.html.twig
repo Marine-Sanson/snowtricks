@@ -22,7 +22,11 @@
                 </div>
                 <div class="card-body">
                     <h4 class="card-title">{{ trick.name }}</h4>
-                        <img class="card-img" src="{{ trick.media[0].url }}" alt="{{ trick.media[0].alt }}">
+                        {% if trick.media == false %}
+                            <img class="card-img" src="{{ asset('assets/img/tricks/photo_default.jpg') }}" alt="image alternative" style="max-height: 10rem; width:auto;">
+                        {% else %}
+                            <img class="card-img" src="{{ trick.media[0].url }}" alt="{{ trick.media[0].alt }}" style="max-height: 10rem; width:auto;">
+                        {% endif %}
                     <p class="card-text">{{ trick.description }}</p>
                 </div>
                 <div class="card-footer">{{ trick.updatedAt | date('d/m/Y') }}</div>
