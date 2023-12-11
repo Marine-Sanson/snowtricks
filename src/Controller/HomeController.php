@@ -20,8 +20,6 @@ class HomeController extends AbstractController
 
         $dataPaginated = $this->trickService->getPaginatedHomeTricks($page, 4);
 
-
-
         return $this->render('home/home.html.twig', [
             'controller_name' => 'HomeController',
             'tricks' => $dataPaginated['tricks'],
