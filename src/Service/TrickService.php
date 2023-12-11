@@ -26,7 +26,7 @@ class TrickService
 
     public function getTrickDetails(string $slug): TrickDetails
     {
-        $trick = $this->entityManager->getRepository(Trick::class)->findOneBySlug($slug);
+        $trick = $this->trickRepository->findOneBySlug($slug);
         return $this->tricksMapper->getTrickDetails($trick);
     }
 
