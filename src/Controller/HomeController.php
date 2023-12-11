@@ -16,17 +16,18 @@ class HomeController extends AbstractController
     #[Route('/', name: 'home', methods: ['GET', 'HEAD'])]
     public function home(Request $request): Response
     {
-        $limit = 2;
+        $page = $request->query->getInt("page", 1);
 
-        $page = (int)$request->get("page", 1);
-
-        $tricks = $this->trickService->getPaginatedHomeTricks($limit, $page);
+        $dataPaginated = $this->trickService->getPaginatedHomeTricks($page, 4);
 
 
 
         return $this->render('home/home.html.twig', [
             'controller_name' => 'HomeController',
-            'tricks' => $tricks
+            'tricks' => $dataPaginated['tricks'],
+            'pages' => $dataPaginated['pages'],
+            'page' => $dataPaginated['page'],
+            'limit' => $dataPaginated['limit'],
         ]);
     }
 }

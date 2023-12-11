@@ -5,19 +5,27 @@ namespace App\Service;
 use App\Entity\Trick;
 use App\Model\TrickDetails;
 use App\Mapper\TricksMapper;
+use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class TrickService
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
+        private readonly TrickRepository $trickRepository,
         private readonly TricksMapper $tricksMapper,
         ) { }
 
-    public function getPaginatedHomeTricks(int $limit, int $page): array
+    public function getPaginatedHomeTricks(int $page, int $limit): array
     {
-        $tricks = $this->trickRepository->findAll();
-        return $this->tricksMapper->transformToTricksDetails($tricks);
+        
+        $data = $this->trickRepository->findTricksPaginated($page, $limit);
+
+        $tricksDetails = $this->tricksMapper->transformToTricksDetails($data['tricks']);
+
+        $data['tricks'] = $tricksDetails;
+
+        return $data;
     }
 
     public function getTrickDetails(string $slug): TrickDetails

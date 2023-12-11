@@ -36,6 +36,10 @@
             {% endfor %}
 
         </div>
-
+        {% set path ='home' %}
+        {% set pages = pages %}
+        {% set slug = '/' %}
+        {% set currentPage = page %}
+        {% include "partials/pagination.html.twig" %}
     </section>
 {% endblock %}
