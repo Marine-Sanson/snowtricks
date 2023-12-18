@@ -19,7 +19,7 @@ class TrickService
     public function getPaginatedHomeTricks(int $page, int $limit): array
     {
         $data = $this->trickRepository->findTricksPaginated($page, $limit);
-        $data['tricks'] = $this->tricksMapper->transformToTricksDetails($data['tricks']);
+        $data['tricks'] = $this->tricksMapper->transformToHomeTricks($data['tricks']);
 
         return $data;
     }

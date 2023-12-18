@@ -7,12 +7,48 @@ use App\Entity\Media;
 use App\Entity\Trick;
 use App\Model\HomeGroup;
 use App\Model\HomeMedia;
+use App\Model\HomeTrick;
 use App\Model\TrickDetails;
 
 class TricksMapper
 {
+    /**
+     * Summary of transformToTrickDetails
+     *
+     * @param array<Trick> $trick array of tricks
+     *
+     * @return array
+     */
+    public function transformToHomeTricks(array $tricks): array
+    {
+        return array_map(
+            function (Trick $trick) {
+                return $this->getHomeTrick($trick);
+            },
+            $tricks
+        );
+    }
 
-        /**
+    public function getHomeTrick(Trick $trick): HomeTrick
+    {
+        $media = null;
+        $allMedias = $trick->getMedia();
+
+        if (isset($allMedias)) 
+        {
+            $media = $this->getMediaModel($allMedias[0]);
+        }
+
+        return new HomeTrick(
+            $trick->getId(),
+            $trick->getName(),
+            $trick->getSlug(),
+            $media
+        );
+
+    }
+
+    /**
      * Summary of transformToTrickDetails
      *
      * @param array<Trick> $trick array of tricks
