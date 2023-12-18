@@ -43,3 +43,7 @@ button{
         height: auto;
     }
 }
+
+.mainSection{
+    margin: 5rem auto;
+}

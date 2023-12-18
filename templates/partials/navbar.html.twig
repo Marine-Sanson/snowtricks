@@ -12,12 +12,19 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#homeTricks">Tricks</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Registration</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Login</a>
-                        </li>
+                        {% if app.user %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                            </li>
+
+                        {% endif %}
                 </div>
             </div>
         </nav>
