@@ -2,9 +2,10 @@
 
 namespace App\Service;
 
-use App\Entity\Trick;
+use App\Mapper\MediaMapper;
 use App\Model\TrickDetails;
 use App\Mapper\TricksMapper;
+use App\Repository\MediaRepository;
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -13,13 +14,23 @@ class TrickService
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly TrickRepository $trickRepository,
+        private readonly MediaRepository $mediaRepository,
         private readonly TricksMapper $tricksMapper,
+        private readonly MediaMapper $mediaMapper
         ) { }
 
     public function getPaginatedHomeTricks(int $page, int $limit): array
     {
         $data = $this->trickRepository->findTricksPaginated($page, $limit);
         $data['tricks'] = $this->tricksMapper->transformToHomeTricks($data['tricks']);
+
+        $defaultMedia = $this->mediaMapper->getMediaModel($this->mediaRepository->find(11));
+
+        foreach ($data['tricks'] as $trick) {
+            if ($trick->getMedia() === null) {
+                $trick->setMedia($defaultMedia);
+            }
+        }
 
         return $data;
     }

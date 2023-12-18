@@ -2,16 +2,21 @@
 
 namespace App\Mapper;
 
-use App\Entity\Group;
-use App\Entity\Media;
 use App\Entity\Trick;
-use App\Model\HomeGroup;
-use App\Model\HomeMedia;
 use App\Model\HomeTrick;
+use App\Mapper\GroupMapper;
+use App\Mapper\MediaMapper;
 use App\Model\TrickDetails;
 
 class TricksMapper
 {
+
+    public function __construct(
+        private readonly MediaMapper $mediaMapper,
+        private readonly GroupMapper $groupMapper,
+        )
+    { }
+
     /**
      * Summary of transformToTrickDetails
      *
@@ -31,12 +36,12 @@ class TricksMapper
 
     public function getHomeTrick(Trick $trick): HomeTrick
     {
-        $media = null;
         $allMedias = $trick->getMedia();
 
-        if (isset($allMedias)) 
-        {
-            $media = $this->getMediaModel($allMedias[0]);
+        if ($allMedias[0] !== null) {
+            $media = $this->mediaMapper->getMediaModel($allMedias[0]);
+        } else {
+            $media = null;
         }
 
         return new HomeTrick(
@@ -71,10 +76,10 @@ class TricksMapper
         $updatedAt = $trick->getUpdatedAt();
 
         $trickGroup = $trick->getTrickGroup()->toArray();
-        $trickGroupModel = $this->getTrickGroupModel($trickGroup);
+        $trickGroupModel = $this->groupMapper->getTrickGroupModel($trickGroup);
 
         $medias = $trick->getMedia()->toArray();
-        $mediasModel = $this->getMediasModel($medias);
+        $mediasModel = $this->mediaMapper->getMediasModel($medias);
         
         return new TrickDetails(
             $trick->getId(),
@@ -85,50 +90,6 @@ class TricksMapper
             $trickGroupModel,
             $mediasModel
         );
-    }
-
-    /**
-     * Summary of getTrickGroupModel
-     *
-     * @param array<Group> $trickgroup array of trickgroups
-     *
-     * @return array
-     */
-    public function getTrickGroupModel(array $trickgroup): array
-    {
-        return array_map(
-            function (Group $group) {
-                return $this->getGroupModel($group);
-            },
-            $trickgroup
-        );
-    }
-
-    public function getGroupModel(Group $group): HomeGroup
-    {
-        return new HomeGroup($group->getId(), $group->getName());
-    }
-
-    /**
-     * Summary of getTrickGroupModel
-     *
-     * @param array<Media> $medias array of medias
-     *
-     * @return array
-     */
-    public function getMediasModel(array $medias): array
-    {
-        return array_map(
-            function (Media $media) {
-                return $this->getMediaModel($media);
-            },
-            $medias
-        );
-    }
-
-    public function getMediaModel(Media $media): HomeMedia
-    {
-        return new HomeMedia($media->getId(), $media->getTypeMedia()->getId(), $media->getUrl(), $media->getAlt());
     }
 
 }

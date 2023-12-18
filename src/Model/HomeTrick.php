@@ -11,7 +11,7 @@ class HomeTrick
         private readonly int $id,
         private readonly string $name,
         private readonly string $slug,
-        private readonly ?HomeMedia $media
+        private ?HomeMedia $media
     ) { }
 
     public function getId(): int
@@ -35,6 +35,13 @@ class HomeTrick
     public function getMedia(): ?HomeMedia
     {
         return $this->media;
+    }
+
+    public function setMedia(HomeMedia $media): static
+    {
+        $this->media = $media;
+
+        return $this;
     }
 
 }
