@@ -70,7 +70,7 @@ class JWTService
         return $payload['exp'] < $now->getTimestamp();
     }
 
-    public function check(string $token, string $secret)
+    public function check(string $token, string $secret): bool
     {
         $header = $this->getHeader($token);
         $payload = $this->getPayload($token);
