@@ -47,3 +47,8 @@ button{
 .mainSection{
     margin: 5rem auto;
 }
+
+#flashMess{
+    margin-top: 5rem;
+    max-width: 50%
+}
