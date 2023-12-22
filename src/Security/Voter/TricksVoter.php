@@ -54,8 +54,8 @@ class TricksVoter extends Voter
     {
         return $this->security->isGranted('ROLE_ADMIN');
     }
-
     private function canDelete(Trick $trick, User $user): bool
+
     {
         return $this->security->isGranted('ROLE_ADMIN');
     }
