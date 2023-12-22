@@ -23,7 +23,7 @@ class UserService
         private readonly ParameterBagInterface $params
     ) {}
 
-    public function register(UserRegister $userRegister)
+    public function register(UserRegister $userRegister): string
     {
         $user = (new User())
             ->setUsername($userRegister->getUsername())
@@ -109,7 +109,7 @@ class UserService
         return $this->getUserModel($user);
     }
 
-    public function setNewPassword(UserModel $userModel, string $password)
+    public function setNewPassword(UserModel $userModel, string $password): void
     {
         $user = $this->userRepository->find($userModel->getId());
         $user->setResetToken('');
