@@ -2,27 +2,24 @@
 
 namespace App\Controller;
 
-use App\Service\SendMailService;
-use App\Repository\UserRepository;
+use App\Service\MailService;
+use App\Service\UserService;
 use App\Form\ResetPasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\ResetPasswordRequestFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class SecurityController extends AbstractController
 {
     public function __construct(
-        private readonly UserRepository $userRepository,
-        private readonly TokenGeneratorInterface $tokenGenerator,
+        private readonly UserService $userService,
         private readonly EntityManagerInterface $entityManager,
-        private readonly SendMailService $sendMail,
+        private readonly MailService $mailService,
         private readonly UserPasswordHasherInterface $userPasswordHasher
     ) {}
 
@@ -55,26 +52,21 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $user = $this->userRepository->findOneByEmail($form->get('email')->getData());
+            $userKnown = $this->userService->isUserKnown($form->get('email')->getData());
 
-            if($user){
-                $token = $this->tokenGenerator->generateToken();
-                $user->setResetToken($token);
-                $this->entityManager->persist($user);
-                $this->entityManager->flush();
+            if($userKnown){
+                $token = $this->userService->setToken($userKnown);
 
-                $url = $this->generateUrl('reset_password', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
-
-                $this->sendMail->send(
+                $this->mailService->send(
                     'contact@marinesanson.fr',
-                    $user->getEmail(),
+                    $userKnown->getEmail(),
                     'Réinitialisation du mot de passe',
                     'password_reset',
                     [
                         'token' => $token,
-                        'user' => $user
+                        'user' => $userKnown
                     ]
-                    );
+                );
 
                 $this->addFlash('success', 'Email envoyé');
                 return $this->redirectToRoute('app_login');
@@ -93,24 +85,17 @@ class SecurityController extends AbstractController
     #[Route(path: '/oubli-mdp/{token}', name: 'reset_password')]
     public function resetPassword(string $token, Request $request): Response
     {
-        $user = $this->userRepository->findOneByResetToken($token);
-        if($user){
+        $userModel = $this->userService->findUserByResetToken($token);
+
+        if($userModel){
             $form = $this->createForm(ResetPasswordFormType::class);
-
             $form->handleRequest($request);
-            if($form->isSubmitted() && $form->isValid()){
-                $user->setResetToken('');
-                $user->setPassword(
-                    $this->userPasswordHasher->hashPassword(
-                        $user,
-                        $form->get('password')->getData()
-                    )
-                    );
-                    $this->entityManager->persist($user);
-                    $this->entityManager->flush();
 
-                    $this->addFlash('success', 'Mot de passe changé avec succes');
-                    return $this->redirectToRoute('app_login');
+            if($form->isSubmitted() && $form->isValid()){
+                $this->userService->setNewPassword($userModel, $form->get('password')->getData());
+
+                $this->addFlash('success', 'Mot de passe changé avec succes');
+                return $this->redirectToRoute('app_login');
             }
 
             return $this->render('security/reset_password.html.twig', [
