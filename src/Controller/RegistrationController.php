@@ -3,68 +3,41 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\RegistrationFormType;
-use App\Repository\UserRepository;
-use App\Security\UserAuthenticator;
+use App\Model\UserRegister;
 use App\Service\JWTService;
-use App\Service\SendMailService;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\MailService;
+use App\Service\UserService;
+use App\Form\RegistrationFormType;
+use App\Security\UserAuthenticator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
 
     public function __construct(
         private readonly JWTService $jWTService,
-        private readonly UserRepository $userRepository,
-        private readonly EntityManagerInterface $entityManager,
-        private readonly SendMailService $sendMail
+        private readonly MailService $mailService,
+        private readonly UserService $userService
     ) {}
 
     #[Route('/register', name: 'app_register')]
-    public function register(
-        Request $request,
-        UserPasswordHasherInterface $userPasswordHasher,
-        UserAuthenticatorInterface $userAuthenticator,
-        UserAuthenticator $authenticator
-        ): Response
+    public function register(Request $request): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
 
-            $this->entityManager->persist($user);
-            $this->entityManager->flush();
+            $userRegister = new UserRegister($form->get('username')->getData(), $form->get('email')->getData(), $form->get('plainPassword')->getData());
 
-            // do anything else you need here, like send an email
+            $token = $this->userService->register($userRegister);
 
-            $header = [
-                'alg' => 'HS256',
-                'typ' => 'JWT'
-            ];
-
-            $payload = [
-                'userId' => $user->getId()
-            ];
-
-            $token = $this->jWTService->generate($header, $payload, $this->getParameter('app.jwtsecret'));
-
-            $this->sendMail->send(
+            $this->mailService->send(
                 'contact@marinesanson.fr',
                 $user->getEmail(),
                 'Activation de votre compte sur le site Snowtricks',
@@ -75,11 +48,9 @@ class RegistrationController extends AbstractController
                 ]
             );
 
-            return $userAuthenticator->authenticateUser(
-                $user,
-                $authenticator,
-                $request
-            );
+            $this->addFlash('warning', 'Vérifiez vos emails pour valider votre compte');
+            return $this->redirectToRoute('home');
+
         }
 
         return $this->render('registration/register.html.twig', [
@@ -88,23 +59,35 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/verify/{token}', name: 'verify_user')]
-    public function verifyUser(string $token): Response
+    public function verifyUser(
+        string $token,
+        Request $request,
+        UserAuthenticatorInterface $userAuthenticator,
+        UserAuthenticator $authenticator
+    ): Response
     {
         if($this->jWTService->isValid($token) && !$this->jWTService->isExpired($token) && $this->jWTService->check($token, $this->getParameter('app.jwtsecret'))) {
             $payload = $this->jWTService->getPayload($token);
-            $user = $this->userRepository->find($payload['userId']);
-            if ($user && !$user->getIsVerified()){
-                $user->setIsVerified(true);
-                $this->entityManager->flush();
+
+            $userVerified = $this->userService->isUserVerified($payload['userId']);
+
+            if ($userVerified){
+              
                 $this->addFlash('success', 'Utilisateur activé');
-                return $this->redirectToRoute('home');
+                return $userAuthenticator->authenticateUser(
+                    $userVerified,
+                    $authenticator,
+                    $request
+                );
             }
+            $this->addFlash('warning', 'Cet utilisateur est déjà activé');
+            return $this->redirectToRoute('app_login');
         }
         $this->addFlash('danger', 'Le token est invalid ou a expiré');
         return $this->redirectToRoute('app_login');
     }
 
-    #[Route('/verifyagain', name: 'resend_verify')]
+    #[Route('/reverifier', name: 'resend_verify')]
     public function resendVerify(): Response
     {
         $user = $this->getUser();
@@ -114,29 +97,24 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        if ($user->getIsVerified()){
+        $isUserVerifiedYet = $this->userService->isUserVerifiedYet($user);
+
+        if ($isUserVerifiedYet){
             $this->addFlash('warning', 'Cet utilisateur est déjà activé');
             return $this->redirectToRoute('app_login');
         }
 
-        $header = [
-            'alg' => 'HS256',
-            'typ' => 'JWT'
-        ];
+        $userModel = $this->userService->getUserModel($user);
 
-        $payload = [
-            'userId' => $user->getId()
-        ];
+        $token = $this->userService->newRegisterToken($userModel);
 
-        $token = $this->jWTService->generate($header, $payload, $this->getParameter('app.jwtsecret'));
-
-        $this->sendMail->send(
+        $this->mailService->send(
             'contact@marinesanson.fr',
-            $user->getEmail(),
+            $userModel->getEmail(),
             'Activation de votre compte sur le site Snowtricks',
             'register',
             [
-                'user' => $user,
+                'user' => $userModel,
                 'token' => $token
             ]
         );
