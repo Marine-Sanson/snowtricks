@@ -36,7 +36,7 @@ class UserService
             )
         );
 
-        $userCreated = $this->userRepository->createUser($user);
+        $userCreated = $this->userRepository->saveUser($user);
 
         $payload = [
             'userId' => $userCreated->getId()
@@ -51,7 +51,7 @@ class UserService
 
     }
 
-    public function isUserVerified(int $userId): ?User
+    public function getUserVerified(int $userId): ?User
     {
         $user = $this->userRepository->find($userId);
 
@@ -98,7 +98,7 @@ class UserService
         $user = $this->userRepository->find($userModel->getId());
 
         $user->setResetToken($token);
-        $this->userRepository->updateUser($user);
+        $this->userRepository->saveUser($user);
 
         return $token;
     }
@@ -119,7 +119,7 @@ class UserService
                     $password
                 )
             );
-        $this->userRepository->updateUser($user);
+        $this->userRepository->saveUser($user);
     }
 
 }

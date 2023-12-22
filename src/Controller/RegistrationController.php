@@ -69,7 +69,7 @@ class RegistrationController extends AbstractController
         if($this->jWTService->isValid($token) && !$this->jWTService->isExpired($token) && $this->jWTService->check($token, $this->getParameter('app.jwtsecret'))) {
             $payload = $this->jWTService->getPayload($token);
 
-            $userVerified = $this->userService->isUserVerified($payload['userId']);
+            $userVerified = $this->userService->getUserVerified($payload['userId']);
 
             if ($userVerified){
               
