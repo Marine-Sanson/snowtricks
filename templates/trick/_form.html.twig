@@ -8,6 +8,6 @@
         }) }}
     {{ form_row(trickForm.media) }}
 
-        <button type="submit" class="btn btn-lg btn-primary mt-5">Créer</button>
+        <button type="submit" class="btn btn-lg btn-primary mt-5">{{ button_label|default('Créer') }}</button>
 
     {{ form_end(trickForm) }}
