@@ -51,6 +51,12 @@ class TrickRepository extends ServiceEntityRepository
         return $result;
     }
 
+    public function saveTrick(Trick $trick): void
+    {
+        $this->getEntityManager()->persist($trick);
+        $this->getEntityManager()->flush();
+    }
+
 //    /**
 //     * @return Trick[] Returns an array of Trick objects
 //     */

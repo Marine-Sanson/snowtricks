@@ -2,15 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\MediaRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\MediaRepository;
+use App\Entity\Trait\CreatedAtTrait;
+use DateTimeImmutable;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
 class Media
 {
+    use CreatedAtTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -22,11 +26,8 @@ class Media
     #[ORM\Column(length: 50)]
     private ?string $alt = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdAt = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $updatedAt = null;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    private ?DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'media')]
     #[ORM\JoinColumn(nullable: false)]
@@ -38,6 +39,7 @@ class Media
     public function __construct()
     {
         $this->tricks = new ArrayCollection();
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -69,24 +71,12 @@ class Media
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): static
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?DateTimeImmutable
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): static
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
 

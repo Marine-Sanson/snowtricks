@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Trick;
 use App\Mapper\MediaMapper;
 use App\Model\TrickDetails;
 use App\Mapper\TricksMapper;
@@ -39,6 +40,20 @@ class TrickService
     {
         $trick = $this->trickRepository->findOneBySlug($slug);
         return $this->tricksMapper->getTrickDetails($trick);
+    }
+
+    public function isTrickNameKnown(string $trickName): bool
+    {
+        $knownTrick = $this->trickRepository->findOneByName($trickName);
+        if($knownTrick){
+            return true;
+        }
+        return false;
+    }
+
+    public function saveTrick(Trick $trick)
+    {
+        $this->trickRepository->saveTrick($trick);
     }
 
 }

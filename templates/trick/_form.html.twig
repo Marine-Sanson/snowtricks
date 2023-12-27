@@ -1,0 +1,13 @@
+    {{ form_errors(trickForm) }}
+
+    {{ form_start(trickForm) }}
+        {{ form_row(trickForm.name) }}
+        {{ form_row(trickForm.description) }}
+
+        {{ form_row(trickForm.trickGroup, {
+        }) }}
+    {{ form_row(trickForm.media) }}
+
+        <button type="submit" class="btn btn-lg btn-primary mt-5">Créer</button>
+
+    {{ form_end(trickForm) }}
