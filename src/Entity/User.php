@@ -5,7 +5,7 @@ namespace App\Entity;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
-use App\Entity\Trait\CreatedAtTrait;
+use App\Entity\CreatedAtTrait;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;

@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\MediaRepository;
-use App\Entity\Trait\CreatedAtTrait;
+use App\Entity\CreatedAtTrait;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;

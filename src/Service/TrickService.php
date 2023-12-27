@@ -51,7 +51,7 @@ class TrickService
         return false;
     }
 
-    public function saveTrick(Trick $trick)
+    public function saveTrick(Trick $trick): void
     {
         $this->trickRepository->saveTrick($trick);
     }

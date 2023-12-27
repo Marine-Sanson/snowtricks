@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\CreatedAtTrait;
 use App\Entity\Trick;
 use App\Form\TricksFormType;
 use App\Service\TrickService;
@@ -14,6 +15,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/admin/tricks', name: 'app_admin_tricks_')]
 class AdminTricksController extends AbstractController
 {
+    use CreatedAtTrait;
 
     public function __construct(
         private readonly TrickService $trickService,
