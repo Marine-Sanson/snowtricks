@@ -1,0 +1,52 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Group;
+use App\Entity\Media;
+use App\Entity\Trick;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
+class TricksFormType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('name', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control mb-3'
+                ],
+                'label' => 'Nom'
+            ])
+            ->add('description', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control mb-3'
+                ],
+                'label' => 'Description'
+            ])
+            ->add('trickGroup', EntityType::class, [
+                'class' => Group::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'label' => 'Groupe'
+            ])
+            ->add('media', EntityType::class, [
+                'class' => Media::class,
+                'choice_label' => 'id',
+                'multiple' => true,
+                'label' => 'Media'
+            ])
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Trick::class,
+        ]);
+    }
+}

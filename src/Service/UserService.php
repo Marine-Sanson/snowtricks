@@ -112,7 +112,7 @@ class UserService
     public function setNewPassword(UserModel $userModel, string $password): void
     {
         $user = $this->userRepository->find($userModel->getId());
-        $user->setResetToken('');
+        $user->setResetToken(' ');
             $user->setPassword(
                 $this->userPasswordHasher->hashPassword(
                     $user,
