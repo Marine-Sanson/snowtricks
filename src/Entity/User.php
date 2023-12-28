@@ -9,6 +9,7 @@ use App\Entity\CreatedAtTrait;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -22,7 +23,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    private ?string $email = null;
+    #[Assert\NotBlank(message: 'Vous devez rentrer un email')]
+    private string $email;
 
     #[ORM\Column]
     private array $roles = ["ROLE_USER"];
@@ -31,16 +33,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    private ?string $password = null;
+    private string $password;
 
     #[ORM\Column(length: 100)]
-    private ?string $username = null;
+    #[Assert\NotBlank(message: 'Vous devez rentrer un email')]
+    private string $username;
 
     #[ORM\Column]
     private bool $isVerified = false;
 
     #[ORM\Column(length: 100)]
-    private ?string $resetToken;
+    private ?string $resetToken = null;
 
     #[ORM\Column]
     private ?DateTimeImmutable $updatedAt = null;
@@ -56,7 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -121,7 +124,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getUsername(): ?string
+    public function getUsername(): string
     {
         return $this->username;
     }
