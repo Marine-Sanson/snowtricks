@@ -8,8 +8,7 @@ class HomeMedia
     public function __construct(
         private int $id,
         private int $typeMedia,
-        private string $url,
-        private string $alt,
+        private string $name
     ) { }
 
     public function getId(): int
@@ -29,26 +28,14 @@ class HomeMedia
         return $this;
     }
 
-    public function getUrl(): string
+    public function getName(): string
     {
-        return $this->url;
+        return $this->name;
     }
 
-    public function setUrl(string $url): static
+    public function setName(string $name): static
     {
-        $this->url = $url;
-
-        return $this;
-    }
-
-    public function getAlt(): string
-    {
-        return $this->alt;
-    }
-
-    public function setAlt(string $alt): static
-    {
-        $this->alt = $alt;
+        $this->name = $name;
 
         return $this;
     }

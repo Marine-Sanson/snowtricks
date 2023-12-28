@@ -39,6 +39,7 @@ class TrickService
     public function getTrickDetails(string $slug): TrickDetails
     {
         $trick = $this->trickRepository->findOneBySlug($slug);
+        
         return $this->tricksMapper->getTrickDetails($trick);
     }
 

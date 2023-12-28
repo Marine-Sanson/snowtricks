@@ -21,6 +21,13 @@ class MediaRepository extends ServiceEntityRepository
         parent::__construct($registry, Media::class);
     }
 
+    public function delete(Media $media): void
+    {
+        $this->getEntityManager()->remove($media);
+        
+        $this->getEntityManager()->flush();
+    }
+
 //    /**
 //     * @return Media[] Returns an array of Media objects
 //     */

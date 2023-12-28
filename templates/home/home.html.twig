@@ -14,18 +14,22 @@
 
         <div class="card-deck row mx-auto">
             {% for trick in tricks %}
-            <div class="card border-primary m-3" style="max-width: 18rem;">
-                {% if trick.media == false %}
-                    <img class="card-img-top mt-2" src="{{ asset('assets/img/tricks/photo_default.jpg') }}" alt="image alternative" style="max-height: 10rem; width:auto;">
-                {% else %}
-                    <img class="card-img-top mt-2" src="{{ trick.media.url }}" alt="{{ trick.media.alt }}" style="max-height: 10rem; width:auto;">
-                {% endif %}
-                <div class="card-body d-flex justify-content-start align-items-center my-auto">
-                    <a href="/trick/{{ trick.slug }}" class="text-decoration-none text-left">
-                        {{ trick.name }}
-                    </a>
+
+                <div class="card border-primary m-3" style="max-width: 18rem;">
+                    {% if trick.media == false %}
+                        <img class="card-img-top mt-2 object-fit-contain " src="{{ asset('assets\img\tricks\300x300-photo_default.webp') }}">
+                    {% else %}
+                        <img class="card-img-top mt-2 object-fit-contain " src="{{ asset('assets/img/uploads/tricks/mini/300x300-') ~ trick.media.name }}">
+                    {% endif %}
+
+                    <div class="card-body d-flex justify-content-start align-items-center my-auto">
+                        <a href="/trick/{{ trick.slug }}" class="text-decoration-none text-left">
+                            {{ trick.name }}
+                        </a>
+                    </div>
+
                 </div>
-            </div>
+
             {% endfor %}
 
         </div>
