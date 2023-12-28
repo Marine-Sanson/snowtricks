@@ -12,7 +12,7 @@ class MediaService
 {
     public function __construct(private ParameterBagInterface $params, private readonly MediaRepository $mediaRepository) {}
 
-    public function add(UploadedFile $image, ?string $folder = '', ?int $width = 300, ?int $height = 300)
+    public function add(UploadedFile $image, ?string $folder = '', ?int $width = 300, ?int $height = 300): string
     {
         $file = md5(uniqid(rand(), true)) . '.webp';
         $imageInfos = getimagesize($image);
@@ -71,10 +71,11 @@ class MediaService
         return $file;
     }
 
-    public function delete(string $file, ?string $folder = '', ?int $width = 300, ?int $height = 300)
+    public function delete(string $file, ?string $folder = '', ?int $width = 300, ?int $height = 300): bool
     {
+        $success = false;
+
         if($file !== 'photo_default.jpg'){
-            $success = false;
             $path = $this->params->get('images_directory') . $folder;
 
             $mini = $path . '/mini/' . $width . 'x' . $height . '-' . $file;
@@ -90,8 +91,8 @@ class MediaService
                 unlink($original);
                 $success = true;
             }
-            return $success;
         }
+        return $success;
     }
 
     public function removeFromDb(Media $media): void
