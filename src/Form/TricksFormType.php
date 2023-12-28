@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class TricksFormType extends AbstractType
@@ -29,17 +30,30 @@ class TricksFormType extends AbstractType
                 'label' => 'Description'
             ])
             ->add('trickGroup', EntityType::class, [
+                'attr' => [
+                    'class' => 'form-select mb-3',
+                    'size' => "2"
+                ],
                 'class' => Group::class,
                 'choice_label' => 'name',
                 'multiple' => true,
-                'label' => 'Groupe'
+                'label' => 'Selectionnez un ou plusieurs groupe(s)'
             ])
-            ->add('media', EntityType::class, [
-                'class' => Media::class,
-                'choice_label' => 'id',
+            ->add('images', FileType::class, [
+                'attr' => [
+                    'class' => 'form-control mb-3'
+                ],
+                'label' => 'Télécharger une ou plusieurs image(s)',
                 'multiple' => true,
-                'label' => 'Media'
+                'mapped' => false,
+                'required' => false
             ])
+            // ->add('media', EntityType::class, [
+            //     'class' => Media::class,
+            //     'choice_label' => 'id',
+            //     'multiple' => true,
+            //     'label' => 'Media'
+            // ])
         ;
     }
 

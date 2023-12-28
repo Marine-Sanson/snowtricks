@@ -15,4 +15,5 @@ class MediaController extends AbstractController
             'controller_name' => 'MediaController',
         ]);
     }
+
 }

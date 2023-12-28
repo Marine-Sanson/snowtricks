@@ -2,14 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Media;
 use App\Entity\Trick;
 use DateTimeImmutable;
 use App\Form\TricksFormType;
+use App\Service\MediaService;
 use App\Service\TrickService;
 use App\Entity\CreatedAtTrait;
+use App\Repository\TypeMediaRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -20,7 +25,9 @@ class AdminTricksController extends AbstractController
 
     public function __construct(
         private readonly TrickService $trickService,
-        private readonly SluggerInterface $slugger
+        private readonly SluggerInterface $slugger,
+        private readonly MediaService $mediaService,
+        private readonly TypeMediaRepository $typeMediaRepository
     ) {}
 
 
@@ -41,6 +48,20 @@ class AdminTricksController extends AbstractController
         $trickForm->handleRequest($request);
 
         if($trickForm->isSubmitted() && $trickForm->isValid()){
+            $images = $trickForm->get('images')->getData();
+
+            foreach ($images as $image){
+                $folder = 'tricks';
+
+                $file = $this->mediaService->add($image, $folder);
+
+                $img = new Media();
+                $img->setName($file);
+                $typeMedia = $this->typeMediaRepository->findOneById(1);
+                $img->setTypeMedia($typeMedia);
+                $trick->addMedium($img);
+            }
+
             $isTrickNameKnown = $this->trickService->isTrickNameKnown($trick->getName());
 
             if($isTrickNameKnown === true){
@@ -74,8 +95,21 @@ class AdminTricksController extends AbstractController
         $trickForm->handleRequest($request);
 
         if($trickForm->isSubmitted() && $trickForm->isValid()){
+            $images = $trickForm->get('images')->getData();
 
-            $trick->setCreatedAt(new DateTimeImmutable());
+            foreach ($images as $image){
+                $folder = 'tricks';
+
+                $file = $this->mediaService->add($image, $folder);
+                
+                $img = new Media();
+                $img->setName($file);
+                $typeMedia = $this->typeMediaRepository->findOneById(1);
+                $img->setTypeMedia($typeMedia);
+                $trick->addMedium($img);
+            }
+
+            $trick->setUpdatedAt(new DateTimeImmutable());
 
             $this->trickService->saveTrick($trick);
     
@@ -85,6 +119,7 @@ class AdminTricksController extends AbstractController
 
         return $this->render('trick/edit.html.twig', [
             'trickForm' => $trickForm->createView(),
+            'trick' => $trick
         ]);
     }
 
@@ -92,6 +127,20 @@ class AdminTricksController extends AbstractController
     public function delete(Trick $trick): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        return $this->render('admin_tricks/index.html.twig');
+    }
+
+    #[Route('/suppression/image/{id}', name: 'delete_image')]
+    public function deleteImage(Media $media, Request $request, EntityManagerInterface $em): Response
+    {
+        $name = $media->getName();
+        if($this->mediaService->delete($name, 'tricks', 300, 300)){
+            $this->mediaService->removeFromDb($media);
+
+            $this->addFlash('success', 'Media supprimé avec succes');
+            return $this->render('admin_tricks/index.html.twig');
+        }
+        $this->addFlash('danger', 'Un problème est survenu');
         return $this->render('admin_tricks/index.html.twig');
     }
 }

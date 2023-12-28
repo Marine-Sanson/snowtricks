@@ -36,7 +36,7 @@ class Trick
     #[ORM\ManyToMany(targetEntity: Group::class, inversedBy: 'tricks')]
     private Collection $trickGroup;
 
-    #[ORM\ManyToMany(targetEntity: Media::class, inversedBy: 'tricks')]
+    #[ORM\ManyToMany(targetEntity: Media::class, inversedBy: 'tricks', cascade:['persist'])]
     private Collection $media;
 
     public function __construct()

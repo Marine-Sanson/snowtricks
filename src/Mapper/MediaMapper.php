@@ -27,7 +27,7 @@ class MediaMapper
 
     public function getMediaModel(Media $media): HomeMedia
     {
-        return new HomeMedia($media->getId(), $media->getTypeMedia()->getId(), $media->getUrl(), $media->getAlt());
+        return new HomeMedia($media->getId(), $media->getTypeMedia()->getId(), $media->getName());
     }
 
 }

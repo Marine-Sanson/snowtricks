@@ -20,11 +20,8 @@ class Media
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $url = null;
-
     #[ORM\Column(length: 50)]
-    private ?string $alt = null;
+    private string $name;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?DateTimeImmutable $updatedAt = null;
@@ -40,6 +37,7 @@ class Media
     {
         $this->tricks = new ArrayCollection();
         $this->createdAt = new DateTimeImmutable();
+        $this->updatedAt = $this->createdAt;
     }
 
     public function getId(): ?int
@@ -47,26 +45,14 @@ class Media
         return $this->id;
     }
 
-    public function getUrl(): ?string
+    public function getName(): string
     {
-        return $this->url;
+        return $this->name;
     }
 
-    public function setUrl(string $url): static
+    public function setName(string $name): static
     {
-        $this->url = $url;
-
-        return $this;
-    }
-
-    public function getAlt(): ?string
-    {
-        return $this->alt;
-    }
-
-    public function setAlt(string $alt): static
-    {
-        $this->alt = $alt;
+        $this->name = $name;
 
         return $this;
     }

@@ -4,10 +4,26 @@
         {{ form_row(trickForm.name) }}
         {{ form_row(trickForm.description) }}
 
-        {{ form_row(trickForm.trickGroup, {
-        }) }}
-    {{ form_row(trickForm.media) }}
+        {{ form_row(trickForm.trickGroup) }}
 
-        <button type="submit" class="btn btn-lg btn-primary mt-5">{{ button_label|default('Créer') }}</button>
+        <div class="container mb-3">
+            {% if app.request.attributes.get('_route') == 'app_admin_tricks_edit' %}
+                <h2>Images</h2>
+                <div class="row align-self-start">
+                    {% for oneMedia in trick.media %}
+                        <div class="col my-3">
+                            <img class="row mx-auto" src="{{ asset('assets/img/uploads/tricks/mini/300x300-') ~ oneMedia.name }}" alt="Photo d'illustration" width="150">
+                            <div class="d-flex">
+                                <a href="{{ path('app_admin_tricks_delete_image', {id: oneMedia.id}) }}"class="row m-auto" width="200">Supprimer</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        {{ form_row(trickForm.images) }}
+
+        <button type="submit" class="btn btn-lg btn-primary m-5">{{ button_label|default('Créer') }}</button>
 
     {{ form_end(trickForm) }}
