@@ -10,6 +10,7 @@
             {% if app.request.attributes.get('_route') == 'app_admin_tricks_edit' %}
                 <h2>Images</h2>
                 <div class="row align-self-start">
+
                     {% for oneMedia in trick.media %}
                         <div class="col my-3">
                             <img class="row mx-auto" src="{{ asset('assets/img/uploads/tricks/mini/300x300-') ~ oneMedia.name }}" alt="Photo d'illustration" width="150">
@@ -18,6 +19,7 @@
                             </div>
                         </div>
                     {% endfor %}
+                    
                 </div>
             {% endif %}
         </div>

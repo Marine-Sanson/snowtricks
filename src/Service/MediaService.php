@@ -91,7 +91,6 @@ class MediaService
                 $success = true;
             }
             return $success;
-
         }
     }
 

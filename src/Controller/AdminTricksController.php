@@ -140,6 +140,7 @@ class AdminTricksController extends AbstractController
             $this->addFlash('success', 'Media supprimé avec succes');
             return $this->render('admin_tricks/index.html.twig');
         }
+        
         $this->addFlash('danger', 'Un problème est survenu');
         return $this->render('admin_tricks/index.html.twig');
     }
