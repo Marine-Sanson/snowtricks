@@ -16,13 +16,13 @@
                 style="--bs-bg-opacity: .7;">{{ trick.name }}</h1>
         </div>
         <div class="card-body text-center">
-            {% for oneMedia in trick.media %}
+            {% for oneMedia in trick.media|sort ((a, b) => a.typeMedia <=> b.typeMedia) %}
                 <div class="d-inline-flex">
                     {% if oneMedia.typeMedia == 1 %}
-                        <img src="{{ asset('assets/img/uploads/tricks/') ~ oneMedia.name }}" class="singleTrickMedias my-3 mx-auto"">
+                        <img src="{{ asset('assets/img/uploads/tricks/') ~ oneMedia.name }}" class="singleTrickMedias my-3 mx-auto">
                     {% else %}
                         <span class="singleTrickMedias my-3 mx-auto">
-                            <iframe width="240" height="160" src="https://www.youtube.com/embed/{{oneMedia.name}}"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            <iframe width="240" height="160" src="{{oneMedia.name}}"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </span>
                     {% endif %}
                 </div>

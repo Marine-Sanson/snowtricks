@@ -32,7 +32,8 @@ class TrickRepository extends ServiceEntityRepository
             ->select('trick')
             ->from('App\Entity\Trick', 'trick')
             ->setMaxResults($limit)
-            ->setFirstResult(($page * $limit) - $limit);
+            ->setFirstResult(($page * $limit) - $limit)
+            ->orderBy('trick.id', 'DESC');
         
             $paginator = new Paginator($query);
             $tricks = $paginator->getQuery()->getResult();

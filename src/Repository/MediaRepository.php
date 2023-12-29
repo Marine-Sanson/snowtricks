@@ -24,7 +24,12 @@ class MediaRepository extends ServiceEntityRepository
     public function delete(Media $media): void
     {
         $this->getEntityManager()->remove($media);
-        
+        $this->getEntityManager()->flush();
+    }
+
+    public function save(Media $media): void
+    {
+        $this->getEntityManager()->persist($media);
         $this->getEntityManager()->flush();
     }
 

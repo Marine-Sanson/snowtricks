@@ -13,6 +13,9 @@ use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Url;
 
 class TricksFormType extends AbstractType
 {
@@ -52,21 +55,28 @@ class TricksFormType extends AbstractType
                 'constraints' => [
                     new All(
                         new Image([
-                            'maxWidth' => 1280,
+                            'maxWidth' => 1600,
                             'maxWidthMessage' => 'l\'image doit faire {{ max_width }} pixels de large au maximum',
-                            'maxHeight' => 1280,
+                            'maxHeight' => 1600,
                             'maxHeightMessage' => 'l\'image doit faire {{ max_height }} pixels de long au maximum',
                         ])
                     )
                 ]
             ])
-            // ->add('media', EntityType::class, [
-            //     'class' => Media::class,
-            //     'choice_label' => 'id',
-            //     'multiple' => true,
-            //     'label' => 'Media'
-            // ])
-        ;
+            ->add('videos', UrlType::class, [
+                'attr' => [
+                    'class' => 'form-control mb-3'
+                ],
+                'label' => 'Coller l\'url de la vidéo que vous souhaitez ajouter',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new Regex([
+                        'pattern' => '/https?:\/\/www\.youtube\.com/',
+                        'message' => 'Seules les liens Youtube sont acceptés'
+                    ])
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
