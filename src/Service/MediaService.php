@@ -20,40 +20,30 @@ class MediaService
             throw new Exception('Format d\'image incorrect');
         }
 
-        switch($imageInfos['mime']){
-            case 'image/png':
-                $imageSource = imagecreatefrompng($image);
-                break;
-            case 'image/jpeg':
-                $imageSource = imagecreatefromjpeg($image);
-                break;
-            case 'image/webp':
-                $imageSource = imagecreatefromwebp($image);
-                break;           
-            default:
-                throw new Exception('Format d\'image incorrect');
-        }
+        $imageSource = match($imageInfos['mime']){
+            'image/png' => imagecreatefrompng($image),
+            'image/jpeg' => imagecreatefromjpeg($image),
+            'image/webp' => imagecreatefromwebp($image),
+            default => throw new Exception('Format d\'image incorrect'),
+        };
 
         $imageWidth = $imageInfos[0];
         $imageHeight = $imageInfos[1];
 
-        switch($imageWidth <=> $imageHeight){
-            case -1: //portrait
-                $squareSize = $imageWidth;
-                $srcX = 0;
-                $srcY = ($imageHeight - $squareSize) / 2;
-                break;           
-            case 0: //carré
-                $squareSize = $imageWidth;
-                $srcX = 0;
-                $srcY = 0;
-                break;           
-            case 1: //paysage
-                $squareSize = $imageHeight;
-                $srcX = ($imageWidth - $squareSize) / 2;
-                $srcY = 0;
-                break;           
-        }
+        $squareSize = match(true){
+            $imageWidth <= $imageHeight => $imageWidth,
+            $imageWidth > $imageHeight => $imageHeight,
+        };
+
+        $srcX = match(true){
+            $imageWidth <= $imageHeight => 0,
+            $imageWidth > $imageHeight => ($imageWidth - $squareSize) / 2,
+        };
+
+        $srcY = match(true){
+            $imageWidth < $imageHeight => ($imageHeight - $squareSize) / 2,
+            $imageWidth >= $imageHeight => 0,
+        };
 
         $resizedImage = imagecreatetruecolor($width, $height);
         imagecopyresampled($resizedImage, $imageSource, 0, 0, $srcX, $srcY, $width, $height, $squareSize, $squareSize);
