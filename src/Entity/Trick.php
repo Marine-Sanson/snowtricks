@@ -10,6 +10,7 @@ use App\Entity\CreatedAtTrait;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TrickRepository::class)]
 class Trick
@@ -22,16 +23,23 @@ class Trick
     private ?int $id = null;
 
     #[ORM\Column(length: 50, unique: true)]
-    private ?string $name = null;
+    #[Assert\NotBlank(message: 'Le nom du trick ne peut pas être vide et doit être unique')]
+    #[Assert\Length(
+        min: 5,
+        minMessage: 'Le nom du trick doit contenir au moins {{ limit }} caractères',
+        max: 50,
+        maxMessage: 'Le nom du trick ne doit pas faire plus de {{ limit }} caractères')]
+    private string $name;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $description = null;
+    #[Assert\NotBlank(message: 'La description du trick ne peut pas être vide')]
+    private string $description;
 
     #[ORM\Column(length: 50)]
-    private ?string $slug = null;
+    private string $slug;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?DateTimeImmutable $updatedAt = null;
+    private DateTimeImmutable $updatedAt;
 
     #[ORM\ManyToMany(targetEntity: Group::class, inversedBy: 'tricks')]
     private Collection $trickGroup;
@@ -51,7 +59,7 @@ class Trick
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -63,7 +71,7 @@ class Trick
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -75,7 +83,7 @@ class Trick
         return $this;
     }
 
-    public function getSlug(): ?string
+    public function getSlug(): string
     {
         return $this->slug;
     }
@@ -87,7 +95,7 @@ class Trick
         return $this;
     }
 
-    public function getUpdatedAt(): ?DateTimeImmutable
+    public function getUpdatedAt(): DateTimeImmutable
     {
         return $this->updatedAt;
     }

@@ -9,6 +9,7 @@ use App\Repository\GroupRepository;
 use App\Entity\CreatedAtTrait;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: GroupRepository::class)]
 #[ORM\Table(name: '`group`')]
@@ -22,13 +23,15 @@ class Group
     private ?int $id = null;
 
     #[ORM\Column(length: 50, unique: true)]
-    private ?string $name = null;
+    #[Assert\NotBlank(message: 'Le nom du groupe ne peut pas être vide')]
+    private string $name;
 
     #[ORM\Column(length: 255)]
-    private ?string $description = null;
+    #[Assert\NotBlank(message: 'La description du groupe ne peut pas être vide')]
+    private string $description;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?DateTimeImmutable $updatedAt = null;
+    private DateTimeImmutable $updatedAt;
 
     #[ORM\ManyToMany(targetEntity: Trick::class, mappedBy: 'trickGroup')]
     private Collection $tricks;
@@ -44,7 +47,7 @@ class Group
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -56,7 +59,7 @@ class Group
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -68,7 +71,7 @@ class Group
         return $this;
     }
 
-    public function getUpdatedAt(): ?DateTimeImmutable
+    public function getUpdatedAt(): DateTimeImmutable
     {
         return $this->updatedAt;
     }

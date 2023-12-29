@@ -7,7 +7,9 @@ use App\Entity\Media;
 use App\Entity\Trick;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\All;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -46,7 +48,17 @@ class TricksFormType extends AbstractType
                 'label' => 'Télécharger une ou plusieurs image(s)',
                 'multiple' => true,
                 'mapped' => false,
-                'required' => false
+                'required' => false,
+                'constraints' => [
+                    new All(
+                        new Image([
+                            'maxWidth' => 1280,
+                            'maxWidthMessage' => 'l\'image doit faire {{ max_width }} pixels de large au maximum',
+                            'maxHeight' => 1280,
+                            'maxHeightMessage' => 'l\'image doit faire {{ max_height }} pixels de long au maximum',
+                        ])
+                    )
+                ]
             ])
             // ->add('media', EntityType::class, [
             //     'class' => Media::class,
