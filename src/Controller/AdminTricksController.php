@@ -50,10 +50,19 @@ class AdminTricksController extends AbstractController
         if($trickForm->isSubmitted() && $trickForm->isValid()){
             $images = $trickForm->get('images')->getData();
 
+            $isTrickNameKnown = $this->trickService->isTrickNameKnown($trick->getName());
+
+            if($isTrickNameKnown === true){
+                $this->addFlash('danger', 'Un Trick porte déjà ce nom');
+                return $this->render('trick/add.html.twig', [
+                    'trickForm' => $trickForm->createView(),
+                ]);
+            }
+            
             foreach ($images as $image){
                 $folder = 'tricks';
 
-                $file = $this->mediaService->add($image, $folder);
+                $file = $this->mediaService->addImage($image, $folder);
 
                 $img = new Media();
                 $img->setName($file);
@@ -62,13 +71,17 @@ class AdminTricksController extends AbstractController
                 $trick->addMedium($img);
             }
 
-            $isTrickNameKnown = $this->trickService->isTrickNameKnown($trick->getName());
+            $videos = $trickForm->get('videos')->getData();
+            if (preg_match_all('/(https?:\/\/www\.youtube\.com\/watch\?v=)([a-zA-Z0-9-_\.\/\?=&]+)/', $videos, $matches)) {
 
-            if($isTrickNameKnown === true){
-                $this->addFlash('danger', 'Un Trick porte déjà ce nom');
-                return $this->render('trick/add.html.twig', [
-                    'trickForm' => $trickForm->createView(),
-                ]);
+                foreach( $matches[2] as $video) {
+                    $mediaVid = new Media();
+                    $name = 'https://www.youtube.com/embed/' . substr($video, 0, 11); 
+                    $mediaVid->setName($name);
+                    $mediaVid->setTypeMedia($this->mediaService->getTypeMedia(2));
+                    $this->mediaService->addVideo($mediaVid);
+                    $trick->addMedium($mediaVid);
+                }
             }
 
             $trick->setSlug($this->slugger->slug($trick->getName()));
@@ -95,21 +108,36 @@ class AdminTricksController extends AbstractController
         $trickForm->handleRequest($request);
 
         if($trickForm->isSubmitted() && $trickForm->isValid()){
+
+            $trick->setUpdatedAt(new DateTimeImmutable());
+
             $images = $trickForm->get('images')->getData();
+
 
             foreach ($images as $image){
                 $folder = 'tricks';
 
-                $file = $this->mediaService->add($image, $folder);
+                $file = $this->mediaService->addImage($image, $folder);
                 
-                $img = new Media();
-                $img->setName($file);
-                $typeMedia = $this->typeMediaRepository->findOneById(1);
-                $img->setTypeMedia($typeMedia);
-                $trick->addMedium($img);
+                $mediaImg = new Media();
+                $mediaImg->setName($file);
+                $typeMedia = $this->mediaService->getTypeMedia(1);
+                $mediaImg->setTypeMedia($typeMedia);
+                $trick->addMedium($mediaImg);
             }
+            
+            $videos = $trickForm->get('videos')->getData();
+            if (preg_match_all('/(https?:\/\/www\.youtube\.com\/watch\?v=)([a-zA-Z0-9-_\.\/\?=&]+)/', $videos, $matches)) {
 
-            $trick->setUpdatedAt(new DateTimeImmutable());
+                foreach( $matches[2] as $video) {
+                    $mediaVid = new Media();
+                    $name = 'https://www.youtube.com/embed/' . substr($video, 0, 11); 
+                    $mediaVid->setName($name);
+                    $mediaVid->setTypeMedia($this->mediaService->getTypeMedia(2));
+                    $this->mediaService->addVideo($mediaVid);
+                    $trick->addMedium($mediaVid);
+                }
+            }
 
             $this->trickService->saveTrick($trick);
     
@@ -131,11 +159,11 @@ class AdminTricksController extends AbstractController
     }
 
     #[Route('/suppression/image/{id}', name: 'delete_image')]
-    public function deleteImage(Media $media, Request $request, EntityManagerInterface $em): Response
+    public function deleteImage(Media $media): Response
     {
         $name = $media->getName();
-        if($this->mediaService->delete($name, 'tricks', 300, 300)){
-            $this->mediaService->removeFromDb($media);
+        if($this->mediaService->deleteImage($name, 'tricks', 300, 300)){
+            $this->mediaService->removeImageFromDb($media);
 
             $this->addFlash('success', 'Media supprimé avec succes');
             return $this->render('admin_tricks/index.html.twig');

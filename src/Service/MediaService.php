@@ -4,15 +4,21 @@ namespace App\Service;
 
 use Exception;
 use App\Entity\Media;
+use App\Entity\TypeMedia;
 use App\Repository\MediaRepository;
+use App\Repository\TypeMediaRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class MediaService
 {
-    public function __construct(private ParameterBagInterface $params, private readonly MediaRepository $mediaRepository) {}
+    public function __construct(
+        private readonly ParameterBagInterface $params,
+        private readonly MediaRepository $mediaRepository,
+        private readonly TypeMediaRepository $typeMediaRepository
+        ) {}
 
-    public function add(UploadedFile $image, ?string $folder = '', ?int $width = 300, ?int $height = 300): string
+    public function addImage(UploadedFile $image, ?string $folder = '', ?int $width = 300, ?int $height = 300): string
     {
         $file = md5(uniqid(rand(), true)) . '.webp';
         $imageInfos = getimagesize($image);
@@ -61,7 +67,7 @@ class MediaService
         return $file;
     }
 
-    public function delete(string $file, ?string $folder = '', ?int $width = 300, ?int $height = 300): bool
+    public function deleteImage(string $file, ?string $folder = '', ?int $width = 300, ?int $height = 300): bool
     {
         $success = false;
 
@@ -85,9 +91,19 @@ class MediaService
         return $success;
     }
 
-    public function removeFromDb(Media $media): void
+    public function removeImageFromDb(Media $media): void
     {
         $this->mediaRepository->delete($media);
+    }
+
+    public function getTypeMedia(int $id): TypeMedia
+    {
+        return $this->typeMediaRepository->findOneById($id);
+    }
+
+    public function addVideo(Media $video): void
+    {
+        $this->mediaRepository->save($video);
     }
 
 }

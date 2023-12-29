@@ -16,6 +16,7 @@
             {% for trick in tricks %}
 
                 <div class="card border-primary m-3" style="max-width: 18rem;">
+                
                     {% if trick.media == false %}
                         <img class="card-img-top mt-2 object-fit-contain " src="{{ asset('assets\img\tricks\300x300-photo_default.webp') }}">
                     {% else %}
@@ -31,8 +32,8 @@
                 </div>
 
             {% endfor %}
-
         </div>
+
         {% set path ='home' %}
         {% set pages = pages %}
         {% set slug = '/' %}
