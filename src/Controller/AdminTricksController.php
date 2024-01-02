@@ -10,11 +10,9 @@ use App\Service\MediaService;
 use App\Service\TrickService;
 use App\Entity\CreatedAtTrait;
 use App\Repository\TypeMediaRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -60,26 +58,15 @@ class AdminTricksController extends AbstractController
             }
             
             foreach ($images as $image){
-                $folder = 'tricks';
-
-                $file = $this->mediaService->addImage($image, $folder);
-
-                $img = new Media();
-                $img->setName($file);
-                $typeMedia = $this->typeMediaRepository->findOneById(1);
-                $img->setTypeMedia($typeMedia);
-                $trick->addMedium($img);
+                $mediaImg = $this->mediaService->addNewImage($image, 'tricks');
+                $trick->addMedium($mediaImg);
             }
 
             $videos = $trickForm->get('videos')->getData();
             if (preg_match_all('/(https?:\/\/www\.youtube\.com\/watch\?v=)([a-zA-Z0-9-_\.\/\?=&]+)/', $videos, $matches)) {
 
                 foreach( $matches[2] as $video) {
-                    $mediaVid = new Media();
-                    $name = 'https://www.youtube.com/embed/' . substr($video, 0, 11); 
-                    $mediaVid->setName($name);
-                    $mediaVid->setTypeMedia($this->mediaService->getTypeMedia(2));
-                    $this->mediaService->addVideo($mediaVid);
+                    $mediaVid = $this->mediaService->addNewVideo($video);
                     $trick->addMedium($mediaVid);
                 }
             }
@@ -113,16 +100,8 @@ class AdminTricksController extends AbstractController
 
             $images = $trickForm->get('images')->getData();
 
-
             foreach ($images as $image){
-                $folder = 'tricks';
-
-                $file = $this->mediaService->addImage($image, $folder);
-                
-                $mediaImg = new Media();
-                $mediaImg->setName($file);
-                $typeMedia = $this->mediaService->getTypeMedia(1);
-                $mediaImg->setTypeMedia($typeMedia);
+                $mediaImg = $this->mediaService->addNewImage($image, 'tricks');
                 $trick->addMedium($mediaImg);
             }
             
@@ -130,11 +109,7 @@ class AdminTricksController extends AbstractController
             if (preg_match_all('/(https?:\/\/www\.youtube\.com\/watch\?v=)([a-zA-Z0-9-_\.\/\?=&]+)/', $videos, $matches)) {
 
                 foreach( $matches[2] as $video) {
-                    $mediaVid = new Media();
-                    $name = 'https://www.youtube.com/embed/' . substr($video, 0, 11); 
-                    $mediaVid->setName($name);
-                    $mediaVid->setTypeMedia($this->mediaService->getTypeMedia(2));
-                    $this->mediaService->addVideo($mediaVid);
+                    $mediaVid = $this->mediaService->addNewVideo($video);
                     $trick->addMedium($mediaVid);
                 }
             }
@@ -158,17 +133,16 @@ class AdminTricksController extends AbstractController
         return $this->render('admin_tricks/index.html.twig');
     }
 
-    #[Route('/suppression/image/{id}', name: 'delete_image')]
+    #[Route('/suppression/media/{id}', name: 'delete_media')]
     public function deleteImage(Media $media): Response
-    {
-        $name = $media->getName();
-        if($this->mediaService->deleteImage($name, 'tricks', 300, 300)){
-            $this->mediaService->removeImageFromDb($media);
-
+    {        
+        $deleted = $this->mediaService->deleteMedia($media);
+        
+        if ($deleted) {
             $this->addFlash('success', 'Media supprimé avec succes');
             return $this->render('admin_tricks/index.html.twig');
         }
-        
+
         $this->addFlash('danger', 'Un problème est survenu');
         return $this->render('admin_tricks/index.html.twig');
     }
