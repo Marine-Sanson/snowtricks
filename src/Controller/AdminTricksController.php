@@ -34,7 +34,7 @@ class AdminTricksController extends AbstractController
         return $this->render('admin_tricks/index.html.twig');
     }
 
-    #[Route('/ajout', name: 'add')]
+    #[Route('/ajout', name: 'add', methods: ['GET', 'POST'])]
     public function add(Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -84,7 +84,7 @@ class AdminTricksController extends AbstractController
         ]);
     }
 
-    #[Route('/maj/{id}', name: 'edit')]
+    #[Route('/maj/{id}', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Trick $trick, Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -125,7 +125,7 @@ class AdminTricksController extends AbstractController
         ]);
     }
 
-    #[Route('/suppression/media/{id}', name: 'delete_media')]
+    #[Route('/suppression/media/{id}', name: 'delete_media', methods: ['GET'])]
     public function deleteImage(Media $media): Response
     {        
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -141,7 +141,7 @@ class AdminTricksController extends AbstractController
         return $this->render('admin_tricks/index.html.twig');
     }
 
-    #[Route('/suppression/{id}', name: 'delete_trick')]
+    #[Route('/suppression/{id}', name: 'delete_trick', methods: ['GET'])]
     public function delete(Trick $trick): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
