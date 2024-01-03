@@ -28,7 +28,7 @@ class AdminTricksController extends AbstractController
         private readonly TypeMediaRepository $typeMediaRepository
     ) {}
 
-    #[Route('/', name: 'index')]
+    #[Route('/', name: 'index', methods: ['GET', 'HEAD'])]
     public function index(): Response
     {
         return $this->render('admin_tricks/index.html.twig');
