@@ -24,7 +24,7 @@ class RegistrationController extends AbstractController
         private readonly UserService $userService
     ) {}
 
-    #[Route('/register', name: 'app_register')]
+    #[Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
     public function register(Request $request): Response
     {
         $user = new User();
@@ -58,7 +58,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route('/verify/{token}', name: 'verify_user')]
+    #[Route('/verify/{token}', name: 'verify_user', methods: ['GET', 'POST'])]
     public function verifyUser(
         string $token,
         Request $request,
@@ -87,7 +87,7 @@ class RegistrationController extends AbstractController
         return $this->redirectToRoute('app_login');
     }
 
-    #[Route('/reverifier', name: 'resend_verify')]
+    #[Route('/reverifier', name: 'resend_verify', methods: ['GET'])]
     public function resendVerify(): Response
     {
         $user = $this->getUser();
@@ -121,7 +121,6 @@ class RegistrationController extends AbstractController
 
         $this->addFlash('success', 'Email de vérification envoyé');
         return $this->redirectToRoute('app_login');
-
-        }
-
     }
+
+}

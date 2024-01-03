@@ -16,14 +16,14 @@
                                 {% if oneMedia.typeMedia.id == 1 %}
                                     <img class="row mx-auto mt-2 object-fit-contain" src="{{ asset('assets/img/uploads/tricks/mini/300x300-') ~ oneMedia.name }}" alt="Photo d'illustration" width="150">
                                     <div class="d-flex">
-                                        <a href="{{ path('app_admin_tricks_delete_media', {id: oneMedia.id}) }}"class="row m-auto" width="200">Supprimer</a>
+                                        <a href="{{ path('app_admin_tricks_delete_media', {id: oneMedia.id}) }}"class="row m-auto" width="200"><i class="fa-solid fa-trash-can m-3"></i></i></a>
                                     </div>
                                 {% elseif oneMedia.typeMedia.id == 2 %}
                                     <span class="row m-auto mt-2 object-fit-contain">
                                         <iframe width="240" height="160" src="{{oneMedia.name}}"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                     </span>
                                     <div class="d-flex">
-                                        <a href="{{ path('app_admin_tricks_delete_media', {id: oneMedia.id}) }}"class="row m-auto" width="200">Supprimer</a>
+                                        <a href="{{ path('app_admin_tricks_delete_media', {id: oneMedia.id}) }}"class="row m-auto" width="200"><i class="fa-solid fa-trash-can m-3"></i></a>
                                     </div>
                                 {% endif %}
                             </div>

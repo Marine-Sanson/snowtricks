@@ -86,9 +86,12 @@ class UserService
         return new UserModel($user->getId(), $user->getUsername(), $user->getEmail());
     }
 
-    public function isUserKnown(string $email): UserModel
+    public function isUserKnown(string $email): ?UserModel
     {
         $user = $this->userRepository->findOneByEmail($email);
+        if (!$user){
+            return null;
+        }
         return $this->getUserModel($user);
     }
 
@@ -112,7 +115,7 @@ class UserService
     public function setNewPassword(UserModel $userModel, string $password): void
     {
         $user = $this->userRepository->find($userModel->getId());
-        $user->setResetToken(' ');
+        $user->setResetToken('');
             $user->setPassword(
                 $this->userPasswordHasher->hashPassword(
                     $user,
