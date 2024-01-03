@@ -28,7 +28,6 @@ class AdminTricksController extends AbstractController
         private readonly TypeMediaRepository $typeMediaRepository
     ) {}
 
-
     #[Route('/', name: 'index')]
     public function index(): Response
     {
@@ -126,16 +125,11 @@ class AdminTricksController extends AbstractController
         ]);
     }
 
-    #[Route('/suppression/{id}', name: 'delete')]
-    public function delete(Trick $trick): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        return $this->render('admin_tricks/index.html.twig');
-    }
-
     #[Route('/suppression/media/{id}', name: 'delete_media')]
     public function deleteImage(Media $media): Response
     {        
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $deleted = $this->mediaService->deleteMedia($media);
         
         if ($deleted) {
@@ -146,4 +140,12 @@ class AdminTricksController extends AbstractController
         $this->addFlash('danger', 'Un problème est survenu');
         return $this->render('admin_tricks/index.html.twig');
     }
+
+    #[Route('/suppression/{id}', name: 'delete_trick')]
+    public function delete(Trick $trick): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        return $this->render('admin_tricks/index.html.twig');
+    }
+
 }

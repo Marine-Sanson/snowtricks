@@ -15,6 +15,12 @@ button{
     letter-spacing: .2rem;
 }
 
+#homeArrow{
+    position: absolute;
+    top: 90%;
+    left:90%;
+}
+
 #singleTrick{
     margin: 10rem auto;
 }
