@@ -58,6 +58,12 @@ class TrickRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
     }
 
+    public function delete(Trick $trick): void
+    {
+        $this->getEntityManager()->remove($trick);
+        $this->getEntityManager()->flush();
+    }
+
 //    /**
 //     * @return Trick[] Returns an array of Trick objects
 //     */

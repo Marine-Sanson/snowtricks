@@ -145,6 +145,14 @@ class AdminTricksController extends AbstractController
     public function delete(Trick $trick): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $deleted = $this->trickService->deleteTrick($trick);
+        if ($deleted) {
+            $this->addFlash('success', 'Trick supprimé avec succes');
+            return $this->redirectToRoute('home');
+        }
+
+        $this->addFlash('danger', 'Un problème est survenu');
         return $this->render('admin_tricks/index.html.twig');
     }
 

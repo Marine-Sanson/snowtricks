@@ -57,4 +57,13 @@ class TrickService
         $this->trickRepository->saveTrick($trick);
     }
 
+    public function deleteTrick(Trick $trick): bool
+    {
+        if($this->trickRepository->findOneById($trick->getId()) === null){
+            return false;
+        }
+        $this->trickRepository->delete($trick);
+        return true;
+    }
+
 }
