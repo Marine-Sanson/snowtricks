@@ -52,9 +52,10 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+
             $userKnown = $this->userService->isUserKnown($form->get('email')->getData());
 
-            if($userKnown){
+            if($userKnown !== null){
                 $token = $this->userService->setToken($userKnown);
 
                 $this->mailService->send(
@@ -72,7 +73,7 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('app_login');
     
             }
-            $this->addFlash('danger', 'Un problème est survenu');
+            $this->addFlash('danger', 'Cette adresse mail est inconnue');
             return $this->redirectToRoute('app_login');
 
         }
@@ -87,7 +88,7 @@ class SecurityController extends AbstractController
     {
         $userModel = $this->userService->findUserByResetToken($token);
 
-        if($userModel){
+        if($userModel !== null){
             $form = $this->createForm(ResetPasswordFormType::class);
             $form->handleRequest($request);
 
