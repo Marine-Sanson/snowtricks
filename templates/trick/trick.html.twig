@@ -9,8 +9,16 @@
                 <img class="card-img-top rounded" src="{{ asset('assets/img/tricks/photo_default.jpg') }}"
                      alt="image alternative" id="singleTrickImgTop">
             {% else %}
-                <img src="{{ asset('assets/img/uploads/tricks/') ~ trick.media[0].name }}" class="card-img-top rounded"
-                     id="singleTrickImgTop">
+                {% for oneMedia in trick.media %}
+                    {% if oneMedia.typeMedia == 1 %}
+                        <img src="{{ asset('assets/img/uploads/tricks/') ~ trick.media[0].name }}" class="card-img-top rounded"
+                            id="singleTrickImgTop">
+                    {% else %}
+                        <span class="singleTrickMedias my-3 mx-auto">
+                            <iframe class="" width="600" height="400" src="{{trick.media[0].name}}?autoplay='true'"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </span>
+                    {% endif %}
+                {% endfor %}
             {% endif %}
             <h1 class="text-primary card-title bg-secondary position-absolute top-50 start-50 translate-middle p-2 rounded"
                 style="--bs-bg-opacity: .7;">{{ trick.name }}</h1>
@@ -23,16 +31,16 @@
                             <img class="card-img-top" src="{{ asset('assets/img/uploads/tricks/') ~ oneMedia.name }}" class="singleTrickMedias my-3 mx-auto">
                             {% if app.user and app.user.isVerified == true %}
                                 <div class="d-flex justify-content-end">
-                                    <a href="{{ path('app_admin_tricks_deletemedia', {id: oneMedia.id}) }}"><i class="fa-solid fa-trash-can m-3"></i></a>
+                                    <a href="{{ path('app_admin_tricks_delete_media', {id: oneMedia.id}) }}"><i class="fa-solid fa-trash-can m-3"></i></a>
                                 </div>
                             {% endif %}
                         {% else %}
                             <span class="singleTrickMedias my-3 mx-auto">
-                                <iframe class="img-crd-top" width="240" height="160" src="{{oneMedia.name}}"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                <iframe class="card-img-top" width="240" height="160" src="{{oneMedia.name}}"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                             </span>
                             {% if app.user and app.user.isVerified == true %}
                                 <div class="d-flex justify-content-end">
-                                    <a href="{{ path('app_admin_tricks_deletemedia', {id: oneMedia.id}) }}"><i class="fa-solid fa-trash-can m-3"></i></a>
+                                    <a href="{{ path('app_admin_tricks_delete_media', {id: oneMedia.id}) }}"><i class="fa-solid fa-trash-can m-3"></i></a>
                                 </div>
                             {% endif %}
                         {% endif %}
