@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * UserAuthenticator File Doc Comment
+ *
+ * PHP Version 8.3.1
+ *
+ * @category Security
+ * @package  App\Security
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
+
 namespace App\Security;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -15,16 +26,41 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
+/**
+ * UserAuthenticator Class Doc Comment
+ *
+ * @category Security
+ * @package  App\Security
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
 class UserAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
+    /**
+     * Summary of LOGIN_ROUTE
+     *
+     * const string
+     */
     public const LOGIN_ROUTE = 'app_login';
 
+    /**
+     * Summary of function __construct
+     *
+     * @param UrlGeneratorInterface $urlGenerator UrlGenerator
+     */
     public function __construct(private UrlGeneratorInterface $urlGenerator)
     {
     }
 
+    /**
+     * Summary of authenticate
+     *
+     * @param Request $request Request
+     *
+     * @return Passport
+     */
     public function authenticate(Request $request): Passport
     {
         $email = $request->request->get('email', '');
@@ -39,6 +75,15 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
         );
     }
 
+    /**
+     * Summary of authenticate
+     *
+     * @param Request        $request      Request
+     * @param TokenInterface $token        Token
+     * @param string         $firewallName FirewallName
+     *
+     * @return Response|null
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
@@ -50,6 +95,13 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
+    /**
+     * Summary of getLoginUrl
+     *
+     * @param Request $request Request
+     *
+     * @return string
+     */
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);

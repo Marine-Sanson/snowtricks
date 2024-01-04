@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * UserRepository File Doc Comment
+ *
+ * PHP Version 8.3.1
+ *
+ * @category Repository
+ * @package  App\Repository
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
+
 namespace App\Repository;
 
 use App\Entity\User;
@@ -10,8 +21,15 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
+ * UserRepository Class Doc Comment
+ *
  * @extends ServiceEntityRepository<User>
-* @implements PasswordUpgraderInterface<User>
+ * @implements PasswordUpgraderInterface<User>
+ *
+ * @category Repository
+ * @package  App\Repository
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  *
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
@@ -20,11 +38,23 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
+    /**
+     * Summary of function __construct
+     *
+     * @param ManagerRegistry $registry ManagerRegistry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
     }
 
+    /**
+     * Summary of saveUser
+     *
+     * @param User $user User
+     *
+     * @return User
+     */
     public function saveUser(User $user): User
     {
         $this->getEntityManager()->persist($user);
@@ -33,6 +63,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $user;
     }
 
+    /**
+     * Summary of updateIsVerify
+     *
+     * @param User $user User
+     *
+     * @return User
+     */
     public function updateIsVerify(User $user): User
     {
         $user->setIsVerified(true);
@@ -42,7 +79,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
     
     /**
+     * Summary of updateIsVerify
+     *
      * Used to upgrade (rehash) the user's password automatically over time.
+     *
+     * @param PasswordAuthenticatedUserInterface $user              PasswordAuthenticatedUserInterface
+     * @param string                             $newHashedPassword newHashedPassword
+     * 
+     * @return void
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {

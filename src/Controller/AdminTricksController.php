@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * AdminTricksController File Doc Comment
+ *
+ * PHP Version 8.3.1
+ *
+ * @category Controller
+ * @package  App\Controller
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
+
 namespace App\Controller;
 
 use App\Entity\Media;
@@ -16,11 +27,27 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * AdminTricksController Class Doc Comment
+ *
+ * @category Controller
+ * @package  App\Controller
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
 #[Route('/admin/tricks', name: 'app_admin_tricks_')]
 class AdminTricksController extends AbstractController
 {
     use CreatedAtTrait;
 
+    /**
+     * Summary of function __construct
+     *
+     * @param TrickService        $trickService        TrickService
+     * @param SluggerInterface    $slugger             SluggerInterface
+     * @param MediaService        $mediaService        MediaService
+     * @param TypeMediaRepository $typeMediaRepository TypeMediaRepository
+     */
     public function __construct(
         private readonly TrickService $trickService,
         private readonly SluggerInterface $slugger,
@@ -28,12 +55,26 @@ class AdminTricksController extends AbstractController
         private readonly TypeMediaRepository $typeMediaRepository
     ) {}
 
+    /**
+     * Summary of function index
+     *
+     * @return Response
+     */
     #[Route('/', name: 'index', methods: ['GET', 'HEAD'])]
     public function index(): Response
     {
         return $this->render('admin_tricks/index.html.twig');
     }
 
+    /**
+     * Summary of function add
+     *
+     * Create a new trick and his his medias
+     *
+     * @param Request $request Request
+     *
+     * @return Response
+     */
     #[Route('/ajout', name: 'add', methods: ['GET', 'POST'])]
     public function add(Request $request): Response
     {
@@ -55,7 +96,7 @@ class AdminTricksController extends AbstractController
                     'trickForm' => $trickForm->createView(),
                 ]);
             }
-            
+
             foreach ($images as $image){
                 $mediaImg = $this->mediaService->addNewImage($image, 'tricks', 1);
                 $trick->addMedium($mediaImg);
@@ -74,7 +115,7 @@ class AdminTricksController extends AbstractController
             $trick->setUpdatedAt($trick->getCreatedAt());
 
             $this->trickService->saveTrick($trick);
-    
+
             $this->addFlash('success', 'Trick ajouté avec succes');
             return $this->redirectToRoute('home');
         }
@@ -84,6 +125,16 @@ class AdminTricksController extends AbstractController
         ]);
     }
 
+    /**
+     * Summary of function edit
+     *
+     * Update a trick and his his medias
+     *
+     * @param Trick   $trick   Trick
+     * @param Request $request Request
+     *
+     * @return Response
+     */
     #[Route('/maj/{id}', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Trick $trick, Request $request): Response
     {
@@ -103,7 +154,7 @@ class AdminTricksController extends AbstractController
                 $mediaImg = $this->mediaService->addNewImage($image, 'tricks', 1);
                 $trick->addMedium($mediaImg);
             }
-            
+
             $videos = $trickForm->get('videos')->getData();
             if (preg_match_all('/(https?:\/\/www\.youtube\.com\/watch\?v=)([a-zA-Z0-9-_\.\/\?=&]+)/', $videos, $matches)) {
 
@@ -125,13 +176,22 @@ class AdminTricksController extends AbstractController
         ]);
     }
 
+    /**
+     * Summary of function deleteImage
+     *
+     * Delete an image in the uploads file and in the DB
+     *
+     * @param Media $media Media
+     *
+     * @return Response
+     */
     #[Route('/suppression/media/{id}', name: 'delete_media', methods: ['GET'])]
-    public function deleteImage(Media $media): Response
-    {        
+    public function deleteMedia(Media $media): Response
+    {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $deleted = $this->mediaService->deleteMedia($media);
-        
+
         if ($deleted) {
             $this->addFlash('success', 'Media supprimé avec succes');
             return $this->render('admin_tricks/index.html.twig');
@@ -141,6 +201,15 @@ class AdminTricksController extends AbstractController
         return $this->render('admin_tricks/index.html.twig');
     }
 
+    /**
+     * Summary of function delete
+     * 
+     * Delete a trick and his medias
+     *
+     * @param Trick $trick Trick
+     *
+     * @return Response
+     */
     #[Route('/suppression/{id}', name: 'delete_trick', methods: ['GET'])]
     public function delete(Trick $trick): Response
     {

@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * HomeController File Doc Comment
+ *
+ * PHP Version 8.3.1
+ *
+ * @category Controller
+ * @package  App\Controller
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
+
 namespace App\Controller;
 
 use App\Service\TrickService;
@@ -8,11 +19,33 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * HomeController Class Doc Comment
+ *
+ * @category Controller
+ * @package  App\Controller
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
 class HomeController extends AbstractController
 {
+    /**
+     * Summary of function __construct
+     *
+     * @param TrickService $trickService TrickService
+     */
     public function __construct(private readonly TrickService $trickService)
     { }
 
+    /**
+     * Summary of function home
+     *
+     * Get the tricks paginated to display on the homepage
+     *
+     * @param Request $request Request
+     *
+     * @return Response
+     */
     #[Route('/', name: 'home', methods: ['GET', 'HEAD'])]
     public function home(Request $request): Response
     {

@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * RegistrationController File Doc Comment
+ *
+ * PHP Version 8.3.1
+ *
+ * @category Controller
+ * @package  App\Controller
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
+
 namespace App\Controller;
 
 use App\Entity\User;
@@ -15,15 +26,38 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
+/**
+ * RegistrationController Class Doc Comment
+ *
+ * @category Controller
+ * @package  App\Controller
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
 class RegistrationController extends AbstractController
 {
-
+    /**
+     * Summary of function __construct
+     *
+     * @param JWTService  $jWTService  JWTService
+     * @param MailService $mailService MailService
+     * @param UserService $userService UserService
+     */
     public function __construct(
         private readonly JWTService $jWTService,
         private readonly MailService $mailService,
         private readonly UserService $userService
     ) {}
 
+    /**
+     * Summary of function home
+     *
+     * Send an email to the user with a token to verify his account
+     *
+     * @param Request $request Request
+     *
+     * @return Response
+     */
     #[Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
     public function register(Request $request): Response
     {
@@ -58,6 +92,18 @@ class RegistrationController extends AbstractController
         ]);
     }
 
+    /**
+     * Summary of function home
+     *
+     * Verify the token send to the user to see if his email adress is true
+     *
+     * @param string                     $token             Token
+     * @param Request                    $request           Request
+     * @param UserAuthenticatorInterface $userAuthenticator UserAuthenticatorInterface
+     * @param UserAuthenticator          $authenticator     UserAuthenticator
+     *
+     * @return Response
+     */
     #[Route('/verify/{token}', name: 'verify_user', methods: ['GET', 'POST'])]
     public function verifyUser(
         string $token,
@@ -87,6 +133,13 @@ class RegistrationController extends AbstractController
         return $this->redirectToRoute('app_login');
     }
 
+    /**
+     * Summary of function resendVerify
+     *
+     * Send another email to the user with a token to verify his account
+     *
+     * @return Response
+     */
     #[Route('/reverifier', name: 'resend_verify', methods: ['GET'])]
     public function resendVerify(): Response
     {

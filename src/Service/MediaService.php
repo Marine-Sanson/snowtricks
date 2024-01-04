@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * MediaService File Doc Comment
+ *
+ * PHP Version 8.3.1
+ *
+ * @category Service
+ * @package  App\Service
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
+
 namespace App\Service;
 
 use Exception;
@@ -10,15 +21,38 @@ use App\Repository\TypeMediaRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
+/**
+ * MediaService Class Doc Comment
+ *
+ * @category Service
+ * @package  App\Service
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
 class MediaService
 {
+    /**
+     * Summary of function __construct
+     *
+     * @param ParameterBagInterface $params              ParameterBagInterface
+     * @param MediaRepository       $mediaRepository     MediaRepository
+     * @param TypeMediaRepository   $typeMediaRepository TypeMediaRepository
+     */
     public function __construct(
         private readonly ParameterBagInterface $params,
-        private readonly MediaRepository $mediaRepository,
-        private readonly TypeMediaRepository $typeMediaRepository
+        private readonly MediaRepository       $mediaRepository,
+        private readonly TypeMediaRepository   $typeMediaRepository
         ) {}
 
-    public function addNewImage(Object $image, string $folder, int $typeMedia):Media
+    /**
+     * Summary of addNewImage
+     *
+     * @param UploadedFile $image  image
+     * @param string       $folder folder
+     * 
+     * @return Media
+     */
+    public function addNewImage(Object $image, string $folder): Media
     {
         $mediaImg = new Media();
         $mediaImg->setName($this->addImage($image, $folder));
@@ -26,6 +60,16 @@ class MediaService
         return $mediaImg;
     }
 
+    /**
+     * Summary of addImage
+     *
+     * @param UploadedFile $image  image
+     * @param string|null  $folder folder
+     * @param int|null     $width  width
+     * @param int|null     $height height
+     * 
+     * @return string
+     */
     public function addImage(UploadedFile $image, ?string $folder = '', ?int $width = 300, ?int $height = 300): string
     {
         $file = md5(uniqid(rand(), true)) . '.webp';
@@ -75,6 +119,16 @@ class MediaService
         return $file;
     }
 
+    /**
+     * Summary of deleteImage
+     *
+     * @param string      $file   file
+     * @param string|null $folder folder
+     * @param int|null    $width  width
+     * @param int|null    $height height
+     * 
+     * @return bool
+     */
     public function deleteImage(string $file, ?string $folder = '', ?int $width = 300, ?int $height = 300): bool
     {
         $success = false;
@@ -99,11 +153,25 @@ class MediaService
         return $success;
     }
 
+    /**
+     * Summary of removeMediaFromDb
+     *
+     * @param Media $media Media
+     * 
+     * @return void
+     */
     public function removeMediaFromDb(Media $media): void
     {
         $this->mediaRepository->delete($media);
     }
 
+    /**
+     * Summary of addNewVideo
+     *
+     * @param string $video $video
+     * 
+     * @return Media
+     */
     public function addNewVideo(string $video): Media
     {
         $mediaVid = new Media();
@@ -113,16 +181,37 @@ class MediaService
         return $mediaVid;
     }
 
+    /**
+     * Summary of getTypeMedia
+     *
+     * @param int $id id
+     * 
+     * @return TypeMedia
+     */
     public function getTypeMedia(int $id): TypeMedia
     {
         return $this->typeMediaRepository->findOneById($id);
     }
 
+    /**
+     * Summary of addVideo
+     *
+     * @param Media $video Media
+     * 
+     * @return void
+     */
     public function addVideo(Media $video): void
     {
         $this->mediaRepository->save($video);
     }
 
+    /**
+     * Summary of deleteMedia
+     *
+     * @param Media $media Media
+     * 
+     * @return bool
+     */
     public function deleteMedia(Media $media): bool
     {
         $typeMedia = $media->getTypeMedia()->getId();
@@ -133,6 +222,14 @@ class MediaService
         };
     }
 
+    /**
+     * Summary of deleteMediaImage
+     *
+     * @param Media  $media  Media
+     * @param string $folder $folder
+     * 
+     * @return bool
+     */
     public function deleteMediaImage(Media $media, string $folder): bool
     {
         if($this->deleteImage($media->getName(), $folder, 300, 300)){
@@ -142,6 +239,13 @@ class MediaService
         return false;
     }
 
+    /**
+     * Summary of deleteMediaVideo
+     *
+     * @param Media $media Media
+     * 
+     * @return bool
+     */
     public function deleteMediaVideo(Media $media): bool
     {
         $this->removeMediaFromDb($media);

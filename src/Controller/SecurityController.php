@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * SecurityController File Doc Comment
+ *
+ * PHP Version 8.3.1
+ *
+ * @category Controller
+ * @package  App\Controller
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
+
 namespace App\Controller;
 
 use App\Service\MailService;
@@ -14,8 +25,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+/**
+ * SecurityController Class Doc Comment
+ *
+ * @category Controller
+ * @package  App\Controller
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
 class SecurityController extends AbstractController
 {
+    /**
+     * Summary of function __construct
+     *
+     * @param UserService                  $userService       UserService
+     * @param EntityManagerInterface       $entityManager     EntityManagerInterface
+     * @param MailService                  $mailService       MailService
+     * @param UserPasswordHasherInterface $userPasswordHasher UserPasswordHasherInterface
+     */
     public function __construct(
         private readonly UserService $userService,
         private readonly EntityManagerInterface $entityManager,
@@ -23,13 +50,18 @@ class SecurityController extends AbstractController
         private readonly UserPasswordHasherInterface $userPasswordHasher
     ) {}
 
+    /**
+     * Summary of function login
+     *
+     * Verify the data send by the user to log him
+     *
+     * @param AuthenticationUtils $authenticationUtils AuthenticationUtils
+     *
+     * @return Response
+     */
     #[Route(path: '/login', name: 'app_login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -38,12 +70,27 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
+    /**
+     * Summary of function logout
+     *
+     * Logout the user
+     *
+     */
     #[Route(path: '/logout', name: 'app_logout', methods: ['GET'])]
     public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
+    /**
+     * Summary of function forgottenPassword
+     *
+     * Send an email to the user with a token to reset his password
+     *
+     * @param Request $request Request
+     *
+     * @return Response
+     */
     #[Route(path: '/oubli-mdp', name: 'forgotten_password', methods: ['GET', 'POST'])]
     public function forgottenPassword(Request $request): Response
     {
@@ -71,7 +118,7 @@ class SecurityController extends AbstractController
 
                 $this->addFlash('success', 'Email envoyé');
                 return $this->redirectToRoute('app_login');
-    
+
             }
             $this->addFlash('danger', 'Cette adresse mail est inconnue');
             return $this->redirectToRoute('app_login');
@@ -83,6 +130,17 @@ class SecurityController extends AbstractController
         ]);
     }
 
+    /**
+     * Summary of function resetPassword
+     *
+     * Verify the token send to the user to see if his email adress is true
+     * and reset his password
+     *
+     * @param string  $token   Token
+     * @param Request $request Request
+     *
+     * @return Response
+     */
     #[Route(path: '/oubli-mdp/{token}', name: 'reset_password', methods: ['GET', 'POST'])]
     public function resetPassword(string $token, Request $request): Response
     {
