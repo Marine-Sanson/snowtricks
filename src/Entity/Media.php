@@ -67,7 +67,7 @@ class Media
      */
     #[ORM\ManyToOne(inversedBy: 'media')]
     #[ORM\JoinColumn(nullable: false)]
-    private TypeMedia $typeMedia = null;
+    private ?TypeMedia $typeMedia = null;
 
     /**
      * Summary of tricks
