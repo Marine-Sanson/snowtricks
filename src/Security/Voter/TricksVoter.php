@@ -3,8 +3,6 @@
 /**
  * TricksVoter File Doc Comment
  *
- * PHP Version 8.3.1
- *
  * @category Voter
  * @package  App\Security\Voter
  * @author   Marine Sanson <marine_sanson@yahoo.fr>

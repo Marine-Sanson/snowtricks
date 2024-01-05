@@ -3,8 +3,6 @@
 /**
  * RegistrationController File Doc Comment
  *
- * PHP Version 8.3.1
- *
  * @category Controller
  * @package  App\Controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>

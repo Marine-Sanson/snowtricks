@@ -3,8 +3,6 @@
 /**
  * ResetPasswordFormType File Doc Comment
  *
- * PHP Version 8.3.1
- *
  * @category Form
  * @package  App\Form
  * @author   Marine Sanson <marine_sanson@yahoo.fr>

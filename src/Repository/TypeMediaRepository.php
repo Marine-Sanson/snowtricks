@@ -3,8 +3,6 @@
 /**
  * TypeMediaRepository File Doc Comment
  *
- * PHP Version 8.3.1
- *
  * @category Repository
  * @package  App\Repository
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -14,8 +12,8 @@
 namespace App\Repository;
 
 use App\Entity\TypeMedia;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * TypeMediaRepository Class Doc Comment

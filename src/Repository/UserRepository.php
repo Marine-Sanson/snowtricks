@@ -3,8 +3,6 @@
 /**
  * UserRepository File Doc Comment
  *
- * PHP Version 8.3.1
- *
  * @category Repository
  * @package  App\Repository
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -14,11 +12,11 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
  * UserRepository Class Doc Comment

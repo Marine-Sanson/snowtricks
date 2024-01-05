@@ -3,8 +3,6 @@
 /**
  * AdminTricksController File Doc Comment
  *
- * PHP Version 8.3.1
- *
  * @category Controller
  * @package  App\Controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -20,7 +18,6 @@ use App\Form\TricksFormType;
 use App\Service\MediaService;
 use App\Service\TrickService;
 use App\Entity\CreatedAtTrait;
-use App\Repository\TypeMediaRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -46,13 +43,11 @@ class AdminTricksController extends AbstractController
      * @param TrickService        $trickService        TrickService
      * @param SluggerInterface    $slugger             SluggerInterface
      * @param MediaService        $mediaService        MediaService
-     * @param TypeMediaRepository $typeMediaRepository TypeMediaRepository
      */
     public function __construct(
         private readonly TrickService $trickService,
         private readonly SluggerInterface $slugger,
         private readonly MediaService $mediaService,
-        private readonly TypeMediaRepository $typeMediaRepository
     ) {}
 
     /**

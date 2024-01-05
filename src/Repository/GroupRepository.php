@@ -3,8 +3,6 @@
 /**
  * GroupRepository File Doc Comment
  *
- * PHP Version 8.3.1
- *
  * @category Repository
  * @package  App\Repository
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -14,8 +12,8 @@
 namespace App\Repository;
 
 use App\Entity\Group;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * GroupRepository Class Doc Comment

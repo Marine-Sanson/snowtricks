@@ -3,8 +3,6 @@
 /**
  * CreatedAtTrait File Doc Comment
  *
- * PHP Version 8.3.1
- *
  * @category Trait
  * @package  App\Entity
  * @author   Marine Sanson <marine_sanson@yahoo.fr>

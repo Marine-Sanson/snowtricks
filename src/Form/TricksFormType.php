@@ -3,8 +3,6 @@
 /**
  * TricksFormType File Doc Comment
  *
- * PHP Version 8.3.1
- *
  * @category Form
  * @package  App\Form
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -20,11 +18,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
-use Symfony\Component\Validator\Constraints\Regex;
 
 /**
  * TricksFormType Class Doc Comment

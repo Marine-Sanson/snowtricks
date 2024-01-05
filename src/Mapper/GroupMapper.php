@@ -3,8 +3,6 @@
 /**
  * GroupMapper File Doc Comment
  *
- * PHP Version 8.3.1
- *
  * @category Mapper
  * @package  App\Mapper
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -37,8 +35,8 @@ class GroupMapper
     public function getTrickGroupModel(array $trickgroup): array
     {
         return array_map(
-            function (Group $group) {
-                return $this->getGroupModel($group);
+            function (Group $groupEntity) {
+                return $this->getGroupModel($groupEntity);
             },
             $trickgroup
         );
@@ -47,13 +45,13 @@ class GroupMapper
     /**
      * Summary of getGroupModel
      *
-     * @param Group $group Group
+     * @param Group $groupEntity Group
      *
      * @return HomeGroup
      */
-    public function getGroupModel(Group $group): HomeGroup
+    public function getGroupModel(Group $groupEntity): HomeGroup
     {
-        return new HomeGroup($group->getId(), $group->getName());
+        return new HomeGroup($groupEntity->getId(), $groupEntity->getName());
     }
 
 }

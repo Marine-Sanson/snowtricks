@@ -3,8 +3,6 @@
 /**
  * User File Doc Comment
  *
- * PHP Version 8.3.1
- *
  * @category Entity
  * @package  App\Entity
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -14,13 +12,13 @@
 namespace App\Entity;
 
 use DateTimeImmutable;
+use App\Entity\CreatedAtTrait;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
-use App\Entity\CreatedAtTrait;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User Class Doc Comment

@@ -3,8 +3,6 @@
 /**
  * UserModel File Doc Comment
  *
- * PHP Version 8.3.1
- *
  * @category Model
  * @package  App\Model
  * @author   Marine Sanson <marine_sanson@yahoo.fr>

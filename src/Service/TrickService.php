@@ -3,8 +3,6 @@
 /**
  * TrickService File Doc Comment
  *
- * PHP Version 8.3.1
- *
  * @category Service
  * @package  App\Service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>

@@ -3,8 +3,6 @@
 /**
  * MediaMapper File Doc Comment
  *
- * PHP Version 8.3.1
- *
  * @category Mapper
  * @package  App\Mapper
  * @author   Marine Sanson <marine_sanson@yahoo.fr>

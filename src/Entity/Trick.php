@@ -3,8 +3,6 @@
 /**
  * Trick File Doc Comment
  *
- * PHP Version 8.3.1
- *
  * @category Entity
  * @package  App\Entity
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -14,11 +12,11 @@
 namespace App\Entity;
 
 use App\Entity\Group;
+use DateTimeImmutable;
+use App\Entity\CreatedAtTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TrickRepository;
-use App\Entity\CreatedAtTrait;
-use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
