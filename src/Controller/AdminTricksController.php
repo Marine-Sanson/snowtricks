@@ -57,7 +57,7 @@ class AdminTricksController extends AbstractController
             }
             
             foreach ($images as $image){
-                $mediaImg = $this->mediaService->addNewImage($image, 'tricks');
+                $mediaImg = $this->mediaService->addNewImage($image, 'tricks', 1);
                 $trick->addMedium($mediaImg);
             }
 
@@ -100,7 +100,7 @@ class AdminTricksController extends AbstractController
             $images = $trickForm->get('images')->getData();
 
             foreach ($images as $image){
-                $mediaImg = $this->mediaService->addNewImage($image, 'tricks');
+                $mediaImg = $this->mediaService->addNewImage($image, 'tricks', 1);
                 $trick->addMedium($mediaImg);
             }
             

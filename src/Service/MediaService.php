@@ -18,11 +18,11 @@ class MediaService
         private readonly TypeMediaRepository $typeMediaRepository
         ) {}
 
-    public function addNewImage(Object $image, string $folder):Media
+    public function addNewImage(Object $image, string $folder, int $typeMedia):Media
     {
         $mediaImg = new Media();
         $mediaImg->setName($this->addImage($image, $folder));
-        $mediaImg->setTypeMedia($this->getTypeMedia(1));
+        $mediaImg->setTypeMedia($this->getTypeMedia($typeMedia));
         return $mediaImg;
     }
 
@@ -129,6 +129,7 @@ class MediaService
         return match ($typeMedia) {
             1 => $this->deleteMediaImage($media, 'tricks'),
             2 => $this->deleteMediaVideo($media),
+            3 => $this->deleteMediaImage($media, 'avatars'),
         };
     }
 
@@ -145,6 +146,11 @@ class MediaService
     {
         $this->removeMediaFromDb($media);
         return true;
+    }
+
+    public function getMedia(int $id): Media
+    {
+        return $this->mediaRepository->findOneById($id);
     }
 
 }
