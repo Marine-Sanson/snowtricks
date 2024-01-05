@@ -1,13 +1,29 @@
 <?php
 
+/**
+ * MediaMapper File Doc Comment
+ *
+ * @category Mapper
+ * @package  App\Mapper
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
+
 namespace App\Mapper;
 
 use App\Entity\Media;
 use App\Model\HomeMedia;
 
+/**
+ * MediaMapper Class Doc Comment
+ *
+ * @category Mapper
+ * @package  App\Mapper
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
 class MediaMapper
 {
-
     /**
      * Summary of getMediasModel
      *
@@ -25,6 +41,13 @@ class MediaMapper
         );
     }
 
+    /**
+     * Summary of getTrickGroupModel
+     *
+     * @param Media $media Media
+     *
+     * @return HomeMedia
+     */
     public function getMediaModel(Media $media): HomeMedia
     {
         return new HomeMedia($media->getId(), $media->getTypeMedia()->getId(), $media->getName());

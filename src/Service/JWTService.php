@@ -1,11 +1,38 @@
 <?php
+
+/**
+ * MediaMapper File Doc Comment
+ *
+ * @category Service
+ * @package  App\Service
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
+
 namespace App\Service;
 
 use DateTimeImmutable;
 
+/**
+ * JWTService Class Doc Comment
+ *
+ * @category Service
+ * @package  App\Service
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
 class JWTService
 {
-
+    /**
+     * Summary of generate
+     *
+     * @param array  $header   header
+     * @param array  $payload  payload
+     * @param string $secret   secret
+     * @param int    $validity validity
+     * 
+     * @return string
+     */
     public function generate(array $header, array $payload, string $secret, int $validity = 10800): string
     {
         if($validity > 0){
@@ -35,6 +62,13 @@ class JWTService
         return $jwt;
     }
 
+    /**
+     * Summary of isValid
+     *
+     * @param string $token token
+     * 
+     * @return bool
+     */
     public function isValid(string $token): bool
     {
         return preg_match(
@@ -43,6 +77,13 @@ class JWTService
         ) === 1;
     }
 
+    /**
+     * Summary of getPayload
+     *
+     * @param string $token token
+     * 
+     * @return array
+     */
     public function getPayload(string $token): array
     {
         $array = explode('.', $token);
@@ -52,6 +93,13 @@ class JWTService
         return $payload;
     }
 
+    /**
+     * Summary of getHeader
+     *
+     * @param string $token token
+     * 
+     * @return array
+     */
     public function getHeader(string $token): array
     {
         $array = explode('.', $token);
@@ -61,6 +109,13 @@ class JWTService
         return $header;
     }
 
+    /**
+     * Summary of isExpired
+     *
+     * @param string $token token
+     * 
+     * @return bool
+     */
     public function isExpired(string $token): bool
     {
         $payload = $this->getPayload($token);
@@ -70,6 +125,14 @@ class JWTService
         return $payload['exp'] < $now->getTimestamp();
     }
 
+    /**
+     * Summary of check
+     *
+     * @param string $token token
+     * @param string $secret secret
+     * 
+     * @return bool
+     */
     public function check(string $token, string $secret): bool
     {
         $header = $this->getHeader($token);

@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * TricksMapper File Doc Comment
+ *
+ * @category Mapper
+ * @package  App\Mapper
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
+
 namespace App\Mapper;
 
 use App\Entity\Trick;
@@ -8,9 +17,22 @@ use App\Mapper\GroupMapper;
 use App\Mapper\MediaMapper;
 use App\Model\TrickDetails;
 
+/**
+ * TricksMapper Class Doc Comment
+ *
+ * @category Mapper
+ * @package  App\Mapper
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
 class TricksMapper
 {
-
+    /**
+     * Summary of function __construct
+     *
+     * @param MediaMapper $mediaMapper MediaMapper
+     * @param GroupMapper $groupMapper GroupMapper
+     */
     public function __construct(
         private readonly MediaMapper $mediaMapper,
         private readonly GroupMapper $groupMapper,
@@ -18,7 +40,7 @@ class TricksMapper
     { }
 
     /**
-     * Summary of transformToTrickDetails
+     * Summary of transformToHomeTricks
      *
      * @param array<Trick> $trick array of tricks
      *
@@ -34,6 +56,13 @@ class TricksMapper
         );
     }
 
+    /**
+     * Summary of getHomeTrick
+     *
+     * @param Trick $trick Trick
+     *
+     * @return HomeTrick
+     */
     public function getHomeTrick(Trick $trick): HomeTrick
     {
         $allMedias = $trick->getMedia();
@@ -70,6 +99,13 @@ class TricksMapper
         );
     }
 
+    /**
+     * Summary of getTrickDetails
+     *
+     * @param Trick $trick Trick
+     *
+     * @return TrickDetails
+     */
     public function getTrickDetails(Trick $trick): TrickDetails
     {
 

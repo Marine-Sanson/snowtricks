@@ -1,10 +1,20 @@
 <?php
 
+/**
+ * RegistrationFormType File Doc Comment
+ *
+ * @category Form
+ * @package  App\Form
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
+
 namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -13,10 +23,28 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Validator\Constraints\Email;
 
+/**
+ * RegistrationFormType Class Doc Comment
+ *
+ * @category Form
+ * @package  App\Form
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
 class RegistrationFormType extends AbstractType
 {
+
+    /**
+     * Summary of function buildForm
+     *
+     * Send an email to the user with a token to verify his account
+     *
+     * @param FormBuilderInterface $builder FormBuilderInterface
+     * @param array                $options Options
+     *
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -72,6 +100,15 @@ class RegistrationFormType extends AbstractType
         ;
     }
 
+    /**
+     * Summary of function configureOptions
+     *
+     * Send an email to the user with a token to verify his account
+     *
+     * @param OptionsResolver $resolver OptionsResolver
+     *
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

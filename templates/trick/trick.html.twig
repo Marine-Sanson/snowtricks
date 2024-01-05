@@ -13,7 +13,7 @@
                     {% if oneMedia.typeMedia == 1 %}
                         <img src="{{ asset('assets/img/uploads/tricks/') ~ trick.media[0].name }}" class="card-img-top rounded"
                             id="singleTrickImgTop">
-                    {% else %}
+                    {% elseif oneMedia.typeMedia == 2 %}
                         <span class="singleTrickMedias my-3 mx-auto">
                             <iframe class="" width="600" height="400" src="{{trick.media[0].name}}?autoplay='true'"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </span>

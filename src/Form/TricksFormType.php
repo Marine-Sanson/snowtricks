@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * TricksFormType File Doc Comment
+ *
+ * @category Form
+ * @package  App\Form
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
+
 namespace App\Form;
 
 use App\Entity\Group;
@@ -9,14 +18,32 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
-use Symfony\Component\Validator\Constraints\Regex;
 
+/**
+ * TricksFormType Class Doc Comment
+ *
+ * @category Form
+ * @package  App\Form
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ */
 class TricksFormType extends AbstractType
 {
+    /**
+     * Summary of function buildForm
+     *
+     * Send an email to the user with a token to verify his account
+     *
+     * @param FormBuilderInterface $builder FormBuilderInterface
+     * @param array                $options Options
+     *
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -77,6 +104,15 @@ class TricksFormType extends AbstractType
             ]);
     }
 
+    /**
+     * Summary of function configureOptions
+     *
+     * Send an email to the user with a token to verify his account
+     *
+     * @param OptionsResolver $resolver OptionsResolver
+     *
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
