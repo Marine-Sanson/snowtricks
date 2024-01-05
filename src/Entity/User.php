@@ -227,11 +227,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Summary of function getType
+     * Summary of function getUsername
      *
      * @return string
      */
-    public function getType(): string
+    public function getUsername(): string
     {
         return $this->username;
     }

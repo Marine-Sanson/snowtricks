@@ -45,12 +45,13 @@ class MediaService
     /**
      * Summary of addNewImage
      *
-     * @param UploadedFile $image  image
-     * @param string       $folder folder
+     * @param UploadedFile $image     image
+     * @param string       $folder    folder
+     * @param int          $typeMedia typeMedia
      * 
      * @return Media
      */
-    public function addNewImage(Object $image, string $folder): Media
+    public function addNewImage(Object $image, string $folder, int $typeMedia): Media
     {
         $mediaImg = new Media();
         $mediaImg->setName($this->addImage($image, $folder));
