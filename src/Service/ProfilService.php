@@ -10,12 +10,10 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-
 class ProfilService
 {
     public function __construct(
         private readonly UserRepository $userRepository,
     ) {}
-
 
 }

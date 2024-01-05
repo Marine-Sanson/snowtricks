@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Media;
 use DateTimeImmutable;
 use App\Form\ProfilFormType;
@@ -25,7 +24,7 @@ class ProfilController extends AbstractController
         private readonly MailService $mailService
     ) {}
 
-    #[Route('/', name: 'index')]
+    #[Route('/', name: 'index', methods: ['GET'])]
     public function index(): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -40,7 +39,7 @@ class ProfilController extends AbstractController
         ]);
     }
 
-    #[Route('/maj', name: 'edit')]
+    #[Route('/maj', name: 'edit', methods: ['POST', 'GET'])]
     public function edit(Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -76,7 +75,7 @@ class ProfilController extends AbstractController
                 $userModel = $this->userService->getUserModel($user);
 
                 $token = $this->userService->newRegisterToken($userModel);
-        
+
                 $this->mailService->send(
                     'contact@marinesanson.fr',
                     $userModel->getEmail(),
@@ -87,23 +86,25 @@ class ProfilController extends AbstractController
                         'token' => $token
                     ]
                 );
-        
+
                 $this->addFlash('success', 'Email de vérification envoyé');
                 return $this->redirectToRoute('app_login');
             }
+
             if ($avatar){
 
-                if (!$oldAvatar || isset($oldAvatar) && $oldAvatar !== $avatar){
+                if (!$oldAvatar || $oldAvatar !== $avatar){
                     $avatar = $this->mediaService->addNewImage($avatar, 'avatars', 3);
                     $user->setAvatar($avatar);
                 }
                 if ($oldAvatar !== null && $oldAvatar->getName() !== $defaultAvatar->getName()) {
                     $this->mediaService->deleteMediaImage($oldAvatar, 'avatars');
                 }
+
             }
 
             $user = $this->userService->saveUser($user);
-    
+
             $this->addFlash('success', 'Profil modifié avec succes');
             return $this->render('profil/index.html.twig', [
                 'user' => $user
