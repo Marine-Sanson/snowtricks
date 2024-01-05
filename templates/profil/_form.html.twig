@@ -1,0 +1,33 @@
+    {{ form_errors(profilForm) }}
+
+    {{ form_start(profilForm) }}
+
+    <div class="row">
+        <div class="col-3">
+            <div class="container mb-3">
+                <h3 class="text-center h6">Photo actuelle
+                    {% if user.avatar.name == "avatar_default.jpg" %}
+                        (photo par default)
+                    {% endif %}
+                    : </h3>
+                <div class="">
+                    <img class="row mx-auto mt-2 w-100" src="{{ asset('assets/img/uploads/avatars/') ~ user.avatar.name }}" alt="Photo d'illustration">
+                    {% if user.avatar.name != "avatar_default.jpg" %}
+                        <div class="d-flex">
+                            <a href="{{ path('app_admin_profil_delete_media', { id: user.avatar.id }) }}"class="row justify-content-center m-auto"><i class="fa-solid fa-trash-can m-3"></i></i></a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-9 my-auto">
+            {{ form_row(profilForm.username) }}
+            {{ form_row(profilForm.email) }}
+            {{ form_row(profilForm.avatar) }}
+
+            <button type="submit" class="btn btn-lg btn-primary mt-5 d-flex mx-auto">Modifier</button>
+        </div>
+    </div>
+
+    {{ form_end(profilForm) }}
