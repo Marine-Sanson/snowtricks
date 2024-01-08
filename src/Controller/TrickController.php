@@ -49,7 +49,8 @@ class TrickController extends AbstractController
         $trick = $this->trickService->getTrickDetails($slug);
 
         return $this->render('trick/trick.html.twig', [
-            'trick' => $trick
+            'trick' => $trick,
+            'mainName' => $trick->getMainMedia()->getName(),
         ]);
     }
 }

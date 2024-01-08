@@ -36,6 +36,7 @@ class TrickDetails
      * @param DateTimeImmutable $updatedAt   UpdatedAt
      * @param array             $trickGroup  TrickGroup
      * @param array             $media       Media
+     * @param HomeMedia         $mainMedia   HomeMedia
      */
         public function __construct(
         private readonly int $id,
@@ -44,7 +45,8 @@ class TrickDetails
         private readonly string $slug,
         private readonly DateTimeImmutable $updatedAt,
         private readonly array $trickGroup,
-        private readonly array $media
+        private readonly array $media,
+        private readonly HomeMedia $mainMedia
     ) { }
 
     /**
@@ -115,6 +117,16 @@ class TrickDetails
     public function getMedia(): array
     {
         return $this->media;
+    }
+
+    /**
+     * Summary of getMainMedia
+     *
+     * @return HomeMedia
+     */
+    public function getMainMedia(): HomeMedia
+    {
+        return $this->mainMedia;
     }
 
 }
