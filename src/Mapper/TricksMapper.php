@@ -12,10 +12,12 @@
 namespace App\Mapper;
 
 use App\Entity\Trick;
+use App\Model\HomeMedia;
 use App\Model\HomeTrick;
 use App\Mapper\GroupMapper;
 use App\Mapper\MediaMapper;
 use App\Model\TrickDetails;
+use App\Repository\MediaRepository;
 
 /**
  * TricksMapper Class Doc Comment
@@ -36,6 +38,7 @@ class TricksMapper
     public function __construct(
         private readonly MediaMapper $mediaMapper,
         private readonly GroupMapper $groupMapper,
+        private readonly MediaRepository $mediaRepository,
         )
     { }
 
@@ -116,7 +119,9 @@ class TricksMapper
 
         $medias = $trick->getMedia()->toArray();
         $mediasModel = $this->mediaMapper->getMediasModel($medias);
-        
+
+        $mainMedia = $this->getMainMedia($mediasModel);
+
         return new TrickDetails(
             $trick->getId(),
             $trick->getName(),
@@ -124,8 +129,33 @@ class TricksMapper
             $trick->getSlug(),
             $updatedAt,
             $trickGroupModel,
-            $mediasModel
+            $mediasModel,
+            $mainMedia
         );
+    }
+
+    /**
+     * Summary of getPaginatedHomeTricks
+     *
+     * @param array<HomeMedia> $mediasModel  HomeMedia
+     * 
+     * @return HomeMedia
+     */
+    public function getMainMedia($mediasModel): HomeMedia
+    {
+        $homeMedia = null;
+        for ($i = 0, $count = count($mediasModel); $i < $count; $i++) {
+            if ($mediasModel[$i]->getTypeMedia() === 1){
+                $homeMedia = $mediasModel[$i];
+                if ($homeMedia !== null){
+                    return $homeMedia;
+                }
+            }   
+        }
+        if ($homeMedia === null){
+            $homeMedia = $this->mediaMapper->getMediaModel($this->mediaRepository->find(11));
+        }
+        return $homeMedia;
     }
 
 }
