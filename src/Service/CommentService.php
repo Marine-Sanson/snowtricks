@@ -53,7 +53,7 @@ class CommentService
             return $comments;
         }
 
-        public function addComment(string $content, int $trickId, int $userId)
+        public function addComment(string $content, int $trickId, int $userId): void
         {
             $trick = $this->trickRepository->findOneById($trickId);
             $user = $this->userRepository->findOneById($userId);
