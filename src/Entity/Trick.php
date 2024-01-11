@@ -99,6 +99,9 @@ class Trick
     #[ORM\ManyToMany(targetEntity: Media::class, inversedBy: 'tricks', cascade:['persist'])]
     private Collection $media;
 
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Comment::class, orphanRemoval: true)]
+    private Collection $comments;
+
     /**
      * Summary of function __construct
      */
@@ -107,6 +110,7 @@ class Trick
         $this->trickGroup = new ArrayCollection();
         $this->media = new ArrayCollection();
         $this->createdAt = new DateTimeImmutable();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -291,6 +295,36 @@ class Trick
     public function removeMedium(Media $medium): static
     {
         $this->media->removeElement($medium);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getTrick() === $this) {
+                $comment->setTrick($this);
+            }
+        }
 
         return $this;
     }

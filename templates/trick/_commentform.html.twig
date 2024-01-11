@@ -1,0 +1,17 @@
+    {{ form_errors(commentForm) }}
+
+    {{ form_start(commentForm) }}
+        {{ form_row(commentForm.content) }}
+        {{ form_row(commentForm.trickId, { 
+            'attr': {
+                'class': 'hidden-row',
+            }, 'value': trick.id }) }}
+
+        {{ form_row(commentForm.userId, { 
+            'attr': {
+                'class': 'hidden-row',
+            }, 'value': app.user.id }) }}
+
+        <button type="submit" class="btn btn-lg btn-primary mt-5">{{ button_label|default('Envoyer') }}</button>
+
+    {{ form_end(commentForm) }}

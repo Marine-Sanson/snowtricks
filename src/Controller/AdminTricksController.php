@@ -40,9 +40,9 @@ class AdminTricksController extends AbstractController
     /**
      * Summary of function __construct
      *
-     * @param TrickService        $trickService        TrickService
-     * @param SluggerInterface    $slugger             SluggerInterface
-     * @param MediaService        $mediaService        MediaService
+     * @param TrickService     $trickService TrickService
+     * @param SluggerInterface $slugger      SluggerInterface
+     * @param MediaService     $mediaService MediaService
      */
     public function __construct(
         private readonly TrickService $trickService,
@@ -58,7 +58,9 @@ class AdminTricksController extends AbstractController
     #[Route('/', name: 'index', methods: ['GET', 'HEAD'])]
     public function index(): Response
     {
+
         return $this->render('admin_tricks/index.html.twig');
+
     }
 
     /**
@@ -73,6 +75,7 @@ class AdminTricksController extends AbstractController
     #[Route('/ajout', name: 'add', methods: ['GET', 'POST'])]
     public function add(Request $request): Response
     {
+
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $trick = new Trick();
@@ -80,27 +83,27 @@ class AdminTricksController extends AbstractController
 
         $trickForm->handleRequest($request);
 
-        if($trickForm->isSubmitted() && $trickForm->isValid()){
+        if ($trickForm->isSubmitted() && $trickForm->isValid()) {
             $images = $trickForm->get('images')->getData();
 
             $isTrickNameKnown = $this->trickService->isTrickNameKnown($trick->getName());
 
-            if($isTrickNameKnown === true){
+            if ($isTrickNameKnown === true) {
                 $this->addFlash('danger', 'Un Trick porte déjà ce nom');
                 return $this->render('trick/add.html.twig', [
                     'trickForm' => $trickForm->createView(),
                 ]);
             }
 
-            foreach ($images as $image){
+            foreach ($images as $image) {
                 $mediaImg = $this->mediaService->addNewImage($image, 'tricks', 1);
                 $trick->addMedium($mediaImg);
             }
 
             $videos = $trickForm->get('videos')->getData();
-            if (preg_match_all('/(https?:\/\/www\.youtube\.com\/watch\?v=)([a-zA-Z0-9-_\.\/\?=&]+)/', $videos, $matches)) {
 
-                foreach( $matches[2] as $video) {
+            if (preg_match_all('/(https?:\/\/www\.youtube\.com\/watch\?v=)([a-zA-Z0-9-_\.\/\?=&]+)/', $videos, $matches)) {
+                foreach ($matches[2] as $video) {
                     $mediaVid = $this->mediaService->addNewVideo($video);
                     $trick->addMedium($mediaVid);
                 }
@@ -115,9 +118,12 @@ class AdminTricksController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('trick/add.html.twig', [
-            'trickForm' => $trickForm->createView(),
-        ]);
+        return $this->render(
+            'trick/add.html.twig', [
+                'trickForm' => $trickForm->createView(),
+            ]
+        );
+
     }
 
     /**
@@ -133,6 +139,7 @@ class AdminTricksController extends AbstractController
     #[Route('/maj/{id}', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Trick $trick, Request $request): Response
     {
+
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $trickForm = $this->createForm(TricksFormType::class, $trick);
@@ -140,7 +147,6 @@ class AdminTricksController extends AbstractController
         $trickForm->handleRequest($request);
 
         if($trickForm->isSubmitted() && $trickForm->isValid()){
-
             $trick->setUpdatedAt(new DateTimeImmutable());
 
             $images = $trickForm->get('images')->getData();
@@ -160,15 +166,18 @@ class AdminTricksController extends AbstractController
             }
 
             $this->trickService->saveTrick($trick);
-    
+
             $this->addFlash('success', 'Trick modifié avec succes');
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('trick/edit.html.twig', [
-            'trickForm' => $trickForm->createView(),
-            'trick' => $trick
-        ]);
+        return $this->render(
+            'trick/edit.html.twig', [
+                'trickForm' => $trickForm->createView(),
+                'trick' => $trick
+            ]
+        );
+
     }
 
     /**
@@ -183,6 +192,7 @@ class AdminTricksController extends AbstractController
     #[Route('/suppression/media/{id}', name: 'delete_media', methods: ['GET'])]
     public function deleteMedia(Media $media): Response
     {
+
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $deleted = $this->mediaService->deleteMedia($media);
@@ -194,11 +204,12 @@ class AdminTricksController extends AbstractController
 
         $this->addFlash('danger', 'Un problème est survenu');
         return $this->render('admin_tricks/index.html.twig');
+
     }
 
     /**
      * Summary of function delete
-     * 
+     *
      * Delete a trick and his medias
      *
      * @param Trick $trick Trick
@@ -208,6 +219,7 @@ class AdminTricksController extends AbstractController
     #[Route('/suppression/{id}', name: 'delete_trick', methods: ['GET'])]
     public function delete(Trick $trick): Response
     {
+
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $deleted = $this->trickService->deleteTrick($trick);
@@ -218,6 +230,7 @@ class AdminTricksController extends AbstractController
 
         $this->addFlash('danger', 'Un problème est survenu');
         return $this->render('admin_tricks/index.html.twig');
+
     }
 
 }

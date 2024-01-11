@@ -3,7 +3,8 @@
 {% block title %}Snowtricks - {{ trick.name }}{% endblock %}
 {% block body %}
 
-    <div class="container card border-primary" id="singleTrick">
+    <section class="container card border-primary" id="singleTrick">
+
         <div class="position-relative text-center my-sd-2 my-5 mx-auto">
             <img class="card-img-top rounded" src="{{ asset('assets/img/uploads/tricks/') ~ mainName }}"
                     alt="image" id="singleTrickImgTop">
@@ -12,11 +13,12 @@
         </div>
 
         <div class="card-deck row mx-auto">
+
             {% if trick.media %}
                 {% for oneMedia in trick.media|sort ((a, b) => a.typeMedia <=> b.typeMedia) %}
-                    <div class="card mx-auto my-3" style="max-width: 18rem;">
+                    <div class="singleTrickMedias card mx-auto my-5 border-0" style="max-width: 18rem;">
                         {% if oneMedia.typeMedia == 1 %}
-                            <img class="card-img-top" src="{{ asset('assets/img/uploads/tricks/') ~ oneMedia.name }}" class="singleTrickMedias my-3 mx-auto">
+                            <img class="card-img-top singleTrickMedia" src="{{ asset('assets/img/uploads/tricks/') ~ oneMedia.name }}" class="singleTrickMedias my-3 mx-auto">
                             {% if app.user and app.user.isVerified == true %}
                                 <div class="d-flex justify-content-end">
                                     <a href="{{ path('app_admin_tricks_delete_media', {id: oneMedia.id}) }}"><i class="fa-solid fa-trash-can m-3"></i></a>
@@ -24,7 +26,7 @@
                             {% endif %}
                         {% else %}
                             <span class="singleTrickMedias my-3 mx-auto">
-                                <iframe class="card-img-top" width="240" height="160" src="{{oneMedia.name}}"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                <iframe class="card-img-top singleTrickMedia" src="{{oneMedia.name}}"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                             </span>
                             {% if app.user and app.user.isVerified == true %}
                                 <div class="d-flex justify-content-end">
@@ -46,5 +48,26 @@
                 {% endfor %}
             <div>
         </div>
-    </div>
+
+        <div class="mb-5">
+            {% if app.user and app.user.isVerified == true %}
+                <hr class="w-75 mx-auto my-5 text-primary font-weight-bold">
+                {% include "trick/_commentform.html.twig" %}
+            {% endif %}
+            <hr class="w-75 mx-auto my-5 text-primary font-weight-bold">
+            {% for comment in comments %}
+                <div class="row justify-content-between w-50 mx-auto my-3">
+
+                    <div class="col-2 m-auto">
+                        <img src="{{ asset('assets/img/uploads/avatars/mini/300x300-') ~ comment.author.avatar.name }}" class="w-100 rounded-circle">
+                    </div>
+                    <div class="col-8 d-flex border">
+                        <p class="text-start my-auto">{{ comment.content}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </section>
+
 {% endblock %}
