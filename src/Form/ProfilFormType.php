@@ -24,7 +24,8 @@ class ProfilFormType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'attr' => [
-                    'class' => 'form-control mb-3'
+                    'class' => 'form-control mb-3',
+                    'readonly' => true,
                 ],
                 'label' => 'Email'
             ])

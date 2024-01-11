@@ -49,7 +49,7 @@ class HomeController extends AbstractController
     {
         $page = $request->query->getInt("page", 1);
 
-        $dataPaginated = $this->trickService->getPaginatedHomeTricks($page, 12);
+        $dataPaginated = $this->trickService->getPaginatedHomeTricks($page, 8);
 
         return $this->render('home/home.html.twig', [
             'controller_name' => 'HomeController',

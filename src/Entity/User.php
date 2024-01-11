@@ -13,6 +13,8 @@ namespace App\Entity;
 
 use DateTimeImmutable;
 use App\Entity\CreatedAtTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -75,7 +77,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string
      */
     #[ORM\Column(length: 100)]
-    #[Assert\NotBlank(message: 'Vous devez rentrer un email')]
+    #[Assert\NotBlank(message: "Vous devez rentrer un nom d'utilisateur")]
     private string $username;
 
     /**
@@ -91,7 +93,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @var string|null
      */
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, nullable: true)] 
     private ?string $resetToken = null;
 
     /**
@@ -105,10 +107,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Media $avatar = null;
 
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Comment::class, orphanRemoval: true)]
+    private Collection $comments;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable;
         $this->updatedAt = new DateTimeImmutable;
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -330,6 +336,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAvatar(?Media $avatar): static
     {
         $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getAuthor() === $this) {
+                $comment->setAuthor($comment->getAuthor());
+            }
+        }
 
         return $this;
     }

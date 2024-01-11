@@ -27,7 +27,13 @@ button{
 
 .singleTrickMedias{
     max-width: 15rem;
+    max-height: 10rem;
     border-radius: 25px;
+}
+
+.singleTrickMedia{
+    max-height: 100%;
+    width: auto;
 }
 
 #singleTrickImgTop{

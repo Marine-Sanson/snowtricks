@@ -11,7 +11,12 @@
 
 namespace App\Controller;
 
+use App\Model\CommentModel;
+use App\Service\UserService;
+use App\Form\CommentFormType;
 use App\Service\TrickService;
+use App\Service\CommentService;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,7 +36,11 @@ class TrickController extends AbstractController
      *
      * @param TrickService $trickService TrickService
      */
-    public function __construct(private readonly TrickService $trickService)
+    public function __construct(
+        private readonly TrickService $trickService,
+        private readonly CommentService $commentService,
+        private readonly UserService $userService,
+        )
     { }
 
     /**
@@ -43,13 +52,41 @@ class TrickController extends AbstractController
      *
      * @return Response
      */
-    #[Route('/trick/{slug}', name: 'trickDetail', methods: ['GET', 'HEAD'])]
-    public function show(string $slug): Response
+    #[Route('/trick/{slug}', name: 'trickDetail', methods: ['GET', 'POST'])]
+    public function show(string $slug, Request $request): Response
     {
         $trick = $this->trickService->getTrickDetails($slug);
 
+        $comments = $this->commentService->getTrickComments($trick);
+
+        $userConnected = $this->getUser();
+
+        if ($userConnected) {
+            $user = $this->userService->getUser($userConnected->getUserIdentifier());
+            $comment = new CommentModel();
+
+            $commentForm = $this->createForm(CommentFormType::class, $comment);
+            $commentForm->handleRequest($request);
+    
+            if($commentForm->isSubmitted() && $commentForm->isValid()){
+                $this->commentService->addComment(
+                    $commentForm->get("content")->getData(), 
+                    $commentForm->get("trickId")->getData(), 
+                    $commentForm->get("userId")->getData(), 
+                );
+            }
+
+            return $this->render('trick/trick.html.twig', [
+                'trick' => $trick,
+                'comments' => $comments,
+                'mainName' => $trick->getMainMedia()->getName(),
+                'commentForm' => $commentForm,
+            ]);
+        }
+
         return $this->render('trick/trick.html.twig', [
             'trick' => $trick,
+            'comments' => $comments,
             'mainName' => $trick->getMainMedia()->getName(),
         ]);
     }
