@@ -62,7 +62,6 @@ class TrickController extends AbstractController
         $userConnected = $this->getUser();
 
         if ($userConnected) {
-            $user = $this->userService->getUser($userConnected->getUserIdentifier());
             $comment = new CommentModel();
 
             $commentForm = $this->createForm(CommentFormType::class, $comment);
