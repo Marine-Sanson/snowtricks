@@ -32,8 +32,9 @@ class TricksMapper
     /**
      * Summary of function __construct
      *
-     * @param MediaMapper $mediaMapper MediaMapper
-     * @param GroupMapper $groupMapper GroupMapper
+     * @param MediaMapper     $mediaMapper     MediaMapper
+     * @param GroupMapper     $groupMapper     GroupMapper
+     * @param MediaRepository $mediaRepository MediaRepository
      */
     public function __construct(
         private readonly MediaMapper $mediaMapper,
