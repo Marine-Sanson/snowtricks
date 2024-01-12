@@ -13,7 +13,9 @@ namespace App\Service;
 
 use App\Entity\User;
 use App\Model\UserModel;
+use App\Mapper\UserMapper;
 use App\Model\UserRegister;
+use App\Model\UserProfilModel;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -46,7 +48,7 @@ class UserService
         private readonly EntityManagerInterface      $entityManager,
         private readonly UserPasswordHasherInterface $userPasswordHasher,
         private readonly TokenGeneratorInterface     $tokenGenerator,
-        private readonly ParameterBagInterface       $params
+        private readonly ParameterBagInterface       $params,
     ) {}
 
     /**

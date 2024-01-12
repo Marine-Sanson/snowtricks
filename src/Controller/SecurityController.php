@@ -14,7 +14,6 @@ namespace App\Controller;
 use App\Service\MailService;
 use App\Service\UserService;
 use App\Form\ResetPasswordFormType;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Form\ResetPasswordRequestFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,13 +36,11 @@ class SecurityController extends AbstractController
      * Summary of function __construct
      *
      * @param UserService                  $userService       UserService
-     * @param EntityManagerInterface       $entityManager     EntityManagerInterface
      * @param MailService                  $mailService       MailService
      * @param UserPasswordHasherInterface $userPasswordHasher UserPasswordHasherInterface
      */
     public function __construct(
         private readonly UserService $userService,
-        private readonly EntityManagerInterface $entityManager,
         private readonly MailService $mailService,
         private readonly UserPasswordHasherInterface $userPasswordHasher
     ) {}
