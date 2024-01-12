@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Comment;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Comment>
@@ -30,17 +31,35 @@ class CommentRepository extends ServiceEntityRepository
     }
 
     /**
-    * @return Comment[] Returns an array of Comment objects
+    * @return array
     */
-   public function findByTrick(int $id): array
+   public function findCommentsPaginatedByTrick(int $id, int $page, int $limit): array
    {
-       return $this->createQueryBuilder('c')
-           ->andWhere('c.trick = :id')
-           ->setParameter('id', $id)
-           ->orderBy('c.id', 'ASC')
-           ->getQuery()
-           ->getResult()
-       ;
+        $limit = abs($limit);
+
+        $result = [];
+        $query = $this->createQueryBuilder('c')
+            ->andWhere('c.trick = :id')
+            ->setParameter('id', $id)
+            ->setMaxResults($limit)
+            ->setFirstResult(($page * $limit) - $limit)
+            ->orderBy('c.id', 'DESC');
+
+        $paginator = new Paginator($query);
+        $comments = $paginator->getQuery()->getResult();
+
+        if(empty($comments)){
+            return $result;
+        }
+
+        $pages = ceil($paginator->count() / $limit);
+
+        $result['comments'] = $comments;
+        $result['pages'] = $pages;
+        $result['page'] = $page;
+        $result['limit'] = $limit;
+        
+        return $result;
    }
 
 //    /**

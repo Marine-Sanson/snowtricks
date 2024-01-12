@@ -62,11 +62,17 @@
                         <img src="{{ asset('assets/img/uploads/avatars/mini/300x300-') ~ comment.author.avatar.name }}" class="w-100 rounded-circle">
                     </div>
                     <div class="col-8 d-flex border">
-                        <p class="text-start my-auto">{{ comment.content}}</p>
+                        <p class="text-start my-auto">De {{ comment.author.username | capitalize }} le {{ comment.updatedAt | date('d/m/Y') }} : {{ comment.content}}</p>
                     </div>
                 </div>
             {% endfor %}
         </div>
+        {% set slug = trick.slug %}
+        {% set path = 'trickDetail' %}
+        {% set pages = pages %}
+        {% set separator = '/' %}
+        {% set currentPage = page %}
+        {% include "partials/pagination.html.twig" %}
 
     </section>
 

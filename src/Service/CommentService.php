@@ -32,7 +32,11 @@ class CommentService
     /**
      * Summary of function __construct
      *
-     * @param CommentRepository      $commentRepository MediaRepository
+     * @param CommentRepository $commentRepository MediaRepository
+     * @param TrickRepository   $trickRepository   TrickRepository
+     * @param UserRepository    $userRepository    UserRepository
+     * @param CommentMapper     $commentMapper     CommentMapper
+     * @param MediaRepository   $mediaRepository   MediaRepository
      */
     public function __construct(
         private readonly CommentRepository $commentRepository,
@@ -42,15 +46,15 @@ class CommentService
         private readonly MediaRepository $mediaRepository,
         ) { }
 
-        public function getTrickComments(TrickDetails $trick): array
+        public function getPaginatedTrickComments(TrickDetails $trick, int $page, int $limit): array
         {
-            $comments = $this->commentRepository->findByTrick($trick->getId());
-            foreach($comments as $comment){
+            $data = $this->commentRepository->findCommentsPaginatedByTrick($trick->getId(), $page, $limit);
+            foreach($data['comments'] as $comment){
                 if($comment->getAuthor()->getAvatar() === null){
                     $comment->getAuthor()->setAvatar($this->mediaRepository->find(10));
                 }
             }
-            return $comments;
+            return $data;
         }
 
         public function addComment(string $content, int $trickId, int $userId): void

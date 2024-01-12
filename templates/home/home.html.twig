@@ -44,9 +44,10 @@
             {% endfor %}
         </div>
 
+        {% set slug = null %}
         {% set path ='home' %}
         {% set pages = pages %}
-        {% set slug = '/' %}
+        {% set separator = '/' %}
         {% set currentPage = page %}
         {% include "partials/pagination.html.twig" %}
     </section>
