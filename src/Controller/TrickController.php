@@ -34,7 +34,9 @@ class TrickController extends AbstractController
     /**
      * Summary of function __construct
      *
-     * @param TrickService $trickService TrickService
+     * @param TrickService   $trickService   TrickService
+     * @param CommentService $commentService CommentService
+     * @param UserService    $userService    UserService
      */
     public function __construct(
         private readonly TrickService $trickService,
@@ -52,12 +54,13 @@ class TrickController extends AbstractController
      *
      * @return Response
      */
-    #[Route('/trick/{slug}', name: 'trickDetail', methods: ['GET', 'POST'])]
+    #[Route('/trick/{slug}', name: 'trickDetail', methods: ['GET', 'POST', 'HEAD'])]
     public function show(string $slug, Request $request): Response
     {
+        $page = $request->query->getInt("page", 1);
         $trick = $this->trickService->getTrickDetails($slug);
 
-        $comments = $this->commentService->getTrickComments($trick);
+        $dataPaginated = $this->commentService->getPaginatedTrickComments($trick, $page, 10);
 
         $userConnected = $this->getUser();
 
@@ -77,16 +80,22 @@ class TrickController extends AbstractController
 
             return $this->render('trick/trick.html.twig', [
                 'trick' => $trick,
-                'comments' => $comments,
                 'mainName' => $trick->getMainMedia()->getName(),
                 'commentForm' => $commentForm,
+                'comments' => $dataPaginated['comments'],
+                'pages' => $dataPaginated['pages'],
+                'page' => $dataPaginated['page'],
+                'limit' => $dataPaginated['limit'],
             ]);
         }
 
         return $this->render('trick/trick.html.twig', [
             'trick' => $trick,
-            'comments' => $comments,
             'mainName' => $trick->getMainMedia()->getName(),
+            'comments' => $dataPaginated['comments'],
+            'pages' => $dataPaginated['pages'],
+            'page' => $dataPaginated['page'],
+            'limit' => $dataPaginated['limit'],
         ]);
     }
 }
