@@ -31,7 +31,7 @@ class CommentRepository extends ServiceEntityRepository
     }
 
     /**
-    * @return Comment[] Returns an array of Comment objects
+    * @return array
     */
    public function findCommentsPaginatedByTrick(int $id, int $page, int $limit): array
    {
@@ -60,7 +60,6 @@ class CommentRepository extends ServiceEntityRepository
         $result['limit'] = $limit;
         
         return $result;
-
    }
 
 //    /**
