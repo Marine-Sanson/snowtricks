@@ -62,6 +62,15 @@ class TrickController extends AbstractController
 
         $dataPaginated = $this->commentService->getPaginatedTrickComments($trick, $page, 10);
 
+        if ($dataPaginated === []){
+            $dataPaginated = [
+                'comments' => [],
+                'pages' => null,
+                'page' => null,
+                'limit' => null,
+            ];
+        }
+
         $userConnected = $this->getUser();
 
         if ($userConnected) {

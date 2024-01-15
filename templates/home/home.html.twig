@@ -34,7 +34,28 @@
                             <div class="d-flex justify-content-end align-items-end">
                                 <a href="{{ path('app_admin_tricks_edit', {id: trick.id}) }}" class="m-auto text-end"><i class="fa-solid fa-pencil mx-2"></i></a>
                             {% if app.user.roles[0] == "ROLE_ADMIN" %}
-                                <a href="{{ path('app_admin_tricks_delete_trick', {id: trick.id}) }}" class="m-auto text-right"><i class="fa-solid fa-trash-can mx-2"></i></a>
+                                <a href="#homeTricks" class="m-auto text-right" role="button" data-bs-target="#modal" data-bs-toggle="modal"><i class="fa-solid fa-trash-can mx-2"></i></a>
+                            
+                                <div class="modal" id="modal">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Suppression de trick</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Attention, ce trick va être supprimé définitivement, ainsi que les images qui lui sont associées. Etes vous sûr ?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary"><a href="{{ path('app_admin_tricks_delete_trick', {id: trick.id}) }}" class="text-decoration-none text-white">Oui</a></button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             {% endif %}
                             </div>
                         {% endif %}
