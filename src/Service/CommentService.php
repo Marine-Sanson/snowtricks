@@ -49,9 +49,11 @@ class CommentService
         public function getPaginatedTrickComments(TrickDetails $trick, int $page, int $limit): array
         {
             $data = $this->commentRepository->findCommentsPaginatedByTrick($trick->getId(), $page, $limit);
-            foreach($data['comments'] as $comment){
-                if($comment->getAuthor()->getAvatar() === null){
-                    $comment->getAuthor()->setAvatar($this->mediaRepository->find(10));
+            if ($data !== []){
+                foreach($data['comments'] as $comment){
+                    if($comment->getAuthor()->getAvatar() === null){
+                        $comment->getAuthor()->setAvatar($this->mediaRepository->find(10));
+                    }
                 }
             }
             return $data;
