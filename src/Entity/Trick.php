@@ -70,10 +70,10 @@ class Trick
     /**
      * Summary of slug
      *
-     * @var string
+     * @var string|null
      */
     #[ORM\Column(length: 50)]
-    private string $slug;
+    private ?string $slug = null;
 
     /**
      * Summary of updatedAt
@@ -174,9 +174,9 @@ class Trick
     /**
      * Summary of function getSlug
      *
-     * @return string
+     * @return string|null
      */
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
