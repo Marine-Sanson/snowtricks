@@ -31,7 +31,7 @@ class ProfilController extends AbstractController
 
         $user = $this->userService->getUser($this->getUser()->getUserIdentifier());
         if ($user->getAvatar() === null){
-            $user->setAvatar($this->mediaService->getMedia(10));
+            $user->setAvatar($this->mediaService->getMedia(2));
         }
 
         return $this->render('/profil/index.html.twig', [

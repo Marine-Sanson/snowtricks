@@ -59,7 +59,7 @@ class TrickService
         $data = $this->trickRepository->findTricksPaginated($page, $limit);
         $data['tricks'] = $this->tricksMapper->transformToHomeTricks($data['tricks']);
 
-        $defaultMedia = $this->mediaMapper->getMediaModel($this->mediaRepository->find(11));
+        $defaultMedia = $this->mediaMapper->getMediaModel($this->mediaRepository->find(1));
 
         foreach ($data['tricks'] as $trick) {
             if ($trick->getMedia() === null) {
