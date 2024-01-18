@@ -17,6 +17,7 @@ use App\Model\TrickDetails;
 use App\Mapper\TricksMapper;
 use App\Repository\MediaRepository;
 use App\Repository\TrickRepository;
+use App\Repository\TrickMediaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -59,7 +60,7 @@ class TrickService
         $data = $this->trickRepository->findTricksPaginated($page, $limit);
         $data['tricks'] = $this->tricksMapper->transformToHomeTricks($data['tricks']);
 
-        $defaultMedia = $this->mediaMapper->getMediaModel($this->mediaRepository->find(1));
+        $defaultMedia = $this->mediaMapper->getMediaModel($this->mediaRepository->findOneByName('photo_default.webp'));
 
         foreach ($data['tricks'] as $trick) {
             if ($trick->getMedia() === null) {
@@ -79,9 +80,9 @@ class TrickService
      */
     public function getTrickDetails(string $slug): TrickDetails
     {
-        $trick = $this->trickRepository->findOneBySlug($slug);
+       $trick = $this->trickRepository->findOneBySlug($slug);
 
-        return $this->tricksMapper->getTrickDetails($trick);
+       return $this->tricksMapper->getTrickDetails($trick);
     }
 
     /**

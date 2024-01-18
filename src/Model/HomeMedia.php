@@ -25,12 +25,12 @@ class HomeMedia
      * Summary of function __construct
      *
      * @param int    $id        Id
-     * @param int    $typeMedia TypeMedia
+     * @param string    $typeMedia TypeMedia
      * @param string $name      Name
      */
     public function __construct(
         private int $id,
-        private int $typeMedia,
+        private string $typeMedia,
         private string $name
     ) { }
 
@@ -47,9 +47,9 @@ class HomeMedia
     /**
      * Summary of function getTypeMedia
      *
-     * @return int
+     * @return string
      */
-    public function getTypeMedia(): int
+    public function getTypeMedia(): string
     {
         return $this->typeMedia;
     }
@@ -57,11 +57,11 @@ class HomeMedia
     /**
      * Summary of function setTypeMedia
      *
-     * @param int $typeMedia TypeMedia
+     * @param string $typeMedia TypeMedia
      *
      * @return static
      */
-    public function setTypeMedia(int $typeMedia): static
+    public function setTypeMedia(string $typeMedia): static
     {
         $this->typeMedia = $typeMedia;
 

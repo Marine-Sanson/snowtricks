@@ -80,8 +80,7 @@ class UserService
         return $this->jWTService->generate(
             ['alg' => 'HS256', 'typ' => 'JWT'],
             $payload,
-            $this->params->get('app.jwtsecret'),
-            $userCreated->getId()
+            $this->params->get('app.jwtsecret')
         );
 
     }
@@ -134,7 +133,7 @@ class UserService
             'userId' => $user->getId()
         ];
 
-        return $this->jWTService->generate($header, $payload, $this->params->get('app.jwtsecret'), $user->getId());
+        return $this->jWTService->generate($header, $payload, $this->params->get('app.jwtsecret'));
     }
 
     /**

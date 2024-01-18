@@ -96,7 +96,7 @@ class AdminTricksController extends AbstractController
             }
 
             foreach ($images as $image) {
-                $mediaImg = $this->mediaService->addNewImage($image, 'tricks', 1);
+                $mediaImg = $this->mediaService->addNewImage($image, 'tricks', 'photo');
                 $trick->addMedium($mediaImg);
             }
 
@@ -152,7 +152,7 @@ class AdminTricksController extends AbstractController
             $images = $trickForm->get('images')->getData();
 
             foreach ($images as $image){
-                $mediaImg = $this->mediaService->addNewImage($image, 'tricks', 1);
+                $mediaImg = $this->mediaService->addNewImage($image, 'tricks', 'photo');
                 $trick->addMedium($mediaImg);
             }
 
@@ -229,7 +229,7 @@ class AdminTricksController extends AbstractController
         }
 
         $this->addFlash('danger', 'Un problème est survenu');
-        return $this->render('admin_tricks/index.html.twig');
+        return $this->render('home');
 
     }
 

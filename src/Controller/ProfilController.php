@@ -31,7 +31,7 @@ class ProfilController extends AbstractController
 
         $user = $this->userService->getUser($this->getUser()->getUserIdentifier());
         if ($user->getAvatar() === null){
-            $user->setAvatar($this->mediaService->getMedia(2));
+            $user->setAvatar($this->mediaService->getMediaByName('avatar_default.webp'));
         }
 
         return $this->render('/profil/index.html.twig', [
@@ -48,7 +48,7 @@ class ProfilController extends AbstractController
         $oldUserame = $user->getUsername();
         $oldEmail = $user->getUserIdentifier();
         $oldAvatar = $user->getAvatar();
-        $defaultAvatar =$this->mediaService->getMedia(10);
+        $defaultAvatar =$this->mediaService->getMediaByName('avatar_default.webp');
 
         if ($oldAvatar === null){
             $user->setAvatar($defaultAvatar);
@@ -94,7 +94,7 @@ class ProfilController extends AbstractController
             if ($avatar){
 
                 if (!$oldAvatar || $oldAvatar !== $avatar){
-                    $avatar = $this->mediaService->addNewImage($avatar, 'avatars', 3);
+                    $avatar = $this->mediaService->addNewImage($avatar, 'avatars', 'avatar');
                     $user->setAvatar($avatar);
                 }
                 if ($oldAvatar !== null && $oldAvatar->getName() !== $defaultAvatar->getName()) {

@@ -96,7 +96,7 @@ class Trick
      *
      * @var Collection
      */
-    #[ORM\ManyToMany(targetEntity: Media::class, inversedBy: 'tricks', cascade:['persist'])]
+    #[ORM\ManyToMany(targetEntity: Media::class, inversedBy: 'tricks', cascade:['persist'], fetch: 'EAGER')]
     private Collection $media;
 
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Comment::class, orphanRemoval: true)]
