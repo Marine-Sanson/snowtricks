@@ -13,10 +13,11 @@
         </div>
 
         <div class="card-deck row mx-auto showComp hideSmart" id="mediaToggle" data-target="#mediaToggle" >
+
             {% if trick.media %}
                 {% for oneMedia in trick.media|sort ((a, b) => a.typeMedia <=> b.typeMedia) %}
                     <div class="singleTrickMedias card mx-auto my-5 border-0" style="max-width: 18rem;">
-                        {% if oneMedia.typeMedia == 1 %}
+                        {% if oneMedia.typeMedia == 'photo' %}
                             <img class="card-img-top singleTrickMedia img-fluid" src="{{ asset('assets/img/uploads/tricks/') ~ oneMedia.name }}" class="singleTrickMedias my-3 mx-auto">
                             {% if app.user and app.user.isVerified == true %}
                                 <div class="d-flex justify-content-end">

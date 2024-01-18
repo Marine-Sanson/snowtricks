@@ -146,7 +146,7 @@ class TricksMapper
     {
         $homeMedia = null;
         for ($i = 0, $count = count($mediasModel); $i < $count; $i++) {
-            if ($mediasModel[$i]->getTypeMedia() === 1){
+            if ($mediasModel[$i]->getTypeMedia() === 'photo'){
                 $homeMedia = $mediasModel[$i];
                 if ($homeMedia !== null){
                     return $homeMedia;
@@ -154,7 +154,7 @@ class TricksMapper
             }   
         }
         if ($homeMedia === null){
-            $homeMedia = $this->mediaMapper->getMediaModel($this->mediaRepository->find(11));
+            $homeMedia = $this->mediaMapper->getMediaModel($this->mediaRepository->findOneByName('photo_default.webp'));
         }
         return $homeMedia;
     }

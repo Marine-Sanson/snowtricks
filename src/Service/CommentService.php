@@ -52,7 +52,7 @@ class CommentService
             if ($data !== []){
                 foreach($data['comments'] as $comment){
                     if($comment->getAuthor()->getAvatar() === null){
-                        $comment->getAuthor()->setAvatar($this->mediaRepository->find(10));
+                        $comment->getAuthor()->setAvatar($this->mediaRepository->findOneByName('avatar_default.webp'));
                     }
                 }
             }

@@ -51,7 +51,7 @@ class MediaService
      * 
      * @return Media
      */
-    public function addNewImage(Object $image, string $folder, int $typeMedia): Media
+    public function addNewImage(Object $image, string $folder, string $typeMedia): Media
     {
         $mediaImg = new Media();
         $mediaImg->setName($this->addImage($image, $folder));
@@ -175,7 +175,7 @@ class MediaService
     {
         $mediaVid = new Media();
         $mediaVid->setName('https://www.youtube.com/embed/' . substr($video, 0, 11));
-        $mediaVid->setTypeMedia($this->getTypeMedia(2));
+        $mediaVid->setTypeMedia($this->getTypeMedia('video'));
         $this->addVideo($mediaVid);
         return $mediaVid;
     }
@@ -187,9 +187,9 @@ class MediaService
      * 
      * @return TypeMedia
      */
-    public function getTypeMedia(int $id): TypeMedia
+    public function getTypeMedia(string $name): TypeMedia
     {
-        return $this->typeMediaRepository->findOneById($id);
+        return $this->typeMediaRepository->findOneByType($name);
     }
 
     /**
@@ -213,11 +213,11 @@ class MediaService
      */
     public function deleteMedia(Media $media): bool
     {
-        $typeMedia = $media->getTypeMedia()->getId();
+        $typeMedia = $media->getTypeMedia()->getType();
         return match ($typeMedia) {
-            1 => $this->deleteMediaImage($media, 'tricks'),
-            2 => $this->deleteMediaVideo($media),
-            3 => $this->deleteMediaImage($media, 'avatars'),
+            'photo' => $this->deleteMediaImage($media, 'tricks'),
+            'video' => $this->deleteMediaVideo($media),
+            'avatar' => $this->deleteMediaImage($media, 'avatars'),
         };
     }
 
@@ -254,6 +254,11 @@ class MediaService
     public function getMedia(int $id): Media
     {
         return $this->mediaRepository->findOneById($id);
+    }
+
+    public function getMediaByName(string $name): Media
+    {
+        return $this->mediaRepository->findOneByName($name);
     }
 
 }
