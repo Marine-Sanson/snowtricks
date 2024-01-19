@@ -10,11 +10,11 @@ class CommentModel
 {
     private readonly ?int $id;
 
-    private ?string $content;
-
     private ?Trick $trick;
 
     private ?User $author;
+
+    private ?string $content;
 
     private ?DateTimeImmutable $updatedAt;
     
@@ -28,30 +28,6 @@ class CommentModel
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * Summary of function getContent
-     *
-     * @return string|null
-     */
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    /**
-     * Summary of function setContent
-     *
-     * @param string|null $content Content
-     *
-     * @return static
-     */
-    public function setContent(?string $content): static
-    {
-        $this->content = $content;
-
-        return $this;
     }
 
     /**
@@ -98,6 +74,30 @@ class CommentModel
     public function setAuthor(?User $author): static
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+        /**
+     * Summary of function getContent
+     *
+     * @return string|null
+     */
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    /**
+     * Summary of function setContent
+     *
+     * @param string|null $content Content
+     *
+     * @return static
+     */
+    public function setContent(?string $content): static
+    {
+        $this->content = $content;
 
         return $this;
     }
