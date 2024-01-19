@@ -1,6 +1,6 @@
 {% if pages >1 %}
-    <nav>
-        <ul class="pagination">
+    <nav class="d-flex mx-auto">
+        <ul class="pagination d-flex mx-auto my-3">
             {% if currentPage > 1 %}
                 <li class="page-item">
                     <a href="{{ path(path, {slug: slug, separator: separator, page: currentPage - 1})}}" class="page-link">&lt;</a>

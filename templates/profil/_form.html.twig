@@ -3,7 +3,7 @@
     {{ form_start(profilForm) }}
 
     <div class="row">
-        <div class="col-3">
+        <div class="col-lg-3 mt-5 mt-lg-0">
             <div class="container mb-3">
                 <h3 class="text-center h6">Photo actuelle
                     {% if user.avatar.name == "avatar_default.jpg" %}
@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <div class="col-9 my-auto">
+        <div class="col-lg-9 my-auto">
             {{ form_row(profilForm.username) }}
             {{ form_row(profilForm.email) }}
             {{ form_row(profilForm.avatar) }}

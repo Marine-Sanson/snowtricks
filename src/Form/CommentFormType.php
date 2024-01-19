@@ -17,7 +17,7 @@ class CommentFormType extends AbstractType
         $builder
             ->add('content', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control w-75 m-auto'
+                    'class' => 'form-control w-lg-75 m-auto'
                 ],
                 'label' => 'Laisse un commentaire :'
             ])
