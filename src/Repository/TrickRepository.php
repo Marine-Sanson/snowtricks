@@ -51,7 +51,7 @@ class TrickRepository extends ServiceEntityRepository
      * 
      * @return array
      */
-    public function findTricksPaginated(int $page, int $limit = 4): array
+    public function findTricksPaginated(int $page, int $limit=4): array
     {
         $limit = abs($limit);
 

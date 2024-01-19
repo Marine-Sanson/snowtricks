@@ -15,22 +15,47 @@ class Comment
 {
     use CreatedAtTrait;
 
+    /**
+     * Summary of id
+     *
+     * @var int|null
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    /**
+     * Summary of content
+     *
+     * @var string
+     */
     #[ORM\Column(type: Types::TEXT)]
     private string $content;
 
+    /**
+     * Summary of trick
+     *
+     * @var Trick
+     */
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Trick $trick;
 
+    /**
+     * Summary of author
+     *
+     * @var User
+     */
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
     private User $author;
 
+    /**
+     * Summary of updatedAt
+     *
+     * @var DateTimeImmutable|null
+     */
     #[ORM\Column]
     private ?DateTimeImmutable $updatedAt = null;
 

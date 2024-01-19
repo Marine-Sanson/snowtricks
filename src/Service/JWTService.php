@@ -33,7 +33,7 @@ class JWTService
      * 
      * @return string
      */
-    public function generate(array $header, array $payload, string $secret, int $validity = 10800): string
+    public function generate(array $header, array $payload, string $secret, int $validity=10800): string
     {
         if($validity > 0){
             $now = new DateTimeImmutable();
@@ -51,13 +51,13 @@ class JWTService
 
         $secret = base64_encode($secret);
 
-        $signature = hash_hmac('sha256', $base64Header . '.' . $base64Payload, $secret, true);
+        $signature = hash_hmac('sha256', $base64Header.'.'.$base64Payload, $secret, true);
 
         $base64Signature = base64_encode($signature);
 
         $base64Signature = str_replace(['+', '/', '='], ['-', '_', ''], $base64Signature);
 
-        $jwt = $base64Header . '.' . $base64Payload . '.' . $base64Signature;
+        $jwt = $base64Header.'.'.$base64Payload.'.'.$base64Signature;
 
         return $jwt;
     }

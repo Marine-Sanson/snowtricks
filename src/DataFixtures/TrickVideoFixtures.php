@@ -22,7 +22,7 @@ class TrickVideoFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         for ($i = 0; $i < 19; $i++){
-            $trick = $this->getReference('trick' . $i);
+            $trick = $this->getReference('trick'.$i);
             for ($j = 0; $j < mt_rand(0, 4); $j++) {
                 $date = $this->fixturesService->generateCreatedAt();
 

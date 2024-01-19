@@ -22,11 +22,11 @@ class TrickMediaFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         for ($i = 0; $i < 19; $i++){
-            $trick = $this->getReference('trick' . $i);
+            $trick = $this->getReference('trick'.$i);
             for ($j = 0; $j < mt_rand(0, 12); $j++) {
                 $date = $this->fixturesService->generateCreatedAt();
 
-                $mediaName = 'photo-' . mt_rand(1, 28) . '.webp';
+                $mediaName = 'photo-'.mt_rand(1, 28).'.webp';
     
                 $media = (new Media())
                     ->setTypeMedia($this->typeMediaRepository->findOneByType('photo'))

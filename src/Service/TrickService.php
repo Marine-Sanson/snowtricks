@@ -41,11 +41,11 @@ class TrickService
      */
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly TrickRepository        $trickRepository,
-        private readonly MediaRepository        $mediaRepository,
-        private readonly TricksMapper           $tricksMapper,
-        private readonly MediaMapper            $mediaMapper
-        ) { }
+        private readonly TrickRepository $trickRepository,
+        private readonly MediaRepository $mediaRepository,
+        private readonly TricksMapper $tricksMapper,
+        private readonly MediaMapper $mediaMapper
+    ) { }
 
     /**
      * Summary of getPaginatedHomeTricks
@@ -95,10 +95,13 @@ class TrickService
     public function isTrickNameKnown(string $trickName): bool
     {
         $knownTrick = $this->trickRepository->findOneByName($trickName);
+
         if($knownTrick){
             return true;
         }
+
         return false;
+
     }
 
     /**

@@ -44,11 +44,12 @@ class CommentService
         private readonly UserRepository $userRepository,
         private readonly CommentMapper $commentMapper,
         private readonly MediaRepository $mediaRepository,
-        ) { }
+    ) { }
 
         public function getPaginatedTrickComments(TrickDetails $trick, int $page, int $limit): array
         {
             $data = $this->commentRepository->findCommentsPaginatedByTrick($trick->getId(), $page, $limit);
+
             if ($data !== []){
                 foreach($data['comments'] as $comment){
                     if($comment->getAuthor()->getAvatar() === null){
@@ -56,6 +57,7 @@ class CommentService
                     }
                 }
             }
+
             return $data;
         }
 

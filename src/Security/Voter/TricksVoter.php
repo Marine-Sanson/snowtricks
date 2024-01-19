@@ -46,7 +46,8 @@ class TricksVoter extends Voter
      *
      * @param Security $security Security
      */
-    public function __construct(private Security $security) {}
+    public function __construct(private Security $security)
+    { }
 
     /**
      * Summary of authenticate
@@ -58,12 +59,12 @@ class TricksVoter extends Voter
      */
     protected function supports(string $attribute, mixed $trick): bool
     {
-        // if the attribute isn't one we support, return false
+        // If the attribute isn't one we support, return false.
         if (!in_array($attribute, [self::EDIT, self::DELETE])) {
             return false;
         }
 
-        // only vote on `Post` objects
+        // Only vote on `Post` objects.
         if (!$trick instanceof Trick) {
             return false;
         }
@@ -85,7 +86,7 @@ class TricksVoter extends Voter
         $user = $token->getUser();
 
         if (!$user instanceof User) {
-            // the user must be logged in; if not, deny access
+            // The user must be logged in; if not, deny access.
             return false;
         }
 
@@ -122,7 +123,6 @@ class TricksVoter extends Voter
      * @return bool
      */
     private function canDelete(Trick $trick, User $user): bool
-
     {
         return $this->security->isGranted('ROLE_ADMIN');
     }

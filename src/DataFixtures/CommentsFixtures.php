@@ -22,13 +22,13 @@ class CommentsFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         for ($i = 0; $i < 19; $i++){
-            $trick = $this->getReference('trick' . $i);
+            $trick = $this->getReference('trick'.$i);
             for ($j = 0; $j < mt_rand(8, 19); $j++) {
                 $date = $this->fixturesService->generateCreatedAt();
                 $x = mt_rand(0, 14);
                 $comment = (new Comment())
                     ->setContent($this->fixturesService->faker->paragraphs(mt_rand(1, 3), true))
-                    ->setAuthor($this->getReference('user' . $x))
+                    ->setAuthor($this->getReference('user'.$x))
                     ->setCreatedAt($date)
                     ->setUpdatedAt($this->fixturesService->generateUpdatedAt($date))
                     ->setTrick($trick)

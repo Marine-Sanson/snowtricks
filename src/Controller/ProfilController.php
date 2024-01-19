@@ -48,7 +48,7 @@ class ProfilController extends AbstractController
         $oldUserame = $user->getUsername();
         $oldEmail = $user->getUserIdentifier();
         $oldAvatar = $user->getAvatar();
-        $defaultAvatar =$this->mediaService->getMediaByName('avatar_default.webp');
+        $defaultAvatar = $this->mediaService->getMediaByName('avatar_default.webp');
 
         if ($oldAvatar === null){
             $user->setAvatar($defaultAvatar);
@@ -58,7 +58,6 @@ class ProfilController extends AbstractController
         $profilForm->handleRequest($request);
 
         if($profilForm->isSubmitted() && $profilForm->isValid()){
-
             $user->setUpdatedAt(new DateTimeImmutable());
 
             $username = $profilForm->get('username')->getData();
@@ -92,15 +91,14 @@ class ProfilController extends AbstractController
             }//end if
 
             if ($avatar){
-
                 if (!$oldAvatar || $oldAvatar !== $avatar){
                     $avatar = $this->mediaService->addNewImage($avatar, 'avatars', 'avatar');
                     $user->setAvatar($avatar);
                 }
+
                 if ($oldAvatar !== null && $oldAvatar->getName() !== $defaultAvatar->getName()) {
                     $this->mediaService->deleteMediaImage($oldAvatar, 'avatars');
                 }
-
             }
 
             $user = $this->userService->saveUser($user);
@@ -109,7 +107,7 @@ class ProfilController extends AbstractController
             return $this->render('profil/index.html.twig', [
                 'user' => $user
             ]);
-        }
+        }//end if
 
         return $this->render('profil/edit.html.twig', [
             'profilForm' => $profilForm->createView(),

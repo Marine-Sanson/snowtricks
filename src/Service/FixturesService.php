@@ -27,6 +27,11 @@ use DateTimeImmutable;
 class FixturesService
 {
 
+    /**
+     * Summary of faker
+     *
+     * @var Generator
+     */
     public Generator $faker;
 
     /**
@@ -34,7 +39,8 @@ class FixturesService
      *
      * @param 
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->faker = Factory::create();
     }
 

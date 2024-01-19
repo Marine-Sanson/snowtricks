@@ -38,9 +38,9 @@ class MediaService
      */
     public function __construct(
         private readonly ParameterBagInterface $params,
-        private readonly MediaRepository       $mediaRepository,
-        private readonly TypeMediaRepository   $typeMediaRepository
-        ) {}
+        private readonly MediaRepository $mediaRepository,
+        private readonly TypeMediaRepository $typeMediaRepository
+    ) {}
 
     /**
      * Summary of addNewImage
@@ -69,9 +69,9 @@ class MediaService
      * 
      * @return string
      */
-    public function addImage(UploadedFile $image, ?string $folder = '', ?int $width = 300, ?int $height = 300): string
+    public function addImage(UploadedFile $image, ?string $folder='', ?int $width=300, ?int $height=300): string
     {
-        $file = md5(uniqid(rand(), true)) . '.webp';
+        $file = md5(uniqid(rand(), true)).'.webp';
         $imageInfos = getimagesize($image);
         if ($imageInfos === false){
             throw new Exception('Format d\'image incorrect');
@@ -105,15 +105,15 @@ class MediaService
         $resizedImage = imagecreatetruecolor($width, $height);
         imagecopyresampled($resizedImage, $imageSource, 0, 0, $srcX, $srcY, $width, $height, $squareSize, $squareSize);
 
-        $path = $this->params->get('images_directory') . $folder;
+        $path = $this->params->get('images_directory').$folder;
 
-        if(!file_exists($path . '/mini/')){
-            mkdir($path . '/mini/', 0755, true);
+        if(!file_exists($path.'/mini/')){
+            mkdir($path.'/mini/', 0755, true);
         }
 
-        imagewebp($resizedImage, $path . '/mini/' . $width . 'x' . $height . '-' . $file);
+        imagewebp($resizedImage, $path.'/mini/'.$width.'x'.$height.'-'.$file);
 
-        $image->move($path . '/', $file);
+        $image->move($path.'/', $file);
 
         return $file;
     }
@@ -128,28 +128,30 @@ class MediaService
      * 
      * @return bool
      */
-    public function deleteImage(string $file, ?string $folder = '', ?int $width = 300, ?int $height = 300): bool
+    public function deleteImage(string $file, ?string $folder='', ?int $width=300, ?int $height=300): bool
     {
         $success = false;
 
         if($file !== 'photo_default.jpg'){
-            $path = $this->params->get('images_directory') . $folder;
+            $path = $this->params->get('images_directory').$folder;
 
-            $mini = $path . '/mini/' . $width . 'x' . $height . '-' . $file;
+            $mini = $path.'/mini/'.$width.'x'.$height.'-'.$file;
 
             if(file_exists($mini)){
                 unlink($mini);
                 $success = true;
             }
 
-            $original = $path . '/' . $file;
+            $original = $path.'/'.$file;
 
             if(file_exists($original)){
                 unlink($original);
                 $success = true;
             }
         }
+
         return $success;
+
     }
 
     /**
@@ -174,7 +176,7 @@ class MediaService
     public function addNewVideo(string $video): Media
     {
         $mediaVid = new Media();
-        $mediaVid->setName('https://www.youtube.com/embed/' . substr($video, 0, 11));
+        $mediaVid->setName('https://www.youtube.com/embed/'.substr($video, 0, 11));
         $mediaVid->setTypeMedia($this->getTypeMedia('video'));
         $this->addVideo($mediaVid);
         return $mediaVid;

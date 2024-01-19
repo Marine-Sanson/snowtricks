@@ -43,12 +43,12 @@ class UserService
      * @param ParameterBagInterface       $params             ParameterBagInterface
      */
     public function __construct(
-        private readonly JWTService                  $jWTService,
-        private readonly UserRepository              $userRepository,
-        private readonly EntityManagerInterface      $entityManager,
+        private readonly JWTService $jWTService,
+        private readonly UserRepository $userRepository,
+        private readonly EntityManagerInterface $entityManager,
         private readonly UserPasswordHasherInterface $userPasswordHasher,
-        private readonly TokenGeneratorInterface     $tokenGenerator,
-        private readonly ParameterBagInterface       $params,
+        private readonly TokenGeneratorInterface $tokenGenerator,
+        private readonly ParameterBagInterface $params,
     ) {}
 
     /**
@@ -158,10 +158,13 @@ class UserService
     public function isUserKnown(string $email): ?UserModel
     {
         $user = $this->userRepository->findOneByEmail($email);
+
         if (!$user){
             return null;
         }
+
         return $this->getUserModel($user);
+
     }
 
     /**

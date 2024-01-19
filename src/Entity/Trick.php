@@ -320,7 +320,7 @@ class Trick
     public function removeComment(Comment $comment): static
     {
         if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
+            // Set the owning side to null (unless already changed).
             if ($comment->getTrick() === $this) {
                 $comment->setTrick($this);
             }

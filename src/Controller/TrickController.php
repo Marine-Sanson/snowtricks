@@ -42,8 +42,7 @@ class TrickController extends AbstractController
         private readonly TrickService $trickService,
         private readonly CommentService $commentService,
         private readonly UserService $userService,
-        )
-    { }
+    ) { }
 
     /**
      * Summary of function show

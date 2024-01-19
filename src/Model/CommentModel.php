@@ -9,17 +9,40 @@ use DateTimeImmutable;
 class CommentModel
 {
 
+    /**
+     * Summary of id
+     *
+     * @var int|null
+     */
     private readonly ?int $id;
 
+    /**
+     * Summary of trick
+     *
+     * @var Trick|null
+     */
     private ?Trick $trick;
 
+    /**
+     * Summary of author
+     *
+     * @var User|null
+     */
     private ?User $author;
 
+    /**
+     * Summary of content
+     *
+     * @var string|null
+     */
     private ?string $content;
 
+    /**
+     * Summary of updatedAt
+     *
+     * @var DateTimeImmutable|null
+     */
     private ?DateTimeImmutable $updatedAt;
-    
-    public function __construct(){}
     
     /**
      * Summary of function getId

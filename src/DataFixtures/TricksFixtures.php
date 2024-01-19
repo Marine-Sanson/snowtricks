@@ -38,10 +38,10 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
             for ($j = 1; $j < mt_rand(1, 3); $j++)
             {
                 $k = mt_rand(1, 5);
-                $trick->addTrickGroup($this->getReference('group' . $k));
+                $trick->addTrickGroup($this->getReference('group'.$k));
             }
 
-            $ref = 'trick' . $i;
+            $ref = 'trick'.$i;
             $this->addReference($ref, $trick);
 
             $manager->persist($trick);

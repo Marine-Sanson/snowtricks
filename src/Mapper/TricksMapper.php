@@ -40,8 +40,7 @@ class TricksMapper
         private readonly MediaMapper $mediaMapper,
         private readonly GroupMapper $groupMapper,
         private readonly MediaRepository $mediaRepository,
-        )
-    { }
+    ) { }
 
     /**
      * Summary of transformToHomeTricks
@@ -146,16 +145,22 @@ class TricksMapper
     {
         $homeMedia = null;
         for ($i = 0, $count = count($mediasModel); $i < $count; $i++) {
+
             if ($mediasModel[$i]->getTypeMedia() === 'photo'){
                 $homeMedia = $mediasModel[$i];
+
                 if ($homeMedia !== null){
                     return $homeMedia;
                 }
+
             }   
+
         }
+
         if ($homeMedia === null){
             $homeMedia = $this->mediaMapper->getMediaModel($this->mediaRepository->findOneByName('photo_default.webp'));
         }
+
         return $homeMedia;
     }
 

@@ -38,7 +38,7 @@ class TrickDetails
      * @param array             $media       Media
      * @param HomeMedia         $mainMedia   HomeMedia
      */
-        public function __construct(
+    public function __construct(
         private readonly int $id,
         private readonly string $name,
         private readonly string $description,

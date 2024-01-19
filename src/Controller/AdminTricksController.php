@@ -158,8 +158,7 @@ class AdminTricksController extends AbstractController
 
             $videos = $trickForm->get('videos')->getData();
             if (preg_match_all('/(https?:\/\/www\.youtube\.com\/watch\?v=)([a-zA-Z0-9-_\.\/\?=&]+)/', $videos, $matches)) {
-
-                foreach( $matches[2] as $video) {
+                foreach ($matches[2] as $video) {
                     $mediaVid = $this->mediaService->addNewVideo($video);
                     $trick->addMedium($mediaVid);
                 }
@@ -169,7 +168,7 @@ class AdminTricksController extends AbstractController
 
             $this->addFlash('success', 'Trick modifié avec succes');
             return $this->redirectToRoute('home');
-        }
+        }//end if
 
         return $this->render(
             'trick/edit.html.twig', [

@@ -29,10 +29,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     {
 
         for ($i = 0; $i < 15; $i++) {
-
             $date = $this->fixturesService->generateCreatedAt();
 
-            $mediaName = 'avatar-' . mt_rand(1, 16) . '.webp';
+            $mediaName = 'avatar-'.mt_rand(1, 16).'.webp';
             $media = (new Media())
                 ->setTypeMedia($this->typeMediaRepository->findOneByType('avatar'))
                 ->setName($mediaName)
@@ -45,6 +44,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $date = $this->fixturesService->generateCreatedAt();
             $role = ["ROLE_USER"];
             $x = mt_rand(0, 9);
+
             if ($x === 7) {
                 $role = ["ROLE_ADMIN"];
             }
@@ -62,7 +62,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $password = $this->userPasswordHasher->hashPassword($user, 'mdpass');
             $user->setPassword($password);
             
-            $ref = 'user' . $i;
+            $ref = 'user'.$i;
             $this->addReference($ref, $user);
 
             $manager->persist($user);
