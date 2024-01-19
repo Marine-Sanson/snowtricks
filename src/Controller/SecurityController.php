@@ -94,7 +94,6 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-
             $userKnown = $this->userService->isUserKnown($form->get('email')->getData());
 
             if($userKnown !== null){
@@ -117,8 +116,7 @@ class SecurityController extends AbstractController
             }
             $this->addFlash('danger', 'Cette adresse mail est inconnue');
             return $this->redirectToRoute('app_login');
-
-        }
+        }//end if
 
         return $this->render('security/reset_password_request.html.twig', [
             'requestPassForm' => $form->createView()

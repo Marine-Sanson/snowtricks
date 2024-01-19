@@ -64,7 +64,6 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $userRegister = new UserRegister($form->get('username')->getData(), $form->get('email')->getData(), $form->get('plainPassword')->getData());
 
             $token = $this->userService->register($userRegister);
@@ -82,8 +81,7 @@ class RegistrationController extends AbstractController
 
             $this->addFlash('warning', 'Vérifiez vos emails pour valider votre compte');
             return $this->redirectToRoute('home');
-
-        }
+        }//end if
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),

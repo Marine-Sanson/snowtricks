@@ -83,7 +83,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'attr' => [
                     'autocomplete' => 'new-password',
-                    'class' =>  'form-control mb-3'
+                    'class' => 'form-control mb-3'
                 ],
                 'constraints' => [
                     new NotBlank([

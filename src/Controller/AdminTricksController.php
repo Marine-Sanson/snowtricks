@@ -116,7 +116,7 @@ class AdminTricksController extends AbstractController
 
             $this->addFlash('success', 'Trick ajouté avec succes');
             return $this->redirectToRoute('home');
-        }
+        }//end if
 
         return $this->render(
             'trick/add.html.twig', [

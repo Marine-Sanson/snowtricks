@@ -8,6 +8,7 @@ use DateTimeImmutable;
 
 class CommentModel
 {
+
     private readonly ?int $id;
 
     private ?Trick $trick;
@@ -78,7 +79,7 @@ class CommentModel
         return $this;
     }
 
-        /**
+    /**
      * Summary of function getContent
      *
      * @return string|null

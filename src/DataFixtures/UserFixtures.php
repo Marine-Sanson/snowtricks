@@ -16,8 +16,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserFixtures extends Fixture implements DependentFixtureInterface
 {
     /**
-    * @param UserPasswordHasherInterface $userPasswordHasher UserPasswordHasherInterface
-    */
+     * @param UserPasswordHasherInterface $userPasswordHasher UserPasswordHasherInterface
+     */
    public function __construct(
        private readonly UserPasswordHasherInterface $userPasswordHasher,
        private readonly MediaRepository $mediaRepository,
@@ -27,6 +27,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
+
         for ($i = 0; $i < 15; $i++) {
 
             $date = $this->fixturesService->generateCreatedAt();
@@ -66,8 +67,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
             $manager->persist($user);
             $manager->flush();
+        }//end for
 
-        }
     }
 
     public function getDependencies()

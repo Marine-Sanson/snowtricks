@@ -94,11 +94,11 @@ class MediaService
 
         $srcX = match(true){
             $imageWidth <= $imageHeight => 0,
-            $imageWidth > $imageHeight => ($imageWidth - $squareSize) / 2,
+            $imageWidth > $imageHeight => (($imageWidth - $squareSize) / 2),
         };
 
         $srcY = match(true){
-            $imageWidth < $imageHeight => ($imageHeight - $squareSize) / 2,
+            $imageWidth < $imageHeight => (($imageHeight - $squareSize) / 2),
             $imageWidth >= $imageHeight => 0,
         };
 

@@ -69,12 +69,12 @@ class TricksMapper
      */
     public function getHomeTrick(Trick $trick): HomeTrick
     {
+        $media = null;
+
         $allMedias = $trick->getMedia();
 
         if ($allMedias[0] !== null) {
             $media = $this->mediaMapper->getMediaModel($allMedias[0]);
-        } else {
-            $media = null;
         }
 
         return new HomeTrick(

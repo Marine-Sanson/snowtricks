@@ -23,6 +23,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
+
         for ($i = 0; $i < 19; $i++) {
             $date = $this->fixturesService->generateCreatedAt();
             $trickName = $this->fixturesService->faker->words(mt_rand(1, 3), true);
@@ -45,7 +46,8 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
 
             $manager->persist($trick);
             $manager->flush();
-        }
+        }//end for
+
     }
 
     public function getDependencies()

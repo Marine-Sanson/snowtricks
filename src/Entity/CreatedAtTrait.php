@@ -22,8 +22,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  */
-trait CreatedAtTrait 
+trait CreatedAtTrait
 {
+
     /**
      * Summary of $createdAt
      *

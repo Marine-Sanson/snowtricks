@@ -26,6 +26,7 @@ use DateTimeImmutable;
  */
 class FixturesService
 {
+
     public Generator $faker;
 
     /**
