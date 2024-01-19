@@ -43,6 +43,10 @@ button{
     width:auto;
 }
 
+.justify{
+    text-align: justify;
+}
+
 @media (max-width: 576px)
 {
     #singleTrick{

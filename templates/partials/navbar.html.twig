@@ -13,12 +13,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('app_admin_tricks_add') }}">Nouveau trick</a>
                             </li>
-                        {% endif %}
-                    </ul>
-                </div>
-                <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarColor02">
-                    <ul class="navbar-nav">
-                        {% if app.user %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('app_admin_profil_index') }}">Profil</a>
                             </li>
@@ -35,5 +29,6 @@
                         {% endif %}
                     </ul>
                 </div>
+
             </div>
         </nav>

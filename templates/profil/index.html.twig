@@ -4,17 +4,17 @@
 
 {% block body %}
 <section class="container mainSection">
-    <div class="example-wrapper">
+    <div>
         <h1 class="mt-5 text-center">Hello {{ user.username|capitalize }}, voici ton profil !</h1>
         <p class="mt-3 mb-5 text-center fs-4">Ici tu peux modifier tes informations</p>
     </div>
 
     <div class="row mt-5 ">
-        <div class="offset-1 col-4 offset-1 m-auto">
-            <img class="row mx-auto w-75 rounded" src="{{ asset('assets/img/uploads/avatars/') ~ user.avatar.name }}" alt="Photo d'illustration">
+        <div class="d-flex offset-lg-1 col-lg-4 offset-lg-1 mx-auto my-3">
+            <img class="m-auto w-75 rounded" src="{{ asset('assets/img/uploads/avatars/') ~ user.avatar.name }}" alt="Photo d'illustration">
         </div>
 
-        <div class="offset-1 col-4 offset-1 m-auto">
+        <div class="d-flex offset-lg-1 col-lg-4 offset-lg-1 mx-auto my-3">
 
             <ul class="list-group mx-auto w-75">
                 <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center">
