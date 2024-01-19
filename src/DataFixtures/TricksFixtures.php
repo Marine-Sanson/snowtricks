@@ -46,7 +46,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
 
             $manager->persist($trick);
             $manager->flush();
-        }//end for
+        } //end for
 
     }
 

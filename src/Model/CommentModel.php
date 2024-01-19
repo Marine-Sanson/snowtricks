@@ -12,7 +12,7 @@ class CommentModel
     /**
      * Summary of id
      *
-     * @var int|null
+     * @var integer|null
      */
     private readonly ?int $id;
 

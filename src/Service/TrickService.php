@@ -128,6 +128,7 @@ class TrickService
         if($this->trickRepository->findOneById($trick->getId()) === null){
             return false;
         }
+
         $this->trickRepository->delete($trick);
         return true;
     }

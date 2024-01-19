@@ -81,7 +81,7 @@ class RegistrationController extends AbstractController
 
             $this->addFlash('warning', 'Vérifiez vos emails pour valider votre compte');
             return $this->redirectToRoute('home');
-        }//end if
+        } //end if
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
@@ -124,6 +124,7 @@ class RegistrationController extends AbstractController
             $this->addFlash('warning', 'Cet utilisateur est déjà activé');
             return $this->redirectToRoute('app_login');
         }
+
         $this->addFlash('danger', 'Le token est invalid ou a expiré');
         return $this->redirectToRoute('app_login');
     }

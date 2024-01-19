@@ -144,8 +144,8 @@ class TricksMapper
     public function getMainMedia($mediasModel): HomeMedia
     {
         $homeMedia = null;
-        for ($i = 0, $count = count($mediasModel); $i < $count; $i++) {
 
+        for ($i = 0, $count = count($mediasModel); $i < $count; $i++) {
             if ($mediasModel[$i]->getTypeMedia() === 'photo'){
                 $homeMedia = $mediasModel[$i];
 
@@ -153,8 +153,7 @@ class TricksMapper
                     return $homeMedia;
                 }
 
-            }   
-
+            }
         }
 
         if ($homeMedia === null){

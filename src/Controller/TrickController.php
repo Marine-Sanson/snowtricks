@@ -95,7 +95,7 @@ class TrickController extends AbstractController
                 'page' => $dataPaginated['page'],
                 'limit' => $dataPaginated['limit'],
             ]);
-        }//end if
+        } //end if
 
         return $this->render('trick/trick.html.twig', [
             'trick' => $trick,

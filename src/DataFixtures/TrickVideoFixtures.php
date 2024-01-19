@@ -47,7 +47,7 @@ class TrickVideoFixtures extends Fixture implements DependentFixtureInterface
                 $manager->persist($trick);
                 $manager->flush();
             }
-        }//end for
+        } //end for
 
     }
 

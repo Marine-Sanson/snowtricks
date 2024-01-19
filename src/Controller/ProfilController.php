@@ -88,7 +88,7 @@ class ProfilController extends AbstractController
 
                 $this->addFlash('success', 'Email de vérification envoyé');
                 return $this->redirectToRoute('app_login');
-            }//end if
+            } //end if
 
             if ($avatar){
                 if (!$oldAvatar || $oldAvatar !== $avatar){
@@ -107,7 +107,7 @@ class ProfilController extends AbstractController
             return $this->render('profil/index.html.twig', [
                 'user' => $user
             ]);
-        }//end if
+        } //end if
 
         return $this->render('profil/edit.html.twig', [
             'profilForm' => $profilForm->createView(),

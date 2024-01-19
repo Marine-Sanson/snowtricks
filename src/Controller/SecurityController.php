@@ -116,7 +116,7 @@ class SecurityController extends AbstractController
 
             $this->addFlash('danger', 'Cette adresse mail est inconnue');
             return $this->redirectToRoute('app_login');
-        }//end if
+        } //end if
 
         return $this->render('security/reset_password_request.html.twig', [
             'requestPassForm' => $form->createView()
@@ -154,6 +154,7 @@ class SecurityController extends AbstractController
                 'passForm' => $form->createView()
             ]);
         }
+
         $this->addFlash('danger', 'Jeton invalide');
         return $this->redirectToRoute('app_login');
     }

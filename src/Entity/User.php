@@ -104,11 +104,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?DateTimeImmutable $updatedAt = null;
 
+    /**
+     * Summary of avatar
+     *
+     * @var Media|null
+     */
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Media $avatar = null;
 
+    /**
+     * Summary of comments
+     *
+     * @var Collection|null
+     */
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Comment::class, orphanRemoval: true)]
-    private Collection $comments;
+    private ?Collection $comments;
 
     public function __construct()
     {
