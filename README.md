@@ -15,11 +15,11 @@ Project for OpenClasssrooms : develop a website using Symfony
 
 ### Main language :
 
-<img src="https://img.shields.io/badge/symfony-6.4-%25%23000000%3F?logo=symfony" alt="Static Badge">
+<img src="https://img.shields.io/badge/php-8.3.1-%23777BB4?logo=php" alt="php banner"> <img src="https://img.shields.io/badge/symfony-6.4-%25%23000000%3F?logo=symfony" alt="Static Badge">
 
-<img src="https://img.shields.io/badge/php-8.3.1-%23777BB4?logo=php" alt="php banner">
 
-For this project I used Symfony.
+
+For this project I used the framework Symfony.
 I have made all the project in MVC advanced pattern.
 
 
@@ -39,10 +39,10 @@ For the database I use MySQL with HeidiSQL because they are in my development se
 
 ### Tools :
 
-<img src="https://img.shields.io/badge/Composer-2.4.1-%23885630?logo=composer" alt="composer banner"> <img src="https://img.shields.io/badge/fakerPHP-1.23.1-%23000000"  alt="fakerPHP banner"> <img src="https://img.shields.io/badge/Tools-GitHub-%23181717?logo=github" alt="GitHub banner"> <img src="https://img.shields.io/badge/fork-1.92.0.0-%2300AFF0" alt="Fork banner"> 
+<img src="https://img.shields.io/badge/Composer-2.6.5-%23885630?logo=composer" alt="composer banner"> <img src="https://img.shields.io/badge/fakerPHP-1.23.1-%23000000"  alt="fakerPHP banner"> <img src="https://img.shields.io/badge/Tools-GitHub-%23181717?logo=github" alt="GitHub banner"> <img src="https://img.shields.io/badge/fork-1.92.0.0-%2300AFF0" alt="Fork banner"> 
 
 
-To generate the fixtures I used <a href="https://fakerphp.github.io/">Fakerphp v1.23.1</a>
+To generate the fixtures I used <a href="https://fakerphp.github.io/">Fakerphp</a>
 
 This project is avaliable on <a href="https://github.com/">GitHub</a>, and received a **A** notation in <a href="https://www.codacy.com/">Codacy</a> ! Vous pouvez voir la dernière annalyse ici : <a href="https://app.codacy.com/gh/Marine-Sanson/ocprojet5/dashboard">https://app.codacy.com/gh/Marine-Sanson/ocprojet5/dashboard</a>
 
