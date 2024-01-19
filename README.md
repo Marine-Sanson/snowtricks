@@ -44,10 +44,10 @@ For the database I use MySQL with HeidiSQL because they are in my development se
 
 To generate the fixtures I used <a href="https://fakerphp.github.io/">Fakerphp</a>
 
-This project is avaliable on <a href="https://github.com/">GitHub</a>, and received a **A** notation in <a href="https://www.codacy.com/">Codacy</a> ! Vous pouvez voir la dernière annalyse ici : <a href="https://app.codacy.com/gh/Marine-Sanson/snowtricks/dashboard">https://app.codacy.com/gh/Marine-Sanson/ocprojet5/dashboard</a>
+This project is avaliable on <a href="https://github.com/">GitHub</a>, and received a **Silver medal** in <a href="https://insight.symfony.com/">SymfonyInsight</a> ! You can see <a href="https://insight.symfony.com/projects/229e245e-bc90-4871-97cb-374f6bca10ee">the last analyse here.</a>
 
 <div align="center">
-    <img src="https://img.shields.io/codacy/grade/591cf51d80244641be9c2514f607a6ce" alt="code quality from Codacy">
+    <img src="https://insight.symfony.com/projects/229e245e-bc90-4871-97cb-374f6bca10ee/small.svg" alt="code quality from Codacy">
     <br>
 </div>
 
