@@ -44,7 +44,7 @@ For the database I use MySQL with HeidiSQL because they are in my development se
 
 To generate the fixtures I used <a href="https://fakerphp.github.io/">Fakerphp</a>
 
-This project is avaliable on <a href="https://github.com/">GitHub</a>, and received a **Silver medal** in <a href="https://insight.symfony.com/">SymfonyInsight</a> ! You can see <a href="https://insight.symfony.com/projects/229e245e-bc90-4871-97cb-374f6bca10ee">the last analyse here.</a>
+This project is avaliable on <a href="https://github.com/">GitHub</a>, and received a **Platinum medal** in <a href="https://insight.symfony.com/">SymfonyInsight</a> ! You can see <a href="https://insight.symfony.com/projects/229e245e-bc90-4871-97cb-374f6bca10ee">the last analyse here.</a>
 
 <div align="center">
     <img src="https://insight.symfony.com/projects/229e245e-bc90-4871-97cb-374f6bca10ee/big.svg" alt="code quality from Codacy">
