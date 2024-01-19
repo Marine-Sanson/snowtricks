@@ -27,7 +27,7 @@ I have made all the project in MVC advanced pattern.
 
 <img src="https://img.shields.io/badge/HTML-5-%23E34F26?logo=html5" alt="HTML5 banner"> <img src="https://img.shields.io/badge/CSS-3-%231572B6?logo=css3" alt="CSS3 banner"> <img src="https://img.shields.io/badge/Bootstrap-5.3.2-%237952B3?logo=bootstrap" alt="bootstrap banner"> <img src="https://img.shields.io/badge/Twig-3.0-%23bacf29" alt="Twig banner">
 
-For this project I used HTML5 and CSS3 Bootsrap v5.3.2 (a free theme from Bootswatch : Cyborg) and Twig v3.0
+I used HTML5 and CSS3 Bootsrap (a free theme from <a href="https://bootswatch.com/">Bootswatch</a> : Cyborg) and Twig.
 
 
 ### Database :
