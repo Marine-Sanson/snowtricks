@@ -118,12 +118,12 @@ class RegistrationController extends AbstractController
         UserAuthenticator $authenticator
     ): Response {
 
-        if($this->jWTService->isValid($token) && !$this->jWTService->isExpired($token) && $this->jWTService->check($token, $this->getParameter('app.jwtsecret'))) {
+        if ($this->jWTService->isValid($token) && !$this->jWTService->isExpired($token) && $this->jWTService->check($token, $this->getParameter('app.jwtsecret'))) {
             $payload = $this->jWTService->getPayload($token);
 
             $userVerified = $this->userService->getUserVerified($payload['userId']);
 
-            if ($userVerified){
+            if ($userVerified) {
                 $this->addFlash('success', 'Utilisateur activé');
                 return $userAuthenticator->authenticateUser(
                     $userVerified,
@@ -155,14 +155,14 @@ class RegistrationController extends AbstractController
 
         $user = $this->getUser();
 
-        if (!$user){
+        if (!$user) {
             $this->addFlash('danger', 'Vous devez être connecté pour accéder à cette page');
             return $this->redirectToRoute('app_login');
         }
 
         $isUserVerifiedYet = $this->userService->isUserVerifiedYet($user);
 
-        if ($isUserVerifiedYet){
+        if ($isUserVerifiedYet) {
             $this->addFlash('warning', 'Cet utilisateur est déjà activé');
             return $this->redirectToRoute('app_login');
         }
@@ -186,5 +186,6 @@ class RegistrationController extends AbstractController
         return $this->redirectToRoute('app_login');
 
     }
+
 
 }

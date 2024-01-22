@@ -8,7 +8,6 @@ use App\Form\ProfilFormType;
 use App\Service\MailService;
 use App\Service\UserService;
 use App\Service\MediaService;
-use App\Service\ProfilService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,13 +22,11 @@ class ProfilController extends AbstractController
      * Summary of function __construct
      *
      * @param MediaService  $mediaService  MediaService
-     * @param ProfilService $profilService ProfilService
      * @param UserService   $userService   UserService
      * @param MailService   $mailService   MailService
      */
     public function __construct(
         private readonly MediaService $mediaService,
-        private readonly ProfilService $profilService,
         private readonly UserService $userService,
         private readonly MailService $mailService
     ) {
@@ -37,6 +34,13 @@ class ProfilController extends AbstractController
     }
 
 
+    /**
+     * Summary of function home
+     *
+     * Get the tricks paginated to display on the homepage
+     *
+     * @return Response
+     */
     #[Route('/', name: 'index', methods: ['GET'])]
     public function index(): Response
     {
@@ -44,17 +48,27 @@ class ProfilController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $user = $this->userService->getUser($this->getUser()->getUserIdentifier());
-        if ($user->getAvatar() === null){
+
+        if ($user->getAvatar() === null) {
             $user->setAvatar($this->mediaService->getMediaByName('avatar_default.webp'));
         }
 
-        return $this->render('/profil/index.html.twig', [
-            'user' => $user,
-        ]);
+        return $this->render(
+            '/profil/index.html.twig', [
+                'user' => $user,
+            ]
+        );
 
     }
 
 
+    /**
+     * Summary of function edit
+     *
+     * @param Request $request Request
+     *
+     * @return Response
+     */
     #[Route('/maj', name: 'edit', methods: ['POST', 'GET'])]
     public function edit(Request $request): Response
     {
@@ -74,14 +88,14 @@ class ProfilController extends AbstractController
         $profilForm = $this->createForm(ProfilFormType::class, $user);
         $profilForm->handleRequest($request);
 
-        if($profilForm->isSubmitted() && $profilForm->isValid()){
+        if ($profilForm->isSubmitted() && $profilForm->isValid()) {
             $user->setUpdatedAt(new DateTimeImmutable());
 
             $username = $profilForm->get('username')->getData();
             $email = $profilForm->get('email')->getData();
             $avatar = $profilForm->get('avatar')->getData();
 
-            if ($username !== $oldUserame){
+            if ($username !== $oldUserame) {
                 $user->setUsername($username);
             }
 
@@ -107,8 +121,8 @@ class ProfilController extends AbstractController
                 return $this->redirectToRoute('app_login');
             } //end if
 
-            if ($avatar){
-                if (!$oldAvatar || $oldAvatar !== $avatar){
+            if ($avatar) {
+                if (!$oldAvatar || $oldAvatar !== $avatar) {
                     $avatar = $this->mediaService->addNewImage($avatar, 'avatars', 'avatar');
                     $user->setAvatar($avatar);
                 }
@@ -116,14 +130,17 @@ class ProfilController extends AbstractController
                 if ($oldAvatar !== null && $oldAvatar->getName() !== $defaultAvatar->getName()) {
                     $this->mediaService->deleteMediaImage($oldAvatar, 'avatars');
                 }
+
             }
 
             $user = $this->userService->saveUser($user);
 
             $this->addFlash('success', 'Profil modifié avec succes');
-            return $this->render('profil/index.html.twig', [
-                'user' => $user
-            ]);
+            return $this->render(
+                'profil/index.html.twig', [
+                    'user' => $user
+                ]
+            );
         } //end if
 
         return $this->render('profil/edit.html.twig', [
@@ -134,6 +151,15 @@ class ProfilController extends AbstractController
     }
 
 
+    /**
+     * Summary of function deleteImage
+     *
+     * Get the tricks paginated to display on the homepage
+     *
+     * @param int $id id
+     *
+     * @return Response
+     */
     #[Route('/suppression/media/{id}', name: 'delete_media', methods: ['GET'])]
     public function deleteImage(int $id): Response
     {
@@ -142,7 +168,7 @@ class ProfilController extends AbstractController
         $media = new Media;
         $media = $this->mediaService->getMedia($id);
         $deleted = $this->mediaService->deleteMedia($media);
-        
+
         if ($deleted) {
             $this->addFlash('success', 'Media supprimé avec succes');
             return $this->render('admin_tricks/index.html.twig');

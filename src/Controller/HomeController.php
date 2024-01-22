@@ -35,7 +35,7 @@ class HomeController extends AbstractController
      * @param TrickService $trickService TrickService
      */
     public function __construct(private readonly TrickService $trickService)
-    { 
+    {
 
     }
 

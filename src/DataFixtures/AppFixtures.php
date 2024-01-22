@@ -58,7 +58,7 @@ class AppFixtures extends Fixture
             ->setName('photo_default.webp')
             ->setCreatedAt($date)
             ->setUpdatedAt($this->fixturesService->generateUpdatedAt($date));
-        
+
         $manager->persist($media1);
         $manager->flush();
 

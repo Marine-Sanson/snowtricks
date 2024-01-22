@@ -55,6 +55,7 @@ class TrickController extends AbstractController
      * Get tricks details to display it
      *
      * @param string $slug Slug
+     * @param Request $request Request
      *
      * @return Response
      */
@@ -67,7 +68,7 @@ class TrickController extends AbstractController
 
         $dataPaginated = $this->commentService->getPaginatedTrickComments($trick, $page, 10);
 
-        if ($dataPaginated === []){
+        if ($dataPaginated === []) {
             $dataPaginated = [
                 'comments' => [],
                 'pages' => null,
@@ -83,24 +84,26 @@ class TrickController extends AbstractController
 
             $commentForm = $this->createForm(CommentFormType::class, $comment);
             $commentForm->handleRequest($request);
-    
-            if($commentForm->isSubmitted() && $commentForm->isValid()){
+
+            if ($commentForm->isSubmitted() && $commentForm->isValid()) {
                 $this->commentService->addComment(
-                    $commentForm->get("content")->getData(), 
-                    $commentForm->get("trickId")->getData(), 
-                    $commentForm->get("userId")->getData(), 
+                    $commentForm->get("content")->getData(),
+                    $commentForm->get("trickId")->getData(),
+                    $commentForm->get("userId")->getData(),
                 );
             }
 
-            return $this->render('trick/trick.html.twig', [
-                'trick' => $trick,
-                'mainName' => $trick->getMainMedia()->getName(),
-                'commentForm' => $commentForm,
-                'comments' => $dataPaginated['comments'],
-                'pages' => $dataPaginated['pages'],
-                'page' => $dataPaginated['page'],
-                'limit' => $dataPaginated['limit'],
-            ]);
+            return $this->render(
+                'trick/trick.html.twig', [
+                    'trick' => $trick,
+                    'mainName' => $trick->getMainMedia()->getName(),
+                    'commentForm' => $commentForm,
+                    'comments' => $dataPaginated['comments'],
+                    'pages' => $dataPaginated['pages'],
+                    'page' => $dataPaginated['page'],
+                    'limit' => $dataPaginated['limit'],
+                ]
+            );
         } //end if
 
         return $this->render(
@@ -115,5 +118,6 @@ class TrickController extends AbstractController
         );
 
     }
+
 
 }

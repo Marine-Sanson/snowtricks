@@ -37,8 +37,8 @@ class SecurityController extends AbstractController
     /**
      * Summary of function __construct
      *
-     * @param UserService                  $userService       UserService
-     * @param MailService                  $mailService       MailService
+     * @param UserService                 $userService       UserService
+     * @param MailService                 $mailService       MailService
      * @param UserPasswordHasherInterface $userPasswordHasher UserPasswordHasherInterface
      */
     public function __construct(
@@ -77,7 +77,8 @@ class SecurityController extends AbstractController
      * Summary of function logout
      *
      * Logout the user
-     *
+     * 
+     * @return void
      */
     #[Route(path: '/logout', name: 'app_logout', methods: ['GET'])]
     public function logout(): void
@@ -130,9 +131,11 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('app_login');
         } //end if
 
-        return $this->render('security/reset_password_request.html.twig', [
-            'requestPassForm' => $form->createView()
-        ]);
+        return $this->render(
+            'security/reset_password_request.html.twig', [
+                'requestPassForm' => $form->createView()
+            ]
+        );
 
     }
 
@@ -165,14 +168,17 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('app_login');
             }
 
-            return $this->render('security/reset_password.html.twig', [
-                'passForm' => $form->createView()
-            ]);
+            return $this->render(
+                'security/reset_password.html.twig', [
+                    'passForm' => $form->createView()
+                ]
+            );
         }
 
         $this->addFlash('danger', 'Jeton invalide');
         return $this->redirectToRoute('app_login');
 
     }
+
 
 }
