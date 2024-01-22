@@ -29,6 +29,8 @@ use App\Repository\MediaRepository;
  */
 class TricksMapper
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -40,7 +42,10 @@ class TricksMapper
         private readonly MediaMapper $mediaMapper,
         private readonly GroupMapper $groupMapper,
         private readonly MediaRepository $mediaRepository,
-    ) { }
+    ) {
+
+    }
+
 
     /**
      * Summary of transformToHomeTricks
@@ -51,13 +56,16 @@ class TricksMapper
      */
     public function transformToHomeTricks(array $tricks): array
     {
+
         return array_map(
             function (Trick $trick) {
                 return $this->getHomeTrick($trick);
             },
             $tricks
         );
+
     }
+
 
     /**
      * Summary of getHomeTrick
@@ -68,6 +76,7 @@ class TricksMapper
      */
     public function getHomeTrick(Trick $trick): HomeTrick
     {
+
         $media = null;
 
         $allMedias = $trick->getMedia();
@@ -85,6 +94,7 @@ class TricksMapper
 
     }
 
+
     /**
      * Summary of transformToTrickDetails
      *
@@ -94,13 +104,16 @@ class TricksMapper
      */
     public function transformToTricksDetails(array $tricks): array
     {
+
         return array_map(
             function (Trick $trick) {
                 return $this->getTrickDetails($trick);
             },
             $tricks
         );
+
     }
+
 
     /**
      * Summary of getTrickDetails
@@ -132,7 +145,9 @@ class TricksMapper
             $mediasModel,
             $mainMedia
         );
+
     }
+
 
     /**
      * Summary of getPaginatedHomeTricks
@@ -143,6 +158,7 @@ class TricksMapper
      */
     public function getMainMedia($mediasModel): HomeMedia
     {
+
         $homeMedia = null;
 
         for ($i = 0, $count = count($mediasModel); $i < $count; $i++) {
@@ -161,6 +177,7 @@ class TricksMapper
         }
 
         return $homeMedia;
+
     }
 
 }

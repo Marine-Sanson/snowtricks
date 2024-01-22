@@ -29,6 +29,7 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class CommentService
 {
+
     /**
      * Summary of function __construct
      *
@@ -44,10 +45,14 @@ class CommentService
         private readonly UserRepository $userRepository,
         private readonly CommentMapper $commentMapper,
         private readonly MediaRepository $mediaRepository,
-    ) { }
+    ) {
+
+    }
+
 
         public function getPaginatedTrickComments(TrickDetails $trick, int $page, int $limit): array
         {
+
             $data = $this->commentRepository->findCommentsPaginatedByTrick($trick->getId(), $page, $limit);
 
             if ($data !== []){
@@ -59,14 +64,19 @@ class CommentService
             }
 
             return $data;
+
         }
+
 
         public function addComment(string $content, int $trickId, int $userId): void
         {
+
             $trick = $this->trickRepository->findOneById($trickId);
             $user = $this->userRepository->findOneById($userId);
             $newComment = $this->commentMapper->getCommentEntity($content, $trick, $user);
             $this->commentRepository->saveComment($newComment);
+
         }
+
 
 }

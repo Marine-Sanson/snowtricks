@@ -21,6 +21,8 @@ namespace App\Model;
  */
 class UserRegister
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -32,7 +34,10 @@ class UserRegister
         private readonly string $username,
         private readonly string $email,
         private readonly string $plainPassword
-    ) {}
+    ) {
+
+    }
+
 
     /**
      * Summary of function getUsername
@@ -41,8 +46,11 @@ class UserRegister
      */
     public function getUsername(): string
     {
+
         return $this->username;
+
     }
+
 
     /**
      * Summary of function setUsername
@@ -53,10 +61,13 @@ class UserRegister
      */
     public function setUsername(string $username): static
     {
+
         $this->username = $username;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getEmail
@@ -65,8 +76,11 @@ class UserRegister
      */
     public function getEmail(): string
     {
+
         return $this->email;
+
     }
+
 
     /**
      * Summary of function setEmail
@@ -77,10 +91,13 @@ class UserRegister
      */
     public function setEmail(string $email): static
     {
+
         $this->email = $email;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getPlainPassword
@@ -89,8 +106,11 @@ class UserRegister
      */
     public function getPlainPassword(): string
     {
+
         return $this->plainPassword;
+
     }
+
 
     /**
      * Summary of function setPlainPassword
@@ -101,9 +121,12 @@ class UserRegister
      */
     public function setPlainPassword(string $plainPassword): static
     {
+
         $this->plainPassword = $plainPassword;
 
         return $this;
+
     }
+
 
 }

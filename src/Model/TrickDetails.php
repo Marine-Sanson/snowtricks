@@ -26,6 +26,7 @@ use App\Model\HomeMedia;
 class TrickDetails
 {
 
+
     /**
      * Summary of function __construct
      *
@@ -47,7 +48,10 @@ class TrickDetails
         private readonly array $trickGroup,
         private readonly array $media,
         private readonly HomeMedia $mainMedia
-    ) { }
+    ) {
+
+    }
+
 
     /**
      * Summary of function getId
@@ -56,8 +60,11 @@ class TrickDetails
      */
     public function getId(): int
     {
+
         return $this->id;
+
     }
+
 
     /**
      * Summary of function getName
@@ -66,8 +73,11 @@ class TrickDetails
      */
     public function getName(): string
     {
+
         return $this->name;
+
     }
+
 
     /**
      * Summary of function getDescription
@@ -76,8 +86,11 @@ class TrickDetails
      */
     public function getDescription(): string
     {
+
         return $this->description;
+
     }
+
 
     /**
      * Summary of function getSlug
@@ -86,8 +99,11 @@ class TrickDetails
      */
     public function getSlug(): string
     {
+
         return $this->slug;
+
     }
+
 
     /**
      * Summary of function getUpdatedAt
@@ -96,8 +112,11 @@ class TrickDetails
      */
     public function getUpdatedAt(): DateTimeImmutable
     {
+
         return $this->updatedAt;
+
     }
+
 
     /**
      * Summary of getTrickGroup
@@ -106,8 +125,11 @@ class TrickDetails
      */
     public function getTrickGroup(): array
     {
+
         return $this->trickGroup;
+
     }
+
 
     /**
      * Summary of getMedia
@@ -116,8 +138,11 @@ class TrickDetails
      */
     public function getMedia(): array
     {
+
         return $this->media;
+
     }
+
 
     /**
      * Summary of getMainMedia
@@ -126,7 +151,10 @@ class TrickDetails
      */
     public function getMainMedia(): HomeMedia
     {
+
         return $this->mainMedia;
+
     }
+
 
 }

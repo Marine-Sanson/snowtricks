@@ -15,15 +15,23 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture implements DependentFixtureInterface
 {
+
+
     /**
-     * @param UserPasswordHasherInterface $userPasswordHasher UserPasswordHasherInterface
+     * @param UserPasswordHasherInterface $userPasswordHasher  UserPasswordHasherInterface
+     * @param MediaRepository             $mediaRepository     MediaRepository
+     * @param TypeMediaRepository         $typeMediaRepository TypeMediaRepository
+     * @param FixturesService             $fixturesService     FixturesService
      */
    public function __construct(
        private readonly UserPasswordHasherInterface $userPasswordHasher,
        private readonly MediaRepository $mediaRepository,
        private readonly TypeMediaRepository $typeMediaRepository,
        private readonly FixturesService $fixturesService,
-   ) {}
+   ) {
+
+   }
+
 
     public function load(ObjectManager $manager): void
     {
@@ -71,10 +79,14 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
     }
 
+
     public function getDependencies()
     {
+
         return [
             AppFixtures::class,
         ];
+
     }
+
 }

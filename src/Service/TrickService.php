@@ -30,6 +30,8 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class TrickService
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -45,7 +47,10 @@ class TrickService
         private readonly MediaRepository $mediaRepository,
         private readonly TricksMapper $tricksMapper,
         private readonly MediaMapper $mediaMapper
-    ) { }
+    ) {
+
+    }
+
 
     /**
      * Summary of getPaginatedHomeTricks
@@ -57,6 +62,7 @@ class TrickService
      */
     public function getPaginatedHomeTricks(int $page, int $limit): array
     {
+
         $data = $this->trickRepository->findTricksPaginated($page, $limit);
         $data['tricks'] = $this->tricksMapper->transformToHomeTricks($data['tricks']);
 
@@ -69,6 +75,7 @@ class TrickService
         }
 
         return $data;
+
     }
 
     /**
@@ -80,10 +87,13 @@ class TrickService
      */
     public function getTrickDetails(string $slug): TrickDetails
     {
+
        $trick = $this->trickRepository->findOneBySlug($slug);
 
        return $this->tricksMapper->getTrickDetails($trick);
+
     }
+
 
     /**
      * Summary of isTrickNameKnown
@@ -104,6 +114,7 @@ class TrickService
 
     }
 
+
     /**
      * Summary of saveTrick
      *
@@ -113,8 +124,11 @@ class TrickService
      */
     public function saveTrick(Trick $trick): void
     {
+
         $this->trickRepository->saveTrick($trick);
+
     }
+
 
     /**
      * Summary of deleteTrick
@@ -125,12 +139,15 @@ class TrickService
      */
     public function deleteTrick(Trick $trick): bool
     {
+
         if($this->trickRepository->findOneById($trick->getId()) === null){
             return false;
         }
 
         $this->trickRepository->delete($trick);
         return true;
+
     }
+
 
 }

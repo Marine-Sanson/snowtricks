@@ -17,16 +17,30 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/admin/profil', name: 'app_admin_profil_')]
 class ProfilController extends AbstractController
 {
+
+
+    /**
+     * Summary of function __construct
+     *
+     * @param MediaService  $mediaService  MediaService
+     * @param ProfilService $profilService ProfilService
+     * @param UserService   $userService   UserService
+     * @param MailService   $mailService   MailService
+     */
     public function __construct(
         private readonly MediaService $mediaService,
         private readonly ProfilService $profilService,
         private readonly UserService $userService,
         private readonly MailService $mailService
-    ) {}
+    ) {
+
+    }
+
 
     #[Route('/', name: 'index', methods: ['GET'])]
     public function index(): Response
     {
+
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $user = $this->userService->getUser($this->getUser()->getUserIdentifier());
@@ -37,11 +51,14 @@ class ProfilController extends AbstractController
         return $this->render('/profil/index.html.twig', [
             'user' => $user,
         ]);
+
     }
+
 
     #[Route('/maj', name: 'edit', methods: ['POST', 'GET'])]
     public function edit(Request $request): Response
     {
+
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $user = $this->userService->getUser($this->getUser()->getUserIdentifier());
@@ -50,7 +67,7 @@ class ProfilController extends AbstractController
         $oldAvatar = $user->getAvatar();
         $defaultAvatar = $this->mediaService->getMediaByName('avatar_default.webp');
 
-        if ($oldAvatar === null){
+        if ($oldAvatar === null) {
             $user->setAvatar($defaultAvatar);
         }
 
@@ -68,7 +85,7 @@ class ProfilController extends AbstractController
                 $user->setUsername($username);
             }
 
-            if ($email !== $oldEmail){
+            if ($email !== $oldEmail) {
                 $user->setEmail($email);
                 $user->setIsVerified(false);
                 $userModel = $this->userService->getUserModel($user);
@@ -116,9 +133,11 @@ class ProfilController extends AbstractController
 
     }
 
+
     #[Route('/suppression/media/{id}', name: 'delete_media', methods: ['GET'])]
     public function deleteImage(int $id): Response
     {
+
         $this->denyAccessUnlessGranted('ROLE_USER');
         $media = new Media;
         $media = $this->mediaService->getMedia($id);
@@ -131,6 +150,8 @@ class ProfilController extends AbstractController
 
         $this->addFlash('danger', 'Un problème est survenu');
         return $this->render('admin_tricks/index.html.twig');
+
     }
+
 
 }

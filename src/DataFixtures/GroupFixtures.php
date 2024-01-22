@@ -10,9 +10,13 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 class GroupFixtures extends Fixture
 {
 
+
     public function __construct(
         private readonly FixturesService $fixturesService,
-    ) { }
+    ) {
+
+    }
+
 
     public function load(ObjectManager $manager): void
     {
@@ -76,6 +80,7 @@ class GroupFixtures extends Fixture
 
         $manager->persist($group5);
         $manager->flush();
+
     }
 
 }

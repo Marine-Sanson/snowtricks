@@ -27,6 +27,7 @@ use App\Model\HomeMedia;
  */
 class CommentMapper
 {
+
     /**
      * Summary of getCommentEntity
      *
@@ -38,6 +39,7 @@ class CommentMapper
      */
     public function getCommentEntity(string $content, Trick $trick, User $user): Comment
     {
+
         $date = new \DateTimeImmutable();
 
         $comment = (new Comment())
@@ -48,7 +50,9 @@ class CommentMapper
             ->setUpdatedAt($date);
         
             return $comment;
+
     }
+
 
     /**
      * Summary of getTrickGroupModel
@@ -59,7 +63,10 @@ class CommentMapper
      */
     public function getMediaModel(Media $media): HomeMedia
     {
+
         return new HomeMedia($media->getId(), $media->getTypeMedia()->getId(), $media->getName());
+
     }
+
 
 }

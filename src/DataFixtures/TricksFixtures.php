@@ -14,12 +14,17 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class TricksFixtures extends Fixture implements DependentFixtureInterface
 {
+
+
    public function __construct(
        private readonly MediaRepository $mediaRepository,
        private readonly TypeMediaRepository $typeMediaRepository,
        private readonly FixturesService $fixturesService,
        private readonly SluggerInterface $slugger,
-   ) {}
+   ) {
+
+   }
+
 
     public function load(ObjectManager $manager): void
     {
@@ -50,10 +55,13 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
 
     }
 
+
     public function getDependencies()
     {
+
         return [
             GroupFixtures::class,
         ];
     }
+
 }

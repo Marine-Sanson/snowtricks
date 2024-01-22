@@ -12,8 +12,10 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class CommentFormType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
         $builder
             ->add('content', TextType::class, [
                 'attr' => [
@@ -23,12 +25,18 @@ class CommentFormType extends AbstractType
             ])
             ->add('trickId', HiddenType::class, ['mapped' => false])
             ->add('userId', HiddenType::class, ['mapped' => false]);
+
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {
+
         $resolver->setDefaults([
             'data_class' => CommentModel::class,
         ]);
+
     }
+
+
 }

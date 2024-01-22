@@ -13,16 +13,21 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class TrickMediaFixtures extends Fixture implements DependentFixtureInterface
 {
+
    public function __construct(
        private readonly MediaRepository $mediaRepository,
        private readonly TypeMediaRepository $typeMediaRepository,
        private readonly FixturesService $fixturesService,
-   ) {}
+   ) {
+
+   }
 
     public function load(ObjectManager $manager): void
     {
+
         for ($i = 0; $i < 19; $i++){
             $trick = $this->getReference('trick'.$i);
+
             for ($j = 0; $j < mt_rand(0, 12); $j++) {
                 $date = $this->fixturesService->generateCreatedAt();
 
@@ -40,14 +45,19 @@ class TrickMediaFixtures extends Fixture implements DependentFixtureInterface
                 $manager->persist($trick);
                 $manager->flush();
             }
+
         }
 
     }
 
+
     public function getDependencies()
     {
+
         return [
             TricksFixtures::class,
         ];
+
     }
+
 }

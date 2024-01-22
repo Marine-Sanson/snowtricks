@@ -30,6 +30,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
 class Media
 {
+
     use CreatedAtTrait;
 
     /**
@@ -75,15 +76,19 @@ class Media
     #[ORM\ManyToMany(targetEntity: Trick::class, mappedBy: 'media')]
     private Collection $tricks;
 
+
     /**
      * Summary of function __construct
      */
     public function __construct()
     {
+
         $this->tricks = new ArrayCollection();
         $this->createdAt = new DateTimeImmutable();
         $this->updatedAt = $this->createdAt;
+
     }
+
 
     /**
      * Summary of function getId
@@ -92,8 +97,11 @@ class Media
      */
     public function getId(): ?int
     {
+
         return $this->id;
+
     }
+
 
     /**
      * Summary of function getName
@@ -102,8 +110,11 @@ class Media
      */
     public function getName(): string
     {
+
         return $this->name;
+
     }
+
 
     /**
      * Summary of function setName
@@ -114,10 +125,13 @@ class Media
      */
     public function setName(string $name): static
     {
+
         $this->name = $name;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getUpdatedAt
@@ -126,8 +140,11 @@ class Media
      */
     public function getUpdatedAt(): DateTimeImmutable
     {
+
         return $this->updatedAt;
+
     }
+
 
     /**
      * Summary of function setUpdatedAt
@@ -138,10 +155,13 @@ class Media
      */
     public function setUpdatedAt(DateTimeImmutable $updatedAt): static
     {
+
         $this->updatedAt = $updatedAt;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getTypeMedia
@@ -150,7 +170,9 @@ class Media
      */
     public function getTypeMedia(): ?TypeMedia
     {
+
         return $this->typeMedia;
+
     }
 
     /**
@@ -162,10 +184,13 @@ class Media
      */
     public function setTypeMedia(?TypeMedia $typeMedia): static
     {
+
         $this->typeMedia = $typeMedia;
 
         return $this;
+
     }
+
 
     /**
      * Summary of getTricks
@@ -174,8 +199,11 @@ class Media
      */
     public function getTricks(): Collection
     {
+
         return $this->tricks;
+
     }
+
 
     /**
      * Summary of function addTrick
@@ -186,13 +214,16 @@ class Media
      */
     public function addTrick(Trick $trick): static
     {
+
         if (!$this->tricks->contains($trick)) {
             $this->tricks->add($trick);
             $trick->addMedium($this);
         }
 
         return $this;
+
     }
+
 
     /**
      * Summary of function removeTrick
@@ -203,10 +234,14 @@ class Media
      */
     public function removeTrick(Trick $trick): static
     {
+
         if ($this->tricks->removeElement($trick)) {
             $trick->removeMedium($this);
         }
 
         return $this;
+
     }
+
+
 }

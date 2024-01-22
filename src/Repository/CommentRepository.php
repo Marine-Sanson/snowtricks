@@ -17,24 +17,33 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class CommentRepository extends ServiceEntityRepository
 {
+
+
     public function __construct(ManagerRegistry $registry)
     {
+
         parent::__construct($registry, Comment::class);
+
     }
+
 
     public function saveComment(Comment $comment): Comment
     {
+
         $this->getEntityManager()->persist($comment);
         $this->getEntityManager()->flush();
 
         return $comment;
+
     }
+
 
     /**
      * @return array
      */
    public function findCommentsPaginatedByTrick(int $id, int $page, int $limit): array
    {
+
         $limit = abs($limit);
 
         $result = [];
@@ -60,6 +69,8 @@ class CommentRepository extends ServiceEntityRepository
         $result['limit'] = $limit;
         
         return $result;
+
    }
+
 
 }

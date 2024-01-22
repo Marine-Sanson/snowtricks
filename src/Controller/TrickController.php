@@ -31,6 +31,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class TrickController extends AbstractController
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -42,7 +44,10 @@ class TrickController extends AbstractController
         private readonly TrickService $trickService,
         private readonly CommentService $commentService,
         private readonly UserService $userService,
-    ) { }
+    ) {
+
+    }
+
 
     /**
      * Summary of function show
@@ -56,6 +61,7 @@ class TrickController extends AbstractController
     #[Route('/trick/{slug}', name: 'trickDetail', methods: ['GET', 'POST', 'HEAD'])]
     public function show(string $slug, Request $request): Response
     {
+
         $page = $request->query->getInt("page", 1);
         $trick = $this->trickService->getTrickDetails($slug);
 
@@ -97,13 +103,17 @@ class TrickController extends AbstractController
             ]);
         } //end if
 
-        return $this->render('trick/trick.html.twig', [
-            'trick' => $trick,
-            'mainName' => $trick->getMainMedia()->getName(),
-            'comments' => $dataPaginated['comments'],
-            'pages' => $dataPaginated['pages'],
-            'page' => $dataPaginated['page'],
-            'limit' => $dataPaginated['limit'],
-        ]);
+        return $this->render(
+            'trick/trick.html.twig', [
+                'trick' => $trick,
+                'mainName' => $trick->getMainMedia()->getName(),
+                'comments' => $dataPaginated['comments'],
+                'pages' => $dataPaginated['pages'],
+                'page' => $dataPaginated['page'],
+                'limit' => $dataPaginated['limit'],
+            ]
+        );
+
     }
+
 }

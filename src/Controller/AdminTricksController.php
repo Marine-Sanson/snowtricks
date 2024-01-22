@@ -49,7 +49,9 @@ class AdminTricksController extends AbstractController
         private readonly TrickService $trickService,
         private readonly SluggerInterface $slugger,
         private readonly MediaService $mediaService,
-    ) {}
+    ) {
+
+    }
 
 
     /**

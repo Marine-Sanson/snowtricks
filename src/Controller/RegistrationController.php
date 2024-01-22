@@ -34,6 +34,8 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
  */
 class RegistrationController extends AbstractController
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -45,7 +47,10 @@ class RegistrationController extends AbstractController
         private readonly JWTService $jWTService,
         private readonly MailService $mailService,
         private readonly UserService $userService
-    ) {}
+    ) {
+
+    }
+
 
     /**
      * Summary of function home
@@ -59,6 +64,7 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
     public function register(Request $request): Response
     {
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -83,10 +89,14 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('home');
         } //end if
 
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
+        return $this->render(
+            'registration/register.html.twig', [
+                'registrationForm' => $form->createView(),
+            ]
+        );
+
     }
+
 
     /**
      * Summary of function home
@@ -107,6 +117,7 @@ class RegistrationController extends AbstractController
         UserAuthenticatorInterface $userAuthenticator,
         UserAuthenticator $authenticator
     ): Response {
+
         if($this->jWTService->isValid($token) && !$this->jWTService->isExpired($token) && $this->jWTService->check($token, $this->getParameter('app.jwtsecret'))) {
             $payload = $this->jWTService->getPayload($token);
 
@@ -127,7 +138,9 @@ class RegistrationController extends AbstractController
 
         $this->addFlash('danger', 'Le token est invalid ou a expiré');
         return $this->redirectToRoute('app_login');
+
     }
+
 
     /**
      * Summary of function resendVerify
@@ -139,6 +152,7 @@ class RegistrationController extends AbstractController
     #[Route('/reverifier', name: 'resend_verify', methods: ['GET'])]
     public function resendVerify(): Response
     {
+
         $user = $this->getUser();
 
         if (!$user){
@@ -170,6 +184,7 @@ class RegistrationController extends AbstractController
 
         $this->addFlash('success', 'Email de vérification envoyé');
         return $this->redirectToRoute('app_login');
+
     }
 
 }

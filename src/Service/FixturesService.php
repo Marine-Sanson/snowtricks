@@ -27,12 +27,14 @@ use DateTimeImmutable;
 class FixturesService
 {
 
+
     /**
      * Summary of faker
      *
      * @var Generator
      */
     public Generator $faker;
+
 
     /**
      * Summary of function __construct
@@ -41,19 +43,25 @@ class FixturesService
      */
     public function __construct()
     {
+
         $this->faker = Factory::create();
+
     }
 
-    
+
     public function generateCreatedAt(): DateTimeImmutable
     {
 
         return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->faker->dateTimeBetween('-6 months')->format('Y-m-d H:i:s'));
+
     }
 
     public function generateUpdatedAt(DateTimeImmutable $date): DateTimeImmutable
     {
 
         return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->faker->dateTimeBetween($date->format('Y-m-d H:i:s'))->format('Y-m-d H:i:s'));
+
     }
+
+
 }

@@ -36,6 +36,8 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -43,8 +45,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function __construct(ManagerRegistry $registry)
     {
+
         parent::__construct($registry, User::class);
+
     }
+
 
     /**
      * Summary of saveUser
@@ -55,11 +60,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function saveUser(User $user): User
     {
+
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
 
         return $user;
+
     }
+
 
     /**
      * Summary of updateIsVerify
@@ -70,12 +78,15 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function updateIsVerify(User $user): User
     {
+
         $user->setIsVerified(true);
         $this->getEntityManager()->flush();
 
         return $user;
+
     }
-    
+
+
     /**
      * Summary of updateIsVerify
      *
@@ -88,6 +99,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
+
         if (!$user instanceof User) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));
         }
@@ -95,6 +107,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($newHashedPassword);
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
+
     }
+
 
 }

@@ -33,6 +33,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class TrickRepository extends ServiceEntityRepository
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -40,8 +42,11 @@ class TrickRepository extends ServiceEntityRepository
      */
     public function __construct(ManagerRegistry $registry)
     {
+
         parent::__construct($registry, Trick::class);
+
     }
+
 
     /**
      * Summary of findTricksPaginated
@@ -53,6 +58,7 @@ class TrickRepository extends ServiceEntityRepository
      */
     public function findTricksPaginated(int $page, int $limit=4): array
     {
+
         $limit = abs($limit);
 
         $result = [];
@@ -79,7 +85,9 @@ class TrickRepository extends ServiceEntityRepository
             $result['limit'] = $limit;
         
         return $result;
+
     }
+
 
     /**
      * Summary of saveTrick
@@ -90,9 +98,12 @@ class TrickRepository extends ServiceEntityRepository
      */
     public function saveTrick(Trick $trick): void
     {
+
         $this->getEntityManager()->persist($trick);
         $this->getEntityManager()->flush();
+
     }
+
 
     /**
      * Summary of delete
@@ -103,8 +114,11 @@ class TrickRepository extends ServiceEntityRepository
      */
     public function delete(Trick $trick): void
     {
+
         $this->getEntityManager()->remove($trick);
         $this->getEntityManager()->flush();
+
     }
+
 
 }

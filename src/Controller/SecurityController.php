@@ -32,6 +32,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  */
 class SecurityController extends AbstractController
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -43,7 +45,10 @@ class SecurityController extends AbstractController
         private readonly UserService $userService,
         private readonly MailService $mailService,
         private readonly UserPasswordHasherInterface $userPasswordHasher
-    ) {}
+    ) {
+
+    }
+
 
     /**
      * Summary of function login
@@ -57,13 +62,16 @@ class SecurityController extends AbstractController
     #[Route(path: '/login', name: 'app_login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+
         // Get the login error if there is one.
         $error = $authenticationUtils->getLastAuthenticationError();
         // Last username entered by the user.
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+
     }
+
 
     /**
      * Summary of function logout
@@ -74,8 +82,11 @@ class SecurityController extends AbstractController
     #[Route(path: '/logout', name: 'app_logout', methods: ['GET'])]
     public function logout(): void
     {
+
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+
     }
+
 
     /**
      * Summary of function forgottenPassword
@@ -89,14 +100,15 @@ class SecurityController extends AbstractController
     #[Route(path: '/oubli-mdp', name: 'forgotten_password', methods: ['GET', 'POST'])]
     public function forgottenPassword(Request $request): Response
     {
+
         $form = $this->createForm(ResetPasswordRequestFormType::class);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $userKnown = $this->userService->isUserKnown($form->get('email')->getData());
 
-            if($userKnown !== null){
+            if ($userKnown !== null) {
                 $token = $this->userService->setToken($userKnown);
 
                 $this->mailService->send(
@@ -121,7 +133,9 @@ class SecurityController extends AbstractController
         return $this->render('security/reset_password_request.html.twig', [
             'requestPassForm' => $form->createView()
         ]);
+
     }
+
 
     /**
      * Summary of function resetPassword
@@ -137,13 +151,14 @@ class SecurityController extends AbstractController
     #[Route(path: '/oubli-mdp/{token}', name: 'reset_password', methods: ['GET', 'POST'])]
     public function resetPassword(string $token, Request $request): Response
     {
+
         $userModel = $this->userService->findUserByResetToken($token);
 
-        if($userModel !== null){
+        if ($userModel !== null) {
             $form = $this->createForm(ResetPasswordFormType::class);
             $form->handleRequest($request);
 
-            if($form->isSubmitted() && $form->isValid()){
+            if ($form->isSubmitted() && $form->isValid()) {
                 $this->userService->setNewPassword($userModel, $form->get('password')->getData());
 
                 $this->addFlash('success', 'Mot de passe changé avec succes');
@@ -157,6 +172,7 @@ class SecurityController extends AbstractController
 
         $this->addFlash('danger', 'Jeton invalide');
         return $this->redirectToRoute('app_login');
+
     }
 
 }

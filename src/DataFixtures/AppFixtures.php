@@ -14,12 +14,16 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class AppFixtures extends Fixture
 {
 
+
     public function __construct(
         private readonly UserPasswordHasherInterface $userPasswordHasher,
         private readonly MediaRepository $mediaRepository,
         private readonly TypeMediaRepository $typeMediaRepository,
         private readonly FixturesService $fixturesService,
-    ) { }
+    ) {
+
+    }
+
 
     public function load(ObjectManager $manager): void
     {
@@ -69,5 +73,6 @@ class AppFixtures extends Fixture
         $manager->flush();
 
     }
+
 
 }

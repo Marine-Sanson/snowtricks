@@ -34,6 +34,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  */
 class TricksFormType extends AbstractType
 {
+
     /**
      * Summary of function buildForm
      *
@@ -46,6 +47,7 @@ class TricksFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
         $builder
             ->add('name', TextType::class, [
                 'attr' => [
@@ -102,7 +104,9 @@ class TricksFormType extends AbstractType
                     ])
                 ]
             ]);
+
     }
+
 
     /**
      * Summary of function configureOptions
@@ -115,8 +119,12 @@ class TricksFormType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
+
         $resolver->setDefaults([
             'data_class' => Trick::class,
         ]);
+
     }
+
+
 }

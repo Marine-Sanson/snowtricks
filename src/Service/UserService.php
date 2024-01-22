@@ -32,6 +32,8 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
  */
 class UserService
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -49,7 +51,10 @@ class UserService
         private readonly UserPasswordHasherInterface $userPasswordHasher,
         private readonly TokenGeneratorInterface $tokenGenerator,
         private readonly ParameterBagInterface $params,
-    ) {}
+    ) {
+
+    }
+
 
     /**
      * Summary of register
@@ -60,6 +65,7 @@ class UserService
      */
     public function register(UserRegister $userRegister): string
     {
+
         $user = (new User())
             ->setUsername($userRegister->getUsername())
             ->setEmail($userRegister->getEmail());
@@ -85,6 +91,7 @@ class UserService
 
     }
 
+
     /**
      * Summary of getUserVerified
      *
@@ -94,6 +101,7 @@ class UserService
      */
     public function getUserVerified(int $userId): ?User
     {
+
         $user = $this->userRepository->find($userId);
 
         if ($user && !$user->getIsVerified()){
@@ -101,7 +109,9 @@ class UserService
         }
 
         return null;
+
     }
+
 
     /**
      * Summary of isUserVerifiedYet
@@ -112,8 +122,11 @@ class UserService
      */
     public function isUserVerifiedYet(User $user): bool
     {
+
         return $user->getIsVerified();
+
     }
+
 
     /**
      * Summary of newRegisterToken
@@ -124,6 +137,7 @@ class UserService
      */
     public function newRegisterToken(UserModel $user): string
     {
+
         $header = [
             'alg' => 'HS256',
             'typ' => 'JWT'
@@ -134,7 +148,9 @@ class UserService
         ];
 
         return $this->jWTService->generate($header, $payload, $this->params->get('app.jwtsecret'));
+
     }
+
 
     /**
      * Summary of getUserModel
@@ -145,8 +161,11 @@ class UserService
      */
     public function getUserModel(User $user): UserModel
     {
+
         return new UserModel($user->getId(), $user->getUserIdentifier(), $user->getEmail());
+
     }
+
 
     /**
      * Summary of isUserKnown
@@ -157,6 +176,7 @@ class UserService
      */
     public function isUserKnown(string $email): ?UserModel
     {
+
         $user = $this->userRepository->findOneByEmail($email);
 
         if (!$user){
@@ -167,6 +187,7 @@ class UserService
 
     }
 
+
     /**
      * Summary of setToken
      *
@@ -176,6 +197,7 @@ class UserService
      */
     public function setToken(UserModel $userModel): string
     {
+
         $token = $this->tokenGenerator->generateToken();
         $user = $this->userRepository->find($userModel->getId());
 
@@ -183,7 +205,9 @@ class UserService
         $this->userRepository->saveUser($user);
 
         return $token;
+
     }
+
 
     /**
      * Summary of findUserByResetToken
@@ -194,9 +218,12 @@ class UserService
      */
     public function findUserByResetToken(string $token): UserModel
     {
+
         $user = $this->userRepository->findOneByResetToken($token);
         return $this->getUserModel($user);
+
     }
+
 
     /**
      * Summary of setNewPassword
@@ -208,6 +235,7 @@ class UserService
      */
     public function setNewPassword(UserModel $userModel, string $password): void
     {
+
         $user = $this->userRepository->find($userModel->getId());
         $user->setResetToken('');
             $user->setPassword(
@@ -217,16 +245,24 @@ class UserService
                 )
             );
         $this->userRepository->saveUser($user);
+
     }
+
 
     public function getUser(string $email): User
     {
+
         return $this->userRepository->findOneByEmail($email);
+
     }
+
 
     public function saveUser(User $user): User
     {
+
         return $this->userRepository->saveUser($user);
+
     }
+
 
 }

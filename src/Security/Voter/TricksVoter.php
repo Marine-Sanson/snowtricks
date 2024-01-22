@@ -27,6 +27,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
  */
 class TricksVoter extends Voter
 {
+
     /**
      * Summary of EDIT
      *
@@ -41,13 +42,17 @@ class TricksVoter extends Voter
      */
     const DELETE = 'TRICKS_DELETE';
 
+
     /**
      * Summary of function __construct
      *
      * @param Security $security Security
      */
     public function __construct(private Security $security)
-    { }
+    {
+
+    }
+
 
     /**
      * Summary of authenticate
@@ -59,6 +64,7 @@ class TricksVoter extends Voter
      */
     protected function supports(string $attribute, mixed $trick): bool
     {
+
         // If the attribute isn't one we support, return false.
         if (!in_array($attribute, [self::EDIT, self::DELETE])) {
             return false;
@@ -70,7 +76,9 @@ class TricksVoter extends Voter
         }
 
         return true;
+
     }
+
 
     /**
      * Summary of authenticate
@@ -83,6 +91,7 @@ class TricksVoter extends Voter
      */
     protected function voteOnAttribute(string $attribute, mixed $trick, TokenInterface $token): bool
     {
+
         $user = $token->getUser();
 
         if (!$user instanceof User) {
@@ -99,7 +108,9 @@ class TricksVoter extends Voter
             self::DELETE => $this->canDelete($trick, $user),
             default => throw new \LogicException('This code should not be reached!')
         };
+
     }
+
 
     /**
      * Summary of canEdit
@@ -111,8 +122,11 @@ class TricksVoter extends Voter
      */
     private function canEdit(Trick $trick, User $user): bool
     {
+
         return $this->security->isGranted('ROLE_ADMIN');
+
     }
+
 
     /**
      * Summary of canDelete
@@ -124,7 +138,10 @@ class TricksVoter extends Voter
      */
     private function canDelete(Trick $trick, User $user): bool
     {
+
         return $this->security->isGranted('ROLE_ADMIN');
+
     }
+
 
 }

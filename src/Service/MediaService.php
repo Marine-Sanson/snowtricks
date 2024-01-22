@@ -29,6 +29,8 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
  */
 class MediaService
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -40,7 +42,10 @@ class MediaService
         private readonly ParameterBagInterface $params,
         private readonly MediaRepository $mediaRepository,
         private readonly TypeMediaRepository $typeMediaRepository
-    ) {}
+    ) {
+
+    }
+
 
     /**
      * Summary of addNewImage
@@ -53,10 +58,12 @@ class MediaService
      */
     public function addNewImage(Object $image, string $folder, string $typeMedia): Media
     {
+
         $mediaImg = new Media();
         $mediaImg->setName($this->addImage($image, $folder));
         $mediaImg->setTypeMedia($this->getTypeMedia($typeMedia));
         return $mediaImg;
+
     }
 
     /**
@@ -71,8 +78,10 @@ class MediaService
      */
     public function addImage(UploadedFile $image, ?string $folder='', ?int $width=300, ?int $height=300): string
     {
+
         $file = md5(uniqid(rand(), true)).'.webp';
         $imageInfos = getimagesize($image);
+
         if ($imageInfos === false){
             throw new Exception('Format d\'image incorrect');
         }
@@ -116,7 +125,9 @@ class MediaService
         $image->move($path.'/', $file);
 
         return $file;
+
     }
+
 
     /**
      * Summary of deleteImage
@@ -130,6 +141,7 @@ class MediaService
      */
     public function deleteImage(string $file, ?string $folder='', ?int $width=300, ?int $height=300): bool
     {
+
         $success = false;
 
         if($file !== 'photo_default.jpg'){
@@ -148,11 +160,13 @@ class MediaService
                 unlink($original);
                 $success = true;
             }
+
         }
 
         return $success;
 
     }
+
 
     /**
      * Summary of removeMediaFromDb
@@ -163,8 +177,11 @@ class MediaService
      */
     public function removeMediaFromDb(Media $media): void
     {
+
         $this->mediaRepository->delete($media);
+
     }
+
 
     /**
      * Summary of addNewVideo
@@ -175,12 +192,15 @@ class MediaService
      */
     public function addNewVideo(string $video): Media
     {
+
         $mediaVid = new Media();
         $mediaVid->setName('https://www.youtube.com/embed/'.substr($video, 0, 11));
         $mediaVid->setTypeMedia($this->getTypeMedia('video'));
         $this->addVideo($mediaVid);
         return $mediaVid;
+
     }
+
 
     /**
      * Summary of getTypeMedia
@@ -191,8 +211,11 @@ class MediaService
      */
     public function getTypeMedia(string $name): TypeMedia
     {
+
         return $this->typeMediaRepository->findOneByType($name);
+
     }
+
 
     /**
      * Summary of addVideo
@@ -203,8 +226,10 @@ class MediaService
      */
     public function addVideo(Media $video): void
     {
+
         $this->mediaRepository->save($video);
     }
+
 
     /**
      * Summary of deleteMedia
@@ -215,13 +240,16 @@ class MediaService
      */
     public function deleteMedia(Media $media): bool
     {
+
         $typeMedia = $media->getTypeMedia()->getType();
         return match ($typeMedia) {
             'photo' => $this->deleteMediaImage($media, 'tricks'),
             'video' => $this->deleteMediaVideo($media),
             'avatar' => $this->deleteMediaImage($media, 'avatars'),
         };
+
     }
+
 
     /**
      * Summary of deleteMediaImage
@@ -233,12 +261,15 @@ class MediaService
      */
     public function deleteMediaImage(Media $media, string $folder): bool
     {
+
         if($this->deleteImage($media->getName(), $folder, 300, 300)){
             $this->removeMediaFromDb($media);
             return true;
         }
         return false;
+
     }
+
 
     /**
      * Summary of deleteMediaVideo
@@ -249,18 +280,26 @@ class MediaService
      */
     public function deleteMediaVideo(Media $media): bool
     {
+
         $this->removeMediaFromDb($media);
         return true;
+
     }
+
 
     public function getMedia(int $id): Media
     {
+
         return $this->mediaRepository->findOneById($id);
+
     }
 
     public function getMediaByName(string $name): Media
     {
+
         return $this->mediaRepository->findOneByName($name);
+
     }
+
 
 }

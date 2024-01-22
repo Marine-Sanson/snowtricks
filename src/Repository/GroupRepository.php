@@ -32,6 +32,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class GroupRepository extends ServiceEntityRepository
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -39,7 +41,10 @@ class GroupRepository extends ServiceEntityRepository
      */
     public function __construct(ManagerRegistry $registry)
     {
+
         parent::__construct($registry, Group::class);
+
     }
+
 
 }
