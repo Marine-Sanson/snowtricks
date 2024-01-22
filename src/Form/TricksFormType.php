@@ -49,61 +49,75 @@ class TricksFormType extends AbstractType
     {
 
         $builder
-            ->add('name', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control mb-3'
-                ],
-                'label' => 'Nom'
-            ])
-            ->add('description', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control mb-3'
-                ],
-                'label' => 'Description'
-            ])
-            ->add('trickGroup', EntityType::class, [
-                'attr' => [
-                    'class' => 'form-select mb-3',
-                    'size' => "2"
-                ],
-                'class' => Group::class,
-                'choice_label' => 'name',
-                'multiple' => true,
-                'label' => 'Selectionnez un ou plusieurs groupe(s)'
-            ])
-            ->add('images', FileType::class, [
-                'attr' => [
-                    'class' => 'form-control mb-3'
-                ],
-                'label' => 'Télécharger une ou plusieurs image(s)',
-                'multiple' => true,
-                'mapped' => false,
-                'required' => false,
-                'constraints' => [
-                    new All(
-                        new Image([
-                            'maxWidth' => 1600,
-                            'maxWidthMessage' => 'l\'image doit faire {{ max_width }} pixels de large au maximum',
-                            'maxHeight' => 1600,
-                            'maxHeightMessage' => 'l\'image doit faire {{ max_height }} pixels de long au maximum',
-                        ])
-                    )
+            ->add(
+                'name', TextType::class, [
+                    'attr' => [
+                        'class' => 'form-control mb-3'
+                    ],
+                    'label' => 'Nom'
                 ]
-            ])
-            ->add('videos', UrlType::class, [
-                'attr' => [
-                    'class' => 'form-control mb-3'
-                ],
-                'label' => 'Coller l\'url de la vidéo que vous souhaitez ajouter',
-                'mapped' => false,
-                'required' => false,
-                'constraints' => [
-                    new Regex([
-                        'pattern' => '/https?:\/\/www\.youtube\.com/',
-                        'message' => 'Seules les liens Youtube sont acceptés'
-                    ])
+            )
+            ->add(
+                'description', TextType::class, [
+                    'attr' => [
+                        'class' => 'form-control mb-3'
+                    ],
+                    'label' => 'Description'
                 ]
-            ]);
+            )
+            ->add(
+                'trickGroup', EntityType::class, [
+                    'attr' => [
+                        'class' => 'form-select mb-3',
+                        'size' => "2"
+                    ],
+                    'class' => Group::class,
+                    'choice_label' => 'name',
+                    'multiple' => true,
+                    'label' => 'Selectionnez un ou plusieurs groupe(s)'
+                ]
+            )
+            ->add(
+                'images', FileType::class, [
+                    'attr' => [
+                        'class' => 'form-control mb-3'
+                    ],
+                    'label' => 'Télécharger une ou plusieurs image(s)',
+                    'multiple' => true,
+                    'mapped' => false,
+                    'required' => false,
+                    'constraints' => [
+                        new All(
+                            new Image(
+                                [
+                                    'maxWidth' => 1600,
+                                    'maxWidthMessage' => 'l\'image doit faire {{ max_width }} pixels de large au maximum',
+                                    'maxHeight' => 1600,
+                                    'maxHeightMessage' => 'l\'image doit faire {{ max_height }} pixels de long au maximum',
+                                ]
+                            )
+                        )
+                    ]
+                ]
+            )
+            ->add(
+                'videos', UrlType::class, [
+                    'attr' => [
+                        'class' => 'form-control mb-3'
+                    ],
+                    'label' => 'Coller l\'url de la vidéo que vous souhaitez ajouter',
+                    'mapped' => false,
+                    'required' => false,
+                    'constraints' => [
+                        new Regex(
+                            [
+                                'pattern' => '/https?:\/\/www\.youtube\.com/',
+                                'message' => 'Seules les liens Youtube sont acceptés'
+                            ]
+                        )
+                    ]
+                ]
+            );
 
     }
 
@@ -120,9 +134,11 @@ class TricksFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
 
-        $resolver->setDefaults([
-            'data_class' => Trick::class,
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => Trick::class,
+            ]
+        );
 
     }
 

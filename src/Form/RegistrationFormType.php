@@ -50,55 +50,67 @@ class RegistrationFormType extends AbstractType
     {
 
         $builder
-            ->add('email', EmailType::class, [
-                'attr' => [
-                    'class' => 'form-control mb-3'
-                ],
-                'label' => 'Adresse email',
-                'constraints' => [
-                    new Email([
-                        'message' => 'Vous devez entrer un email valide.'
-                    ]),
-                ],
-            ])
-            ->add('username', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control mb-3'
-                ],
-                'label' => 'Nom d\'utilisateur'
-            ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'Vous devez acceptez les conditions d\'utilisation du site.',
-                    ]),
-                ],
-                'attr' => [
-                    'class' => 'mt-3'
-                ],
-                'label' => 'J\'accepte les conditions d\'utilisation de ce site.'
-            ])
-            ->add('plainPassword', PasswordType::class, [
+            ->add(
+                'email', EmailType::class, [
+                    'attr' => [
+                        'class' => 'form-control mb-3'
+                    ],
+                    'label' => 'Adresse email',
+                    'constraints' => [
+                        new Email([
+                            'message' => 'Vous devez entrer un email valide.'
+                        ]),
+                    ],
+                ]
+            )
+            ->add(
+                'username', TextType::class, [
+                    'attr' => [
+                        'class' => 'form-control mb-3'
+                    ],
+                    'label' => 'Nom d\'utilisateur'
+                ]
+            )
+            ->add(
+                'agreeTerms', CheckboxType::class, [
+                    'mapped' => false,
+                    'constraints' => [
+                        new IsTrue([
+                            'message' => 'Vous devez acceptez les conditions d\'utilisation du site.',
+                        ]),
+                    ],
+                    'attr' => [
+                        'class' => 'mt-3'
+                    ],
+                    'label' => 'J\'accepte les conditions d\'utilisation de ce site.'
+                ]
+            )
+            ->add(
+                'plainPassword', PasswordType::class, [
                 // Instead of being set onto the object directly,
                 // This is read and encoded in the controller.
-                'mapped' => false,
-                'attr' => [
-                    'autocomplete' => 'new-password',
-                    'class' => 'form-control mb-3'
-                ],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // Max length allowed by Symfony for security reasons.
-                        'max' => 4096,
-                    ]),
-                ],
-            ])
+                    'mapped' => false,
+                    'attr' => [
+                        'autocomplete' => 'new-password',
+                        'class' => 'form-control mb-3'
+                    ],
+                    'constraints' => [
+                        new NotBlank(
+                            [
+                                'message' => 'Please enter a password',
+                            ]
+                        ),
+                        new Length(
+                            [
+                                'min' => 6,
+                                'minMessage' => 'Your password should be at least {{ limit }} characters',
+                                // Max length allowed by Symfony for security reasons.
+                                'max' => 4096,
+                            ]
+                        ),
+                    ],
+                ]
+            )
         ;
 
     }
@@ -116,9 +128,11 @@ class RegistrationFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
 
-        $resolver->setDefaults([
-            'data_class' => User::class,
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => User::class,
+            ]
+        );
 
     }
 

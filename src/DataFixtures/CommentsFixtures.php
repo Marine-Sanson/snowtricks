@@ -16,8 +16,8 @@ class CommentsFixtures extends Fixture implements DependentFixtureInterface
 
 
     public function __construct(
-       private readonly TypeMediaRepository $typeMediaRepository,
-       private readonly FixturesService $fixturesService,
+        private readonly TypeMediaRepository $typeMediaRepository,
+        private readonly FixturesService $fixturesService,
     ) {
 
     }

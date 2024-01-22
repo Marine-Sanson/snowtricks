@@ -40,8 +40,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
                 ->setCreatedAt($date)
                 ->setUpdatedAt($this->fixturesService->generateUpdatedAt($date));
 
-            for ($j = 1; $j < mt_rand(1, 3); $j++)
-            {
+            for ($j = 1; $j < mt_rand(1, 3); $j++) {
                 $k = mt_rand(1, 5);
                 $trick->addTrickGroup($this->getReference('group'.$k));
             }

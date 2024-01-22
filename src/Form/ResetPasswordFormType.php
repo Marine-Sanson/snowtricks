@@ -42,12 +42,14 @@ class ResetPasswordFormType extends AbstractType
     {
 
         $builder
-        ->add('password', PasswordType::class, [
-            'attr' => [
-                'class' => 'form-control mb-3'
-            ],
-            'label' => 'Entrez votre nouveau mot de passe'
-        ]);
+        ->add(
+            'password', PasswordType::class, [
+                'attr' => [
+                    'class' => 'form-control mb-3'
+                ],
+                'label' => 'Entrez votre nouveau mot de passe'
+            ]
+        );
 
     }
 
@@ -64,9 +66,11 @@ class ResetPasswordFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
 
-        $resolver->setDefaults([
-            // Configure your form options here.
-        ]);
+        $resolver->setDefaults(
+            [
+                // Configure your form options here.
+            ]
+        );
 
     }
 

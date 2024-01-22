@@ -16,9 +16,9 @@ class TrickMediaFixtures extends Fixture implements DependentFixtureInterface
 
 
     public function __construct(
-       private readonly MediaRepository $mediaRepository,
-       private readonly TypeMediaRepository $typeMediaRepository,
-       private readonly FixturesService $fixturesService,
+        private readonly MediaRepository $mediaRepository,
+        private readonly TypeMediaRepository $typeMediaRepository,
+        private readonly FixturesService $fixturesService,
     ) {
 
     }

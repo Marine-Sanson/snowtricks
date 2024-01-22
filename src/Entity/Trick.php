@@ -56,7 +56,8 @@ class Trick
         min: 5,
         minMessage: 'Le nom du trick doit contenir au moins {{ limit }} caractères',
         max: 50,
-        maxMessage: 'Le nom du trick ne doit pas faire plus de {{ limit }} caractères')]
+        maxMessage: 'Le nom du trick ne doit pas faire plus de {{ limit }} caractères'
+    )]
     private string $name;
 
     /**
