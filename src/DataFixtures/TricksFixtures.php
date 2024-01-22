@@ -16,14 +16,14 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
 {
 
 
-   public function __construct(
-       private readonly MediaRepository $mediaRepository,
-       private readonly TypeMediaRepository $typeMediaRepository,
-       private readonly FixturesService $fixturesService,
-       private readonly SluggerInterface $slugger,
-   ) {
+    public function __construct(
+        private readonly MediaRepository $mediaRepository,
+        private readonly TypeMediaRepository $typeMediaRepository,
+        private readonly FixturesService $fixturesService,
+        private readonly SluggerInterface $slugger,
+    ) {
 
-   }
+    }
 
 
     public function load(ObjectManager $manager): void

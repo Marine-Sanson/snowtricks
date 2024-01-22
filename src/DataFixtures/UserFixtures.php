@@ -23,14 +23,14 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
      * @param TypeMediaRepository         $typeMediaRepository TypeMediaRepository
      * @param FixturesService             $fixturesService     FixturesService
      */
-   public function __construct(
-       private readonly UserPasswordHasherInterface $userPasswordHasher,
-       private readonly MediaRepository $mediaRepository,
-       private readonly TypeMediaRepository $typeMediaRepository,
-       private readonly FixturesService $fixturesService,
-   ) {
+    public function __construct(
+        private readonly UserPasswordHasherInterface $userPasswordHasher,
+        private readonly MediaRepository $mediaRepository,
+        private readonly TypeMediaRepository $typeMediaRepository,
+        private readonly FixturesService $fixturesService,
+    ) {
 
-   }
+    }
 
 
     public function load(ObjectManager $manager): void

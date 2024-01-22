@@ -54,7 +54,7 @@ class TrickController extends AbstractController
      *
      * Get tricks details to display it
      *
-     * @param string $slug Slug
+     * @param string  $slug    Slug
      * @param Request $request Request
      *
      * @return Response

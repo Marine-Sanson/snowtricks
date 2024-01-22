@@ -37,8 +37,8 @@ class SecurityController extends AbstractController
     /**
      * Summary of function __construct
      *
-     * @param UserService                 $userService       UserService
-     * @param MailService                 $mailService       MailService
+     * @param UserService                 $userService        UserService
+     * @param MailService                 $mailService        MailService
      * @param UserPasswordHasherInterface $userPasswordHasher UserPasswordHasherInterface
      */
     public function __construct(
@@ -77,7 +77,7 @@ class SecurityController extends AbstractController
      * Summary of function logout
      *
      * Logout the user
-     * 
+     *
      * @return void
      */
     #[Route(path: '/logout', name: 'app_logout', methods: ['GET'])]

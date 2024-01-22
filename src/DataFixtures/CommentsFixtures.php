@@ -14,18 +14,19 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 class CommentsFixtures extends Fixture implements DependentFixtureInterface
 {
 
-   public function __construct(
+
+    public function __construct(
        private readonly TypeMediaRepository $typeMediaRepository,
        private readonly FixturesService $fixturesService,
-   ) {
+    ) {
 
-   }
+    }
 
 
     public function load(ObjectManager $manager): void
     {
 
-        for ($i = 0; $i < 19; $i++){
+        for ($i = 0; $i < 19; $i++) {
             $trick = $this->getReference('trick'.$i);
 
             for ($j = 0; $j < mt_rand(8, 19); $j++) {
@@ -36,14 +37,12 @@ class CommentsFixtures extends Fixture implements DependentFixtureInterface
                     ->setAuthor($this->getReference('user'.$x))
                     ->setCreatedAt($date)
                     ->setUpdatedAt($this->fixturesService->generateUpdatedAt($date))
-                    ->setTrick($trick)
-                ;
+                    ->setTrick($trick);
 
                 $manager->persist($comment);
 
                 $manager->flush();
             }
-
         }
 
     }

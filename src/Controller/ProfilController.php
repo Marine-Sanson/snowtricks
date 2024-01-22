@@ -21,9 +21,9 @@ class ProfilController extends AbstractController
     /**
      * Summary of function __construct
      *
-     * @param MediaService  $mediaService  MediaService
-     * @param UserService   $userService   UserService
-     * @param MailService   $mailService   MailService
+     * @param MediaService $mediaService MediaService
+     * @param UserService  $userService  UserService
+     * @param MailService  $mailService  MailService
      */
     public function __construct(
         private readonly MediaService $mediaService,
@@ -122,6 +122,7 @@ class ProfilController extends AbstractController
             } //end if
 
             if ($avatar) {
+
                 if (!$oldAvatar || $oldAvatar !== $avatar) {
                     $avatar = $this->mediaService->addNewImage($avatar, 'avatars', 'avatar');
                     $user->setAvatar($avatar);
@@ -143,10 +144,12 @@ class ProfilController extends AbstractController
             );
         } //end if
 
-        return $this->render('profil/edit.html.twig', [
-            'profilForm' => $profilForm->createView(),
-            'user' => $user
-        ]);
+        return $this->render(
+            'profil/edit.html.twig', [
+                'profilForm' => $profilForm->createView(),
+                'user' => $user
+            ]
+        );
 
     }
 

@@ -27,8 +27,8 @@ class GroupFixtures extends Fixture
             ->setDescription($this->fixturesService->faker->text(120))
             ->setCreatedAt($date)
             ->setUpdatedAt($this->fixturesService->generateUpdatedAt($date));
-         
-        $this->addReference('group1', $group1);
+
+            $this->addReference('group1', $group1);
 
         $manager->persist($group1);
         $manager->flush();
@@ -82,5 +82,6 @@ class GroupFixtures extends Fixture
         $manager->flush();
 
     }
+
 
 }

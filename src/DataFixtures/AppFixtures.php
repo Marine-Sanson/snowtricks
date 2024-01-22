@@ -68,7 +68,7 @@ class AppFixtures extends Fixture
             ->setName('avatar_default.webp')
             ->setCreatedAt($date)
             ->setUpdatedAt($this->fixturesService->generateUpdatedAt($date));
-        
+
         $manager->persist($media2);
         $manager->flush();
 

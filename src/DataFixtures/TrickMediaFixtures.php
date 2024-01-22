@@ -14,13 +14,15 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 class TrickMediaFixtures extends Fixture implements DependentFixtureInterface
 {
 
-   public function __construct(
+
+    public function __construct(
        private readonly MediaRepository $mediaRepository,
        private readonly TypeMediaRepository $typeMediaRepository,
        private readonly FixturesService $fixturesService,
-   ) {
+    ) {
 
-   }
+    }
+
 
     public function load(ObjectManager $manager): void
     {
