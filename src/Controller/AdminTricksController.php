@@ -37,6 +37,7 @@ class AdminTricksController extends AbstractController
 {
     use CreatedAtTrait;
 
+
     /**
      * Summary of function __construct
      *
@@ -50,6 +51,7 @@ class AdminTricksController extends AbstractController
         private readonly MediaService $mediaService,
     ) {}
 
+
     /**
      * Summary of function index
      *
@@ -62,6 +64,7 @@ class AdminTricksController extends AbstractController
         return $this->render('admin_tricks/index.html.twig');
 
     }
+
 
     /**
      * Summary of function add
@@ -90,9 +93,11 @@ class AdminTricksController extends AbstractController
 
             if ($isTrickNameKnown === true) {
                 $this->addFlash('danger', 'Un Trick porte déjà ce nom');
-                return $this->render('trick/add.html.twig', [
-                    'trickForm' => $trickForm->createView(),
-                ]);
+                return $this->render(
+                    'trick/add.html.twig', [
+                        'trickForm' => $trickForm->createView(),
+                    ]
+                );
             }
 
             foreach ($images as $image) {
@@ -126,6 +131,7 @@ class AdminTricksController extends AbstractController
 
     }
 
+
     /**
      * Summary of function edit
      *
@@ -146,12 +152,12 @@ class AdminTricksController extends AbstractController
 
         $trickForm->handleRequest($request);
 
-        if($trickForm->isSubmitted() && $trickForm->isValid()){
+        if ($trickForm->isSubmitted() && $trickForm->isValid()) {
             $trick->setUpdatedAt(new DateTimeImmutable());
 
             $images = $trickForm->get('images')->getData();
 
-            foreach ($images as $image){
+            foreach ($images as $image) {
                 $mediaImg = $this->mediaService->addNewImage($image, 'tricks', 'photo');
                 $trick->addMedium($mediaImg);
             }
@@ -178,6 +184,7 @@ class AdminTricksController extends AbstractController
         );
 
     }
+
 
     /**
      * Summary of function deleteImage
@@ -206,6 +213,7 @@ class AdminTricksController extends AbstractController
 
     }
 
+
     /**
      * Summary of function delete
      *
@@ -231,5 +239,6 @@ class AdminTricksController extends AbstractController
         return $this->render('home');
 
     }
+
 
 }
