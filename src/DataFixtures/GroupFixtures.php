@@ -11,6 +11,11 @@ class GroupFixtures extends Fixture
 {
 
 
+    /**
+     * Summary of function __construct
+     *
+     * @param FixturesService $fixturesService FixturesService
+     */
     public function __construct(
         private readonly FixturesService $fixturesService,
     ) {
@@ -18,6 +23,13 @@ class GroupFixtures extends Fixture
     }
 
 
+    /**
+     * Summary of function load
+     *
+     * @param ObjectManager $manager ObjectManager
+     *
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
 

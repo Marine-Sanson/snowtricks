@@ -175,6 +175,7 @@ class Media
 
     }
 
+
     /**
      * Summary of function setTypeMedia
      *

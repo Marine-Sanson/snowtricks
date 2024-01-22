@@ -28,13 +28,14 @@ use App\Model\HomeMedia;
 class CommentMapper
 {
 
+
     /**
      * Summary of getCommentEntity
      *
      * @param string $content content
-     * @param int    $trickId trickId
-     * @param int    $userId  userId
-     * 
+     * @param Trick  $trick   Trick
+     * @param User   $user    User
+     *
      * @return Comment
      */
     public function getCommentEntity(string $content, Trick $trick, User $user): Comment
@@ -48,7 +49,7 @@ class CommentMapper
             ->setAuthor($user)
             ->setCreatedAt($date)
             ->setUpdatedAt($date);
-        
+
             return $comment;
 
     }

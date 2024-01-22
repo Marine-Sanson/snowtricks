@@ -39,6 +39,12 @@ class CommentRepository extends ServiceEntityRepository
 
 
     /**
+     * Summary of function setContent
+     *
+     * @param int $id    id
+     * @param int $page  page
+     * @param int $limit limit
+     *
      * @return array
      */
    public function findCommentsPaginatedByTrick(int $id, int $page, int $limit): array
@@ -57,7 +63,7 @@ class CommentRepository extends ServiceEntityRepository
         $paginator = new Paginator($query);
         $comments = $paginator->getQuery()->getResult();
 
-        if(empty($comments)){
+        if (empty($comments)) {
             return $result;
         }
 

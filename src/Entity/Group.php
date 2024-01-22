@@ -232,7 +232,7 @@ class Group
      * Summary of function removeTrick
      *
      * @param Trick $trick Trick
-     * 
+     *
      * @return static
      */
     public function removeTrick(Trick $trick): static
@@ -245,5 +245,6 @@ class Group
         return $this;
 
     }
+
 
 }

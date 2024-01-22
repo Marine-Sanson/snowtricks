@@ -24,6 +24,7 @@ use App\Model\HomeMedia;
 class HomeTrick
 {
 
+
     /**
      * Summary of function __construct
      *

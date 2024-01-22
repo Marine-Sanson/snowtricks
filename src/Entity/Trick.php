@@ -213,7 +213,7 @@ class Trick
     /**
      * Summary of function setSlug
      *
-     * @param string $description Description
+     * @param string $slug slug
      *
      * @return static
      */
@@ -354,8 +354,9 @@ class Trick
 
     }
 
-
     /**
+     * Summary of getMedia
+     *
      * @return Collection<int, Comment>
      */
     public function getComments(): Collection
@@ -365,6 +366,14 @@ class Trick
 
     }
 
+
+    /**
+     * Summary of function addComment
+     *
+     * @param Comment $comment Comment
+     *
+     * @return static
+     */
 
     public function addComment(Comment $comment): static
     {
@@ -379,6 +388,13 @@ class Trick
     }
 
 
+    /**
+     * Summary of function removeComment
+     *
+     * @param Comment $comment Comment
+     *
+     * @return static
+     */
     public function removeComment(Comment $comment): static
     {
 

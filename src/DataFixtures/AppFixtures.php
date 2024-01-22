@@ -15,6 +15,14 @@ class AppFixtures extends Fixture
 {
 
 
+    /**
+     * Summary of function __construct
+     *
+     * @param UserPasswordHasherInterface $trickService        UserPasswordHasherInterface
+     * @param MediaRepository             $mediaRepository     MediaRepository
+     * @param TypeMediaRepository         $typeMediaRepository TypeMediaRepository
+     * @param FixturesService             $fixturesService     FixturesService
+     */
     public function __construct(
         private readonly UserPasswordHasherInterface $userPasswordHasher,
         private readonly MediaRepository $mediaRepository,
@@ -25,8 +33,16 @@ class AppFixtures extends Fixture
     }
 
 
+    /**
+     * Summary of function load
+     *
+     * @param ObjectManager $manager ObjectManager
+     *
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
+
         $date = $this->fixturesService->generateCreatedAt();
 
         $typeMedia1 = (new TypeMedia())

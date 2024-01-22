@@ -50,7 +50,7 @@ class TricksMapper
     /**
      * Summary of transformToHomeTricks
      *
-     * @param array<Trick> $trick array of tricks
+     * @param array<Trick> $tricks array of tricks
      *
      * @return array
      */
@@ -152,8 +152,8 @@ class TricksMapper
     /**
      * Summary of getPaginatedHomeTricks
      *
-     * @param array<HomeMedia> $mediasModel  HomeMedia
-     * 
+     * @param array<HomeMedia> $mediasModel HomeMedia
+     *
      * @return HomeMedia
      */
     public function getMainMedia($mediasModel): HomeMedia
@@ -162,22 +162,23 @@ class TricksMapper
         $homeMedia = null;
 
         for ($i = 0, $count = count($mediasModel); $i < $count; $i++) {
-            if ($mediasModel[$i]->getTypeMedia() === 'photo'){
+            if ($mediasModel[$i]->getTypeMedia() === 'photo') {
                 $homeMedia = $mediasModel[$i];
 
-                if ($homeMedia !== null){
+                if ($homeMedia !== null) {
                     return $homeMedia;
                 }
 
             }
         }
 
-        if ($homeMedia === null){
+        if ($homeMedia === null) {
             $homeMedia = $this->mediaMapper->getMediaModel($this->mediaRepository->findOneByName('photo_default.webp'));
         }
 
         return $homeMedia;
 
     }
+
 
 }

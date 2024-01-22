@@ -27,7 +27,7 @@ class HomeMedia
      * Summary of function __construct
      *
      * @param int    $id        Id
-     * @param string    $typeMedia TypeMedia
+     * @param string $typeMedia TypeMedia
      * @param string $name      Name
      */
     public function __construct(

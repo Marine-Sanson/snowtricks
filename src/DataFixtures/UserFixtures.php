@@ -33,6 +33,13 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     }
 
 
+    /**
+     * Summary of function load
+     *
+     * @param ObjectManager $manager ObjectManager
+     *
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
 
@@ -80,7 +87,12 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     }
 
 
-    public function getDependencies()
+    /**
+     * Summary of function getDependencies
+     *
+     * @return array
+     */
+    public function getDependencies(): array
     {
 
         return [

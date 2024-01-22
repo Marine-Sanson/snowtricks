@@ -15,6 +15,12 @@ class CommentsFixtures extends Fixture implements DependentFixtureInterface
 {
 
 
+    /**
+     * Summary of function __construct
+     *
+     * @param TypeMediaRepository $typeMediaRepository TypeMediaRepository
+     * @param FixturesService     $fixturesService     FixturesService
+     */
     public function __construct(
         private readonly TypeMediaRepository $typeMediaRepository,
         private readonly FixturesService $fixturesService,
@@ -23,6 +29,13 @@ class CommentsFixtures extends Fixture implements DependentFixtureInterface
     }
 
 
+    /**
+     * Summary of function load
+     *
+     * @param ObjectManager $manager ObjectManager
+     *
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
 
@@ -48,6 +61,11 @@ class CommentsFixtures extends Fixture implements DependentFixtureInterface
     }
 
 
+    /**
+     * Summary of function getDependencies
+     *
+     * @return array
+     */
     public function getDependencies()
     {
 

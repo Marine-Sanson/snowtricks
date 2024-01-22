@@ -84,7 +84,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Summary of isVerified
      *
-     * @var bool
+     * @var boolean
      */
     #[ORM\Column]
     private bool $isVerified = false;
@@ -94,7 +94,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @var string|null
      */
-    #[ORM\Column(length: 100, nullable: true)] 
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $resetToken = null;
 
     /**
@@ -264,11 +264,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Summary of function eraseCredentials
      *
      * @see UserInterface
+     * 
+     * @return void
      */
     public function eraseCredentials(): void
     {
 
     }
+
 
     /**
      * Summary of function getUsername
@@ -390,6 +393,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
+    /**
+     * Summary of getAvatar
+     *
+     * @return Media|null
+     */
     public function getAvatar(): ?Media
     {
 
@@ -398,6 +406,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
+    /**
+     * Summary of function setAvatar
+     *
+     * @param Media|null $avatar Media
+     *
+     * @return static
+     */
     public function setAvatar(?Media $avatar): static
     {
 
@@ -407,8 +422,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     }
 
-
     /**
+     * Summary of getComments
+     *
      * @return Collection<int, Comment>
      */
     public function getComments(): Collection
@@ -419,6 +435,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
+    /**
+     * Summary of function addComment
+     *
+     * @param Comment $comment Comment
+     *
+     * @return static
+     */
     public function addComment(Comment $comment): static
     {
 
@@ -432,6 +455,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
+    /**
+     * Summary of function removeComment
+     *
+     * @param Comment $comment Comment
+     *
+     * @return static
+     */
     public function removeComment(Comment $comment): static
     {
 

@@ -60,6 +60,7 @@ class Comment
     #[ORM\Column]
     private ?DateTimeImmutable $updatedAt = null;
 
+
     /**
      * Summary of function getId
      *

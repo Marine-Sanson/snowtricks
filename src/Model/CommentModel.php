@@ -43,7 +43,7 @@ class CommentModel
      * @var DateTimeImmutable|null
      */
     private ?DateTimeImmutable $updatedAt;
-    
+
 
     /**
      * Summary of function getId

@@ -15,6 +15,13 @@ class TrickVideoFixtures extends Fixture implements DependentFixtureInterface
 {
 
 
+    /**
+     * Summary of function __construct
+     *
+     * @param MediaRepository     $mediaRepository     MediaRepository
+     * @param TypeMediaRepository $typeMediaRepository TypeMediaRepository
+     * @param FixturesService     $fixturesService     FixturesService
+     */
     public function __construct(
         private readonly MediaRepository $mediaRepository,
         private readonly TypeMediaRepository $typeMediaRepository,
@@ -24,6 +31,13 @@ class TrickVideoFixtures extends Fixture implements DependentFixtureInterface
     }
 
 
+    /**
+     * Summary of function load
+     *
+     * @param ObjectManager $manager ObjectManager
+     *
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
         for ($i = 0; $i < 19; $i++) {
@@ -59,6 +73,11 @@ class TrickVideoFixtures extends Fixture implements DependentFixtureInterface
     }
 
 
+    /**
+     * Summary of function getDependencies
+     *
+     * @return array
+     */
     public function getDependencies()
     {
 

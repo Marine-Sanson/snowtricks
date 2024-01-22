@@ -15,6 +15,16 @@ class ProfilFormType extends AbstractType
 {
 
 
+    /**
+     * Summary of function buildForm
+     *
+     * Send an email to the user with a token to verify his account
+     *
+     * @param FormBuilderInterface $builder FormBuilderInterface
+     * @param array                $options Options
+     *
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
 
@@ -61,6 +71,15 @@ class ProfilFormType extends AbstractType
     }
 
 
+    /**
+     * Summary of function configureOptions
+     *
+     * Send an email to the user with a token to verify his account
+     *
+     * @param OptionsResolver $resolver OptionsResolver
+     *
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
 
