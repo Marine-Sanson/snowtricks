@@ -109,7 +109,7 @@ class TrickRepository extends ServiceEntityRepository
      * Summary of delete
      *
      * @param Trick $trick Trick
-     * 
+     *
      * @return void
      */
     public function delete(Trick $trick): void

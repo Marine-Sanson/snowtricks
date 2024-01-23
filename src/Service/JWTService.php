@@ -89,7 +89,7 @@ class JWTService
      * Summary of getPayload
      *
      * @param string $token token
-     * 
+     *
      * @return array
      */
     public function getPayload(string $token): array

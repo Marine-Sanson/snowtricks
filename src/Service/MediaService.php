@@ -137,7 +137,7 @@ class MediaService
      * @param string|null $folder folder
      * @param int|null    $width  width
      * @param int|null    $height height
-     * 
+     *
      * @return bool
      */
     public function deleteImage(string $file, ?string $folder='', ?int $width=300, ?int $height=300): bool

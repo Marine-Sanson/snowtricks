@@ -100,7 +100,7 @@ class TrickService
      * Summary of isTrickNameKnown
      *
      * @param string $trickName trickName
-     * 
+     *
      * @return bool
      */
     public function isTrickNameKnown(string $trickName): bool

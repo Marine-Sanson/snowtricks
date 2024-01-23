@@ -78,7 +78,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
             $password = $this->userPasswordHasher->hashPassword($user, 'mdpass');
             $user->setPassword($password);
-            
+
             $ref = 'user'.$i;
             $this->addReference($ref, $user);
 

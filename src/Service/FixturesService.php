@@ -62,7 +62,7 @@ class FixturesService
     /**
      * Summary of function generateUpdatedAt
      *
-     * @param DateTimeImmutable $date
+     * @param DateTimeImmutable $date date
      *
      * @return DateTimeImmutable
      */
