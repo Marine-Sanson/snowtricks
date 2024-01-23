@@ -172,7 +172,7 @@ class MediaService
      * Summary of removeMediaFromDb
      *
      * @param Media $media Media
-     * 
+     *
      * @return void
      */
     public function removeMediaFromDb(Media $media): void
@@ -187,7 +187,7 @@ class MediaService
      * Summary of addNewVideo
      *
      * @param string $video $video
-     * 
+     *
      * @return Media
      */
     public function addNewVideo(string $video): Media
@@ -207,7 +207,7 @@ class MediaService
      * Summary of getTypeMedia
      *
      * @param string $name name
-     * 
+     *
      * @return TypeMedia
      */
     public function getTypeMedia(string $name): TypeMedia
@@ -222,7 +222,7 @@ class MediaService
      * Summary of addVideo
      *
      * @param Media $video Media
-     * 
+     *
      * @return void
      */
     public function addVideo(Media $video): void
@@ -237,7 +237,7 @@ class MediaService
      * Summary of deleteMedia
      *
      * @param Media $media Media
-     * 
+     *
      * @return bool
      */
     public function deleteMedia(Media $media): bool
@@ -258,7 +258,7 @@ class MediaService
      *
      * @param Media  $media  Media
      * @param string $folder $folder
-     * 
+     *
      * @return bool
      */
     public function deleteMediaImage(Media $media, string $folder): bool
@@ -278,7 +278,7 @@ class MediaService
      * Summary of deleteMediaVideo
      *
      * @param Media $media Media
-     * 
+     *
      * @return bool
      */
     public function deleteMediaVideo(Media $media): bool
@@ -294,7 +294,7 @@ class MediaService
      * Summary of getMedia
      *
      * @param int $id id
-     * 
+     *
      * @return Media
      */
     public function getMedia(int $id): Media
@@ -309,7 +309,7 @@ class MediaService
      * Summary of getMediaByName
      *
      * @param string $name name
-     * 
+     *
      * @return Media
      */
     public function getMediaByName(string $name): Media

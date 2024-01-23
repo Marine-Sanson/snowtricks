@@ -120,7 +120,7 @@ class TrickService
      * Summary of saveTrick
      *
      * @param Trick $trick Trick
-     * 
+     *
      * @return void
      */
     public function saveTrick(Trick $trick): void
@@ -135,7 +135,7 @@ class TrickService
      * Summary of deleteTrick
      *
      * @param Trick $trick Trick
-     * 
+     *
      * @return bool
      */
     public function deleteTrick(Trick $trick): bool

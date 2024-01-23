@@ -108,7 +108,7 @@ class JWTService
      * Summary of getHeader
      *
      * @param string $token token
-     * 
+     *
      * @return array
      */
     public function getHeader(string $token): array
@@ -127,7 +127,7 @@ class JWTService
      * Summary of isExpired
      *
      * @param string $token token
-     * 
+     *
      * @return bool
      */
     public function isExpired(string $token): bool
@@ -147,7 +147,7 @@ class JWTService
      *
      * @param string $token  token
      * @param string $secret secret
-     * 
+     *
      * @return bool
      */
     public function check(string $token, string $secret): bool
