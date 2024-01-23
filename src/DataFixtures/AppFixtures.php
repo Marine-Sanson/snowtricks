@@ -14,15 +14,35 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class AppFixtures extends Fixture
 {
 
+
+    /**
+     * Summary of function __construct
+     *
+     * @param UserPasswordHasherInterface $userPasswordHasher  UserPasswordHasherInterface
+     * @param MediaRepository             $mediaRepository     MediaRepository
+     * @param TypeMediaRepository         $typeMediaRepository TypeMediaRepository
+     * @param FixturesService             $fixturesService     FixturesService
+     */
     public function __construct(
         private readonly UserPasswordHasherInterface $userPasswordHasher,
         private readonly MediaRepository $mediaRepository,
         private readonly TypeMediaRepository $typeMediaRepository,
         private readonly FixturesService $fixturesService,
-    ) { }
+    ) {
 
+    }
+
+
+    /**
+     * Summary of function load
+     *
+     * @param ObjectManager $manager ObjectManager
+     *
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
+
         $date = $this->fixturesService->generateCreatedAt();
 
         $typeMedia1 = (new TypeMedia())
@@ -54,7 +74,7 @@ class AppFixtures extends Fixture
             ->setName('photo_default.webp')
             ->setCreatedAt($date)
             ->setUpdatedAt($this->fixturesService->generateUpdatedAt($date));
-        
+
         $manager->persist($media1);
         $manager->flush();
 
@@ -64,10 +84,11 @@ class AppFixtures extends Fixture
             ->setName('avatar_default.webp')
             ->setCreatedAt($date)
             ->setUpdatedAt($this->fixturesService->generateUpdatedAt($date));
-        
+
         $manager->persist($media2);
         $manager->flush();
 
     }
+
 
 }

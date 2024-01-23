@@ -10,10 +10,26 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 class GroupFixtures extends Fixture
 {
 
+
+    /**
+     * Summary of function __construct
+     *
+     * @param FixturesService $fixturesService FixturesService
+     */
     public function __construct(
         private readonly FixturesService $fixturesService,
-    ) { }
+    ) {
 
+    }
+
+
+    /**
+     * Summary of function load
+     *
+     * @param ObjectManager $manager ObjectManager
+     *
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
 
@@ -23,12 +39,12 @@ class GroupFixtures extends Fixture
             ->setDescription($this->fixturesService->faker->text(120))
             ->setCreatedAt($date)
             ->setUpdatedAt($this->fixturesService->generateUpdatedAt($date));
-         
-        $this->addReference('group1', $group1);
+
+            $this->addReference('group1', $group1);
 
         $manager->persist($group1);
         $manager->flush();
-        
+
         $date = $this->fixturesService->generateCreatedAt();
         $group2 = (new Group())
             ->setName('Rotation')
@@ -76,6 +92,8 @@ class GroupFixtures extends Fixture
 
         $manager->persist($group5);
         $manager->flush();
+
     }
+
 
 }

@@ -21,18 +21,23 @@ namespace App\Model;
  */
 class HomeMedia
 {
+
+
     /**
      * Summary of function __construct
      *
      * @param int    $id        Id
-     * @param string    $typeMedia TypeMedia
+     * @param string $typeMedia TypeMedia
      * @param string $name      Name
      */
     public function __construct(
         private int $id,
         private string $typeMedia,
         private string $name
-    ) { }
+    ) {
+
+    }
+
 
     /**
      * Summary of function getId
@@ -41,8 +46,11 @@ class HomeMedia
      */
     public function getId(): int
     {
+
         return $this->id;
+
     }
+
 
     /**
      * Summary of function getTypeMedia
@@ -51,8 +59,11 @@ class HomeMedia
      */
     public function getTypeMedia(): string
     {
+
         return $this->typeMedia;
+
     }
+
 
     /**
      * Summary of function setTypeMedia
@@ -63,10 +74,13 @@ class HomeMedia
      */
     public function setTypeMedia(string $typeMedia): static
     {
+
         $this->typeMedia = $typeMedia;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getName
@@ -75,8 +89,11 @@ class HomeMedia
      */
     public function getName(): string
     {
+
         return $this->name;
+
     }
+
 
     /**
      * Summary of function setName
@@ -87,9 +104,12 @@ class HomeMedia
      */
     public function setName(string $name): static
     {
+
         $this->name = $name;
 
         return $this;
+
     }
+
 
 }

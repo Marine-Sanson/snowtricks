@@ -27,13 +27,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class HomeController extends AbstractController
 {
+
+
     /**
      * Summary of function __construct
      *
      * @param TrickService $trickService TrickService
      */
     public function __construct(private readonly TrickService $trickService)
-    { }
+    {
+
+    }
+
 
     /**
      * Summary of function home
@@ -47,15 +52,21 @@ class HomeController extends AbstractController
     #[Route('/', name: 'home', methods: ['GET', 'HEAD'])]
     public function home(Request $request): Response
     {
+
         $page = $request->query->getInt("page", 1);
 
         $dataPaginated = $this->trickService->getPaginatedHomeTricks($page, 8);
 
-        return $this->render('home/home.html.twig', [
-            'tricks' => $dataPaginated['tricks'],
-            'pages' => $dataPaginated['pages'],
-            'page' => $dataPaginated['page'],
-            'limit' => $dataPaginated['limit'],
-        ]);
+        return $this->render(
+            'home/home.html.twig', [
+                'tricks' => $dataPaginated['tricks'],
+                'pages' => $dataPaginated['pages'],
+                'page' => $dataPaginated['page'],
+                'limit' => $dataPaginated['limit'],
+            ]
+        );
+
     }
+
+
 }

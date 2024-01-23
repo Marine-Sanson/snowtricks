@@ -23,6 +23,8 @@ use App\Model\HomeMedia;
  */
 class HomeTrick
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -36,7 +38,10 @@ class HomeTrick
         private readonly string $name,
         private readonly string $slug,
         private ?HomeMedia $media
-    ) { }
+    ) {
+
+    }
+
 
     /**
      * Summary of function getId
@@ -45,8 +50,11 @@ class HomeTrick
      */
     public function getId(): int
     {
+
         return $this->id;
+
     }
+
 
     /**
      * Summary of function getName
@@ -55,8 +63,11 @@ class HomeTrick
      */
     public function getName(): string
     {
+
         return $this->name;
+
     }
+
 
     /**
      * Summary of function getSlug
@@ -65,8 +76,11 @@ class HomeTrick
      */
     public function getSlug(): string
     {
+
         return $this->slug;
+
     }
+
 
     /**
      * Summary of function getMedia
@@ -75,8 +89,11 @@ class HomeTrick
      */
     public function getMedia(): ?HomeMedia
     {
+
         return $this->media;
+
     }
+
 
     /**
      * Summary of function setMedia
@@ -87,9 +104,12 @@ class HomeTrick
      */
     public function setMedia(HomeMedia $media): static
     {
+
         $this->media = $media;
 
         return $this;
+
     }
+
 
 }

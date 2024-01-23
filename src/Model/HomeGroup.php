@@ -21,6 +21,8 @@ namespace App\Model;
  */
 class HomeGroup
 {
+
+
     /**
      * Summary of __construct
      *
@@ -30,7 +32,10 @@ class HomeGroup
     public function __construct(
         private int $id,
         private string $name
-    ) { }
+    ) {
+
+    }
+
 
     /**
      * Summary of function getId
@@ -39,8 +44,11 @@ class HomeGroup
      */
     public function getId(): int
     {
+
         return $this->id;
+
     }
+
 
     /**
      * Summary of function getName
@@ -49,8 +57,11 @@ class HomeGroup
      */
     public function getName(): string
     {
+
         return $this->name;
+
     }
+
 
     /**
      * Summary of function setName
@@ -61,9 +72,12 @@ class HomeGroup
      */
     public function setName(string $name): static
     {
+
         $this->name = $name;
 
         return $this;
+
     }
+
 
 }

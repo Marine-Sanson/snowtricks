@@ -32,6 +32,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class MediaRepository extends ServiceEntityRepository
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -39,33 +41,42 @@ class MediaRepository extends ServiceEntityRepository
      */
     public function __construct(ManagerRegistry $registry)
     {
+
         parent::__construct($registry, Media::class);
+
     }
+
 
     /**
      * Summary of delete
      *
      * @param Media $media Media
-     * 
+     *
      * @return void
      */
     public function delete(Media $media): void
     {
+
         $this->getEntityManager()->remove($media);
         $this->getEntityManager()->flush();
+
     }
+
 
     /**
      * Summary of save
      *
      * @param Media $media Media
-     * 
+     *
      * @return void
      */
     public function save(Media $media): void
     {
+
         $this->getEntityManager()->persist($media);
         $this->getEntityManager()->flush();
+
     }
+
 
 }

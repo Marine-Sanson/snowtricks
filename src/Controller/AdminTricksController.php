@@ -37,6 +37,7 @@ class AdminTricksController extends AbstractController
 {
     use CreatedAtTrait;
 
+
     /**
      * Summary of function __construct
      *
@@ -48,7 +49,10 @@ class AdminTricksController extends AbstractController
         private readonly TrickService $trickService,
         private readonly SluggerInterface $slugger,
         private readonly MediaService $mediaService,
-    ) {}
+    ) {
+
+    }
+
 
     /**
      * Summary of function index
@@ -62,6 +66,7 @@ class AdminTricksController extends AbstractController
         return $this->render('admin_tricks/index.html.twig');
 
     }
+
 
     /**
      * Summary of function add
@@ -90,9 +95,11 @@ class AdminTricksController extends AbstractController
 
             if ($isTrickNameKnown === true) {
                 $this->addFlash('danger', 'Un Trick porte déjà ce nom');
-                return $this->render('trick/add.html.twig', [
-                    'trickForm' => $trickForm->createView(),
-                ]);
+                return $this->render(
+                    'trick/add.html.twig', [
+                        'trickForm' => $trickForm->createView(),
+                    ]
+                );
             }
 
             foreach ($images as $image) {
@@ -116,7 +123,7 @@ class AdminTricksController extends AbstractController
 
             $this->addFlash('success', 'Trick ajouté avec succes');
             return $this->redirectToRoute('home');
-        }
+        } //end if
 
         return $this->render(
             'trick/add.html.twig', [
@@ -125,6 +132,7 @@ class AdminTricksController extends AbstractController
         );
 
     }
+
 
     /**
      * Summary of function edit
@@ -146,20 +154,19 @@ class AdminTricksController extends AbstractController
 
         $trickForm->handleRequest($request);
 
-        if($trickForm->isSubmitted() && $trickForm->isValid()){
+        if ($trickForm->isSubmitted() && $trickForm->isValid()) {
             $trick->setUpdatedAt(new DateTimeImmutable());
 
             $images = $trickForm->get('images')->getData();
 
-            foreach ($images as $image){
+            foreach ($images as $image) {
                 $mediaImg = $this->mediaService->addNewImage($image, 'tricks', 'photo');
                 $trick->addMedium($mediaImg);
             }
 
             $videos = $trickForm->get('videos')->getData();
             if (preg_match_all('/(https?:\/\/www\.youtube\.com\/watch\?v=)([a-zA-Z0-9-_\.\/\?=&]+)/', $videos, $matches)) {
-
-                foreach( $matches[2] as $video) {
+                foreach ($matches[2] as $video) {
                     $mediaVid = $this->mediaService->addNewVideo($video);
                     $trick->addMedium($mediaVid);
                 }
@@ -169,7 +176,7 @@ class AdminTricksController extends AbstractController
 
             $this->addFlash('success', 'Trick modifié avec succes');
             return $this->redirectToRoute('home');
-        }
+        } //end if
 
         return $this->render(
             'trick/edit.html.twig', [
@@ -179,6 +186,7 @@ class AdminTricksController extends AbstractController
         );
 
     }
+
 
     /**
      * Summary of function deleteImage
@@ -207,6 +215,7 @@ class AdminTricksController extends AbstractController
 
     }
 
+
     /**
      * Summary of function delete
      *
@@ -232,5 +241,6 @@ class AdminTricksController extends AbstractController
         return $this->render('home');
 
     }
+
 
 }

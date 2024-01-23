@@ -33,6 +33,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class TrickRepository extends ServiceEntityRepository
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -40,19 +42,23 @@ class TrickRepository extends ServiceEntityRepository
      */
     public function __construct(ManagerRegistry $registry)
     {
+
         parent::__construct($registry, Trick::class);
+
     }
+
 
     /**
      * Summary of findTricksPaginated
      *
-     * @param int $page Page
+     * @param int $page  Page
      * @param int $limit Limit
-     * 
+     *
      * @return array
      */
-    public function findTricksPaginated(int $page, int $limit = 4): array
+    public function findTricksPaginated(int $page, int $limit=4): array
     {
+
         $limit = abs($limit);
 
         $result = [];
@@ -63,48 +69,56 @@ class TrickRepository extends ServiceEntityRepository
             ->setMaxResults($limit)
             ->setFirstResult(($page * $limit) - $limit)
             ->orderBy('trick.id', 'DESC');
-        
-            $paginator = new Paginator($query);
-            $tricks = $paginator->getQuery()->getResult();
 
-            if(empty($tricks)){
-                return $result;
-            }
+        $paginator = new Paginator($query);
+        $tricks = $paginator->getQuery()->getResult();
 
-            $pages = ceil($paginator->count() / $limit);
+        if (empty($tricks)) {
+            return $result;
+        }
 
-            $result['tricks'] = $tricks;
-            $result['pages'] = $pages;
-            $result['page'] = $page;
-            $result['limit'] = $limit;
-        
+        $pages = ceil($paginator->count() / $limit);
+
+        $result['tricks'] = $tricks;
+        $result['pages'] = $pages;
+        $result['page'] = $page;
+        $result['limit'] = $limit;
+
         return $result;
+
     }
+
 
     /**
      * Summary of saveTrick
      *
      * @param Trick $trick Trick
-     * 
+     *
      * @return void
      */
     public function saveTrick(Trick $trick): void
     {
+
         $this->getEntityManager()->persist($trick);
         $this->getEntityManager()->flush();
+
     }
+
 
     /**
      * Summary of delete
      *
      * @param Trick $trick Trick
-     * 
+     *
      * @return void
      */
     public function delete(Trick $trick): void
     {
+
         $this->getEntityManager()->remove($trick);
         $this->getEntityManager()->flush();
+
     }
+
 
 }

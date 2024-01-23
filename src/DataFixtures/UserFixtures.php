@@ -15,35 +15,53 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture implements DependentFixtureInterface
 {
-    /**
-    * @param UserPasswordHasherInterface $userPasswordHasher UserPasswordHasherInterface
-    */
-   public function __construct(
-       private readonly UserPasswordHasherInterface $userPasswordHasher,
-       private readonly MediaRepository $mediaRepository,
-       private readonly TypeMediaRepository $typeMediaRepository,
-       private readonly FixturesService $fixturesService,
-   ) {}
 
+
+    /**
+     * Summary of function __construct
+     *
+     * @param UserPasswordHasherInterface $userPasswordHasher  UserPasswordHasherInterface
+     * @param MediaRepository             $mediaRepository     MediaRepository
+     * @param TypeMediaRepository         $typeMediaRepository TypeMediaRepository
+     * @param FixturesService             $fixturesService     FixturesService
+     */
+    public function __construct(
+        private readonly UserPasswordHasherInterface $userPasswordHasher,
+        private readonly MediaRepository $mediaRepository,
+        private readonly TypeMediaRepository $typeMediaRepository,
+        private readonly FixturesService $fixturesService,
+    ) {
+
+    }
+
+
+    /**
+     * Summary of function load
+     *
+     * @param ObjectManager $manager ObjectManager
+     *
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
-        for ($i = 0; $i < 15; $i++) {
 
+        for ($i = 0; $i < 15; $i++) {
             $date = $this->fixturesService->generateCreatedAt();
 
-            $mediaName = 'avatar-' . mt_rand(1, 16) . '.webp';
+            $mediaName = 'avatar-'.mt_rand(1, 16).'.webp';
             $media = (new Media())
                 ->setTypeMedia($this->typeMediaRepository->findOneByType('avatar'))
                 ->setName($mediaName)
                 ->setCreatedAt($date)
                 ->setUpdatedAt($this->fixturesService->generateUpdatedAt($date));
-                
+
             $manager->persist($media);
             $manager->flush();
 
             $date = $this->fixturesService->generateCreatedAt();
             $role = ["ROLE_USER"];
             $x = mt_rand(0, 9);
+
             if ($x === 7) {
                 $role = ["ROLE_ADMIN"];
             }
@@ -57,23 +75,33 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 ->setCreatedAt($date)
                 ->setUpdatedAt($this->fixturesService->generateUpdatedAt($date))
                 ->setAvatar($media);
-        
+
             $password = $this->userPasswordHasher->hashPassword($user, 'mdpass');
             $user->setPassword($password);
-            
-            $ref = 'user' . $i;
+
+            $ref = 'user'.$i;
             $this->addReference($ref, $user);
 
             $manager->persist($user);
             $manager->flush();
+        } //end for
 
-        }
     }
 
-    public function getDependencies()
+
+    /**
+     * Summary of function getDependencies
+     *
+     * @return array
+     */
+    public function getDependencies(): array
     {
+
         return [
             AppFixtures::class,
         ];
+
     }
+
+
 }

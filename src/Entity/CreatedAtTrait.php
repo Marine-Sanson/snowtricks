@@ -22,8 +22,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  */
-trait CreatedAtTrait 
+trait CreatedAtTrait
 {
+
     /**
      * Summary of $createdAt
      *
@@ -32,6 +33,7 @@ trait CreatedAtTrait
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
     private DateTimeImmutable $createdAt;
 
+
     /**
      * Summary of function getCreatedAt
      *
@@ -39,8 +41,11 @@ trait CreatedAtTrait
      */
     public function getCreatedAt(): DateTimeImmutable
     {
+
         return $this->createdAt;
+
     }
+
 
     /**
      * Summary of function setCreatedAt
@@ -51,8 +56,12 @@ trait CreatedAtTrait
      */
     public function setCreatedAt(DateTimeImmutable $createdAt): static
     {
+
         $this->createdAt = $createdAt;
 
         return $this;
+
     }
+
+
 }

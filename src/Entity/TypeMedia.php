@@ -66,14 +66,18 @@ class TypeMedia
     #[ORM\OneToMany(mappedBy: 'typeMedia', targetEntity: Media::class)]
     private Collection $media;
 
+
     /**
      * Summary of function __construct
      */
     public function __construct()
     {
+
         $this->media = new ArrayCollection();
         $this->createdAt = new DateTimeImmutable();
+
     }
+
 
     /**
      * Summary of function getId
@@ -82,8 +86,11 @@ class TypeMedia
      */
     public function getId(): ?int
     {
+
         return $this->id;
+
     }
+
 
     /**
      * Summary of function getType
@@ -92,8 +99,11 @@ class TypeMedia
      */
     public function getType(): ?string
     {
+
         return $this->type;
+
     }
+
 
     /**
      * Summary of function setType
@@ -104,10 +114,13 @@ class TypeMedia
      */
     public function setType(string $type): static
     {
+
         $this->type = $type;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getUpdatedAt
@@ -116,8 +129,11 @@ class TypeMedia
      */
     public function getUpdatedAt(): ?DateTimeImmutable
     {
+
         return $this->updatedAt;
+
     }
+
 
     /**
      * Summary of function setUpdatedAt
@@ -128,10 +144,13 @@ class TypeMedia
      */
     public function setUpdatedAt(DateTimeImmutable $updatedAt): static
     {
+
         $this->updatedAt = $updatedAt;
 
         return $this;
+
     }
+
 
     /**
      * Summary of getMedia
@@ -140,8 +159,11 @@ class TypeMedia
      */
     public function getMedia(): Collection
     {
+
         return $this->media;
+
     }
+
 
     /**
      * Summary of function addMedium
@@ -152,13 +174,16 @@ class TypeMedia
      */
     public function addMedium(Media $medium): static
     {
+
         if (!$this->media->contains($medium)) {
             $this->media->add($medium);
             $medium->setTypeMedia($this);
         }
 
         return $this;
+
     }
+
 
     /**
      * Summary of function removeMedium
@@ -169,14 +194,17 @@ class TypeMedia
      */
     public function removeMedium(Media $medium): static
     {
+
         if ($this->media->removeElement($medium)) {
-            // set the owning side to null (unless already changed)
+            // Set the owning side to null (unless already changed).
             if ($medium->getTypeMedia() === $this) {
                 $medium->setTypeMedia(null);
             }
         }
 
         return $this;
+
     }
+
 
 }

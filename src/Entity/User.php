@@ -34,6 +34,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+
     use CreatedAtTrait;
 
     /**
@@ -83,7 +84,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Summary of isVerified
      *
-     * @var bool
+     * @var boolean
      */
     #[ORM\Column]
     private bool $isVerified = false;
@@ -93,7 +94,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @var string|null
      */
-    #[ORM\Column(length: 100, nullable: true)] 
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $resetToken = null;
 
     /**
@@ -104,18 +105,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?DateTimeImmutable $updatedAt = null;
 
+    /**
+     * Summary of avatar
+     *
+     * @var Media|null
+     */
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Media $avatar = null;
 
+    /**
+     * Summary of comments
+     *
+     * @var Collection|null
+     */
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Comment::class, orphanRemoval: true)]
-    private Collection $comments;
+    private ?Collection $comments;
 
+
+    /**
+     * Summary of function __construct
+     */
     public function __construct()
     {
+
         $this->createdAt = new DateTimeImmutable;
         $this->updatedAt = new DateTimeImmutable;
         $this->comments = new ArrayCollection();
+
     }
+
 
     /**
      * Summary of function getId
@@ -124,8 +142,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getId(): ?int
     {
+
         return $this->id;
+
     }
+
 
     /**
      * Summary of function getEmail
@@ -134,8 +155,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getEmail(): string
     {
+
         return $this->email;
+
     }
+
 
     /**
      * Summary of function setEmail
@@ -146,10 +170,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function setEmail(string $email): static
     {
+
         $this->email = $email;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getUserIdentifier
@@ -162,8 +189,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
+
         return (string) $this->email;
+
     }
+
 
     /**
      * Summary of function getRoles
@@ -174,12 +204,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
+
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+        // Guarantee every user at least has ROLE_USER.
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
+
     }
+
 
     /**
      * Summary of function setRoles
@@ -190,10 +223,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function setRoles(array $roles): static
     {
+
         $this->roles = $roles;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getPassword
@@ -204,8 +240,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getPassword(): string
     {
+
         return $this->password;
+
     }
+
 
     /**
      * Summary of function setPassword
@@ -216,20 +255,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function setPassword(string $password): static
     {
+
         $this->password = $password;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function eraseCredentials
      *
      * @see UserInterface
+     *
+     * @return void
      */
     public function eraseCredentials(): void
     {
 
     }
+
 
     /**
      * Summary of function getUsername
@@ -238,8 +283,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string
     {
+
         return $this->username;
+
     }
+
 
     /**
      * Summary of function setUsername
@@ -250,10 +298,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function setUsername(string $username): static
     {
+
         $this->username = $username;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getIsVerified
@@ -262,8 +313,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getIsVerified(): ?bool
     {
+
         return $this->isVerified;
+
     }
+
 
     /**
      * Summary of function setIsVerified
@@ -274,10 +328,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function setIsVerified(bool $isVerified): static
     {
+
         $this->isVerified = $isVerified;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getResetToken
@@ -286,8 +343,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getResetToken(): ?string
     {
+
         return $this->resetToken;
+
     }
+
 
     /**
      * Summary of function setResetToken
@@ -298,10 +358,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function setResetToken(?string $resetToken): static
     {
+
         $this->resetToken = $resetToken;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getUpdatedAt
@@ -310,8 +373,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUpdatedAt(): ?DateTimeImmutable
     {
+
         return $this->updatedAt;
+
     }
+
 
     /**
      * Summary of function setUpdatedAt
@@ -322,50 +388,97 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function setUpdatedAt(DateTimeImmutable $updatedAt): static
     {
+
         $this->updatedAt = $updatedAt;
 
         return $this;
+
     }
 
+
+    /**
+     * Summary of getAvatar
+     *
+     * @return Media|null
+     */
     public function getAvatar(): ?Media
     {
+
         return $this->avatar;
+
     }
 
+
+    /**
+     * Summary of function setAvatar
+     *
+     * @param Media|null $avatar Media
+     *
+     * @return static
+     */
     public function setAvatar(?Media $avatar): static
     {
+
         $this->avatar = $avatar;
 
         return $this;
+
     }
 
+
     /**
+     * Summary of getComments
+     *
      * @return Collection<int, Comment>
      */
     public function getComments(): Collection
     {
+
         return $this->comments;
+
     }
 
+
+    /**
+     * Summary of function addComment
+     *
+     * @param Comment $comment Comment
+     *
+     * @return static
+     */
     public function addComment(Comment $comment): static
     {
+
         if (!$this->comments->contains($comment)) {
             $this->comments->add($comment);
             $comment->setAuthor($this);
         }
 
         return $this;
+
     }
 
+
+    /**
+     * Summary of function removeComment
+     *
+     * @param Comment $comment Comment
+     *
+     * @return static
+     */
     public function removeComment(Comment $comment): static
     {
+
         if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
+            // Set the owning side to null (unless already changed).
             if ($comment->getAuthor() === $this) {
                 $comment->setAuthor($comment->getAuthor());
             }
         }
 
         return $this;
+
     }
+
+
 }

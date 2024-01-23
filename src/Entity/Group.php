@@ -32,6 +32,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name: '`group`')]
 class Group
 {
+
     use CreatedAtTrait;
 
     /**
@@ -78,14 +79,18 @@ class Group
     #[ORM\ManyToMany(targetEntity: Trick::class, mappedBy: 'trickGroup')]
     private Collection $tricks;
 
+
     /**
      * Summary of function __construct
      */
     public function __construct()
     {
+
         $this->tricks = new ArrayCollection();
         $this->createdAt = new DateTimeImmutable();
+
     }
+
 
     /**
      * Summary of function getId
@@ -94,8 +99,11 @@ class Group
      */
     public function getId(): ?int
     {
+
         return $this->id;
+
     }
+
 
     /**
      * Summary of function getName
@@ -104,8 +112,11 @@ class Group
      */
     public function getName(): string
     {
+
         return $this->name;
+
     }
+
 
     /**
      * Summary of function setName
@@ -116,10 +127,13 @@ class Group
      */
     public function setName(string $name): static
     {
+
         $this->name = $name;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getDescription
@@ -128,8 +142,11 @@ class Group
      */
     public function getDescription(): string
     {
+
         return $this->description;
+
     }
+
 
     /**
      * Summary of function setDescription
@@ -140,10 +157,13 @@ class Group
      */
     public function setDescription(string $description): static
     {
+
         $this->description = $description;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getUpdatedAt
@@ -152,8 +172,11 @@ class Group
      */
     public function getUpdatedAt(): DateTimeImmutable
     {
+
         return $this->updatedAt;
+
     }
+
 
     /**
      * Summary of function setUpdatedAt
@@ -164,10 +187,13 @@ class Group
      */
     public function setUpdatedAt(DateTimeImmutable $updatedAt): static
     {
+
         $this->updatedAt = $updatedAt;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getTricks
@@ -176,8 +202,11 @@ class Group
      */
     public function getTricks(): Collection
     {
+
         return $this->tricks;
+
     }
+
 
     /**
      * Summary of function addTrick
@@ -188,27 +217,34 @@ class Group
      */
     public function addTrick(Trick $trick): static
     {
+
         if (!$this->tricks->contains($trick)) {
             $this->tricks->add($trick);
             $trick->addTrickGroup($this);
         }
 
         return $this;
+
     }
+
 
     /**
      * Summary of function removeTrick
      *
      * @param Trick $trick Trick
-     * 
+     *
      * @return static
      */
     public function removeTrick(Trick $trick): static
     {
+
         if ($this->tricks->removeElement($trick)) {
             $trick->removeTrickGroup($this);
         }
 
         return $this;
+
     }
+
+
 }

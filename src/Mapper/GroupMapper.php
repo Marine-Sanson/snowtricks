@@ -25,6 +25,7 @@ use App\Model\HomeGroup;
 class GroupMapper
 {
 
+
     /**
      * Summary of getTrickGroupModel
      *
@@ -34,13 +35,16 @@ class GroupMapper
      */
     public function getTrickGroupModel(array $trickgroup): array
     {
+
         return array_map(
             function (Group $groupEntity) {
                 return $this->getGroupModel($groupEntity);
             },
             $trickgroup
         );
+
     }
+
 
     /**
      * Summary of getGroupModel
@@ -51,7 +55,10 @@ class GroupMapper
      */
     public function getGroupModel(Group $groupEntity): HomeGroup
     {
+
         return new HomeGroup($groupEntity->getId(), $groupEntity->getName());
+
     }
+
 
 }

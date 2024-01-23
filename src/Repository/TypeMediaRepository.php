@@ -32,6 +32,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class TypeMediaRepository extends ServiceEntityRepository
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -39,7 +41,10 @@ class TypeMediaRepository extends ServiceEntityRepository
      */
     public function __construct(ManagerRegistry $registry)
     {
+
         parent::__construct($registry, TypeMedia::class);
+
     }
+
 
 }

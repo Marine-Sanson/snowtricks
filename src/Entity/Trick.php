@@ -32,6 +32,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: TrickRepository::class)]
 class Trick
 {
+
     use CreatedAtTrait;
 
     /**
@@ -55,7 +56,8 @@ class Trick
         min: 5,
         minMessage: 'Le nom du trick doit contenir au moins {{ limit }} caractères',
         max: 50,
-        maxMessage: 'Le nom du trick ne doit pas faire plus de {{ limit }} caractères')]
+        maxMessage: 'Le nom du trick ne doit pas faire plus de {{ limit }} caractères'
+    )]
     private string $name;
 
     /**
@@ -99,19 +101,28 @@ class Trick
     #[ORM\ManyToMany(targetEntity: Media::class, inversedBy: 'tricks', cascade:['persist'], fetch: 'EAGER')]
     private Collection $media;
 
+    /**
+     * Summary of comments
+     *
+     * @var Collection
+     */
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
+
 
     /**
      * Summary of function __construct
      */
     public function __construct()
     {
+
         $this->trickGroup = new ArrayCollection();
         $this->media = new ArrayCollection();
         $this->createdAt = new DateTimeImmutable();
         $this->comments = new ArrayCollection();
+
     }
+
 
     /**
      * Summary of function getId
@@ -120,8 +131,11 @@ class Trick
      */
     public function getId(): ?int
     {
+
         return $this->id;
+
     }
+
 
     /**
      * Summary of function getName
@@ -130,8 +144,11 @@ class Trick
      */
     public function getName(): string
     {
+
         return $this->name;
+
     }
+
 
     /**
      * Summary of function setName
@@ -142,10 +159,13 @@ class Trick
      */
     public function setName(string $name): static
     {
+
         $this->name = $name;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getDescription
@@ -154,8 +174,11 @@ class Trick
      */
     public function getDescription(): string
     {
+
         return $this->description;
+
     }
+
 
     /**
      * Summary of function setDescription
@@ -166,10 +189,13 @@ class Trick
      */
     public function setDescription(string $description): static
     {
+
         $this->description = $description;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getSlug
@@ -178,22 +204,28 @@ class Trick
      */
     public function getSlug(): ?string
     {
+
         return $this->slug;
+
     }
+
 
     /**
      * Summary of function setSlug
      *
-     * @param string $description Description
+     * @param string $slug slug
      *
      * @return static
      */
     public function setSlug(string $slug): static
     {
+
         $this->slug = $slug;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getUpdatedAt
@@ -202,8 +234,11 @@ class Trick
      */
     public function getUpdatedAt(): DateTimeImmutable
     {
+
         return $this->updatedAt;
+
     }
+
 
     /**
      * Summary of function setUpdatedAt
@@ -214,10 +249,13 @@ class Trick
      */
     public function setUpdatedAt(DateTimeImmutable $updatedAt): static
     {
+
         $this->updatedAt = $updatedAt;
 
         return $this;
+
     }
+
 
     /**
      * Summary of getTrickGroup
@@ -226,8 +264,11 @@ class Trick
      */
     public function getTrickGroup(): Collection
     {
+
         return $this->trickGroup;
+
     }
+
 
     /**
      * Summary of function addTrickGroup
@@ -238,12 +279,15 @@ class Trick
      */
     public function addTrickGroup(Group $trickGroup): static
     {
+
         if (!$this->trickGroup->contains($trickGroup)) {
             $this->trickGroup->add($trickGroup);
         }
 
         return $this;
+
     }
+
 
     /**
      * Summary of function removeTrickGroup
@@ -254,10 +298,13 @@ class Trick
      */
     public function removeTrickGroup(Group $trickGroup): static
     {
+
         $this->trickGroup->removeElement($trickGroup);
 
         return $this;
+
     }
+
 
     /**
      * Summary of getMedia
@@ -266,8 +313,11 @@ class Trick
      */
     public function getMedia(): Collection
     {
+
         return $this->media;
+
     }
+
 
     /**
      * Summary of function addMedium
@@ -278,12 +328,15 @@ class Trick
      */
     public function addMedium(Media $medium): static
     {
+
         if (!$this->media->contains($medium)) {
             $this->media->add($medium);
         }
 
         return $this;
+
     }
+
 
     /**
      * Summary of function removeMedium
@@ -294,39 +347,67 @@ class Trick
      */
     public function removeMedium(Media $medium): static
     {
+
         $this->media->removeElement($medium);
 
         return $this;
+
     }
 
+
     /**
+     * Summary of getMedia
+     *
      * @return Collection<int, Comment>
      */
     public function getComments(): Collection
     {
+
         return $this->comments;
+
     }
 
+
+    /**
+     * Summary of function addComment
+     *
+     * @param Comment $comment Comment
+     *
+     * @return static
+     */
     public function addComment(Comment $comment): static
     {
+
         if (!$this->comments->contains($comment)) {
             $this->comments->add($comment);
             $comment->setTrick($this);
         }
 
         return $this;
+
     }
 
+
+    /**
+     * Summary of function removeComment
+     *
+     * @param Comment $comment Comment
+     *
+     * @return static
+     */
     public function removeComment(Comment $comment): static
     {
+
         if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
+            // Set the owning side to null (unless already changed).
             if ($comment->getTrick() === $this) {
                 $comment->setTrick($this);
             }
         }
 
         return $this;
+
     }
+
 
 }

@@ -13,26 +13,53 @@ use App\Repository\CommentRepository;
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
 {
+
     use CreatedAtTrait;
 
+    /**
+     * Summary of id
+     *
+     * @var integer|null
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    /**
+     * Summary of content
+     *
+     * @var string
+     */
     #[ORM\Column(type: Types::TEXT)]
     private string $content;
 
+    /**
+     * Summary of trick
+     *
+     * @var Trick
+     */
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Trick $trick;
 
+    /**
+     * Summary of author
+     *
+     * @var User
+     */
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
     private User $author;
 
+    /**
+     * Summary of updatedAt
+     *
+     * @var DateTimeImmutable|null
+     */
     #[ORM\Column]
     private ?DateTimeImmutable $updatedAt = null;
+
 
     /**
      * Summary of function getId
@@ -41,8 +68,11 @@ class Comment
      */
     public function getId(): ?int
     {
+
         return $this->id;
+
     }
+
 
     /**
      * Summary of function getContent
@@ -51,8 +81,11 @@ class Comment
      */
     public function getContent(): string
     {
+
         return $this->content;
+
     }
+
 
     /**
      * Summary of function setContent
@@ -63,10 +96,13 @@ class Comment
      */
     public function setContent(string $content): static
     {
+
         $this->content = $content;
 
         return $this;
+
     }
+
 
     /**
      * Summary of getTricks
@@ -75,8 +111,11 @@ class Comment
      */
     public function getTrick(): Trick
     {
+
         return $this->trick;
+
     }
+
 
     /**
      * Summary of function setTrick
@@ -87,10 +126,13 @@ class Comment
      */
     public function setTrick(Trick $trick): static
     {
+
         $this->trick = $trick;
 
         return $this;
+
     }
+
 
     /**
      * Summary of getAuthor
@@ -99,8 +141,11 @@ class Comment
      */
     public function getAuthor(): User
     {
+
         return $this->author;
+
     }
+
 
     /**
      * Summary of function setAuthor
@@ -111,10 +156,13 @@ class Comment
      */
     public function setAuthor(User $author): static
     {
+
         $this->author = $author;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getUpdatedAt
@@ -123,8 +171,11 @@ class Comment
      */
     public function getUpdatedAt(): ?DateTimeImmutable
     {
+
         return $this->updatedAt;
+
     }
+
 
     /**
      * Summary of function setUpdatedAt
@@ -135,8 +186,12 @@ class Comment
      */
     public function setUpdatedAt(DateTimeImmutable $updatedAt): static
     {
+
         $this->updatedAt = $updatedAt;
 
         return $this;
+
     }
+
+
 }

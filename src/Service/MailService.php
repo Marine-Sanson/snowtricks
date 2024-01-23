@@ -24,12 +24,18 @@ use Symfony\Component\Mailer\MailerInterface;
  */
 class MailService
 {
+
+
     /**
      * Summary of function __construct
      *
      * @param MailerInterface $mailer MailerInterface
      */
-    public function __construct(private MailerInterface $mailer){}
+    public function __construct(private MailerInterface $mailer)
+    {
+
+    }
+
 
     /**
      * Summary of send
@@ -39,7 +45,7 @@ class MailService
      * @param string $subject  subject
      * @param string $template template
      * @param array  $context  context
-     * 
+     *
      * @return void
      */
     public function send(
@@ -48,8 +54,8 @@ class MailService
         string $subject,
         string $template,
         array $context
-    ): void
-    {
+    ): void {
+
         $email = (new TemplatedEmail())
             ->from($from)
             ->to($to)
@@ -58,6 +64,8 @@ class MailService
             ->context($context);
 
         $this->mailer->send($email);
+
     }
+
 
 }

@@ -17,24 +17,51 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class CommentRepository extends ServiceEntityRepository
 {
+
+
+    /**
+     * Summary of function __construct
+     *
+     * @param ManagerRegistry $registry ManagerRegistry
+     */
     public function __construct(ManagerRegistry $registry)
     {
+
         parent::__construct($registry, Comment::class);
+
     }
 
+
+    /**
+     * Summary of function saveComment
+     *
+     * @param Comment $comment Comment
+     *
+     * @return Comment
+     */
     public function saveComment(Comment $comment): Comment
     {
+
         $this->getEntityManager()->persist($comment);
         $this->getEntityManager()->flush();
 
         return $comment;
+
     }
 
+
     /**
-    * @return array
-    */
-   public function findCommentsPaginatedByTrick(int $id, int $page, int $limit): array
-   {
+     * Summary of function setContent
+     *
+     * @param int $id    id
+     * @param int $page  page
+     * @param int $limit limit
+     *
+     * @return array
+     */
+    public function findCommentsPaginatedByTrick(int $id, int $page, int $limit): array
+    {
+
         $limit = abs($limit);
 
         $result = [];
@@ -48,7 +75,7 @@ class CommentRepository extends ServiceEntityRepository
         $paginator = new Paginator($query);
         $comments = $paginator->getQuery()->getResult();
 
-        if(empty($comments)){
+        if (empty($comments)) {
             return $result;
         }
 
@@ -58,8 +85,10 @@ class CommentRepository extends ServiceEntityRepository
         $result['pages'] = $pages;
         $result['page'] = $page;
         $result['limit'] = $limit;
-        
+
         return $result;
-   }
+
+    }
+
 
 }

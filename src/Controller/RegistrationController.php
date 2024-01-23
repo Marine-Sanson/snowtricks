@@ -34,6 +34,8 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
  */
 class RegistrationController extends AbstractController
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -45,7 +47,10 @@ class RegistrationController extends AbstractController
         private readonly JWTService $jWTService,
         private readonly MailService $mailService,
         private readonly UserService $userService
-    ) {}
+    ) {
+
+    }
+
 
     /**
      * Summary of function home
@@ -59,12 +64,12 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
     public function register(Request $request): Response
     {
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $userRegister = new UserRegister($form->get('username')->getData(), $form->get('email')->getData(), $form->get('plainPassword')->getData());
 
             $token = $this->userService->register($userRegister);
@@ -82,13 +87,16 @@ class RegistrationController extends AbstractController
 
             $this->addFlash('warning', 'Vérifiez vos emails pour valider votre compte');
             return $this->redirectToRoute('home');
+        } //end if
 
-        }
+        return $this->render(
+            'registration/register.html.twig', [
+                'registrationForm' => $form->createView(),
+            ]
+        );
 
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
     }
+
 
     /**
      * Summary of function home
@@ -108,15 +116,14 @@ class RegistrationController extends AbstractController
         Request $request,
         UserAuthenticatorInterface $userAuthenticator,
         UserAuthenticator $authenticator
-    ): Response
-    {
-        if($this->jWTService->isValid($token) && !$this->jWTService->isExpired($token) && $this->jWTService->check($token, $this->getParameter('app.jwtsecret'))) {
+    ): Response {
+
+        if ($this->jWTService->isValid($token) && !$this->jWTService->isExpired($token) && $this->jWTService->check($token, $this->getParameter('app.jwtsecret'))) {
             $payload = $this->jWTService->getPayload($token);
 
             $userVerified = $this->userService->getUserVerified($payload['userId']);
 
-            if ($userVerified){
-              
+            if ($userVerified) {
                 $this->addFlash('success', 'Utilisateur activé');
                 return $userAuthenticator->authenticateUser(
                     $userVerified,
@@ -124,12 +131,16 @@ class RegistrationController extends AbstractController
                     $request
                 );
             }
+
             $this->addFlash('warning', 'Cet utilisateur est déjà activé');
             return $this->redirectToRoute('app_login');
         }
+
         $this->addFlash('danger', 'Le token est invalid ou a expiré');
         return $this->redirectToRoute('app_login');
+
     }
+
 
     /**
      * Summary of function resendVerify
@@ -141,16 +152,17 @@ class RegistrationController extends AbstractController
     #[Route('/reverifier', name: 'resend_verify', methods: ['GET'])]
     public function resendVerify(): Response
     {
+
         $user = $this->getUser();
 
-        if (!$user){
+        if (!$user) {
             $this->addFlash('danger', 'Vous devez être connecté pour accéder à cette page');
             return $this->redirectToRoute('app_login');
         }
 
         $isUserVerifiedYet = $this->userService->isUserVerifiedYet($user);
 
-        if ($isUserVerifiedYet){
+        if ($isUserVerifiedYet) {
             $this->addFlash('warning', 'Cet utilisateur est déjà activé');
             return $this->redirectToRoute('app_login');
         }
@@ -172,6 +184,8 @@ class RegistrationController extends AbstractController
 
         $this->addFlash('success', 'Email de vérification envoyé');
         return $this->redirectToRoute('app_login');
+
     }
+
 
 }

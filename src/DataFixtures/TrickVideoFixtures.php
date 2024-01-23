@@ -13,16 +13,36 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class TrickVideoFixtures extends Fixture implements DependentFixtureInterface
 {
-   public function __construct(
-       private readonly MediaRepository $mediaRepository,
-       private readonly TypeMediaRepository $typeMediaRepository,
-       private readonly FixturesService $fixturesService,
-   ) {}
 
+
+    /**
+     * Summary of function __construct
+     *
+     * @param MediaRepository     $mediaRepository     MediaRepository
+     * @param TypeMediaRepository $typeMediaRepository TypeMediaRepository
+     * @param FixturesService     $fixturesService     FixturesService
+     */
+    public function __construct(
+        private readonly MediaRepository $mediaRepository,
+        private readonly TypeMediaRepository $typeMediaRepository,
+        private readonly FixturesService $fixturesService,
+    ) {
+
+    }
+
+
+    /**
+     * Summary of function load
+     *
+     * @param ObjectManager $manager ObjectManager
+     *
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
-        for ($i = 0; $i < 19; $i++){
-            $trick = $this->getReference('trick' . $i);
+        for ($i = 0; $i < 19; $i++) {
+            $trick = $this->getReference('trick'.$i);
+
             for ($j = 0; $j < mt_rand(0, 4); $j++) {
                 $date = $this->fixturesService->generateCreatedAt();
 
@@ -42,20 +62,30 @@ class TrickVideoFixtures extends Fixture implements DependentFixtureInterface
                     ->setUpdatedAt($this->fixturesService->generateUpdatedAt($date));
 
                 $manager->persist($media);
-    
+
                 $trick->addMedium($media);
                 $manager->persist($trick);
                 $manager->flush();
             }
-        }
+        } //end for
 
     }
 
+
+    /**
+     * Summary of function getDependencies
+     *
+     * @return array
+     */
     public function getDependencies()
     {
+
         return [
             TricksFixtures::class,
             TrickMediaFixtures::class,
         ];
+
     }
+
+
 }

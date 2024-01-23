@@ -30,6 +30,8 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class TrickService
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -41,22 +43,26 @@ class TrickService
      */
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly TrickRepository        $trickRepository,
-        private readonly MediaRepository        $mediaRepository,
-        private readonly TricksMapper           $tricksMapper,
-        private readonly MediaMapper            $mediaMapper
-        ) { }
+        private readonly TrickRepository $trickRepository,
+        private readonly MediaRepository $mediaRepository,
+        private readonly TricksMapper $tricksMapper,
+        private readonly MediaMapper $mediaMapper
+    ) {
+
+    }
+
 
     /**
      * Summary of getPaginatedHomeTricks
      *
      * @param int $page  page
      * @param int $limit limit
-     * 
+     *
      * @return array
      */
     public function getPaginatedHomeTricks(int $page, int $limit): array
     {
+
         $data = $this->trickRepository->findTricksPaginated($page, $limit);
         $data['tricks'] = $this->tricksMapper->transformToHomeTricks($data['tricks']);
 
@@ -69,64 +75,80 @@ class TrickService
         }
 
         return $data;
+
     }
+
 
     /**
      * Summary of getTrickDetails
      *
      * @param string $slug slug
-     * 
+     *
      * @return TrickDetails
      */
     public function getTrickDetails(string $slug): TrickDetails
     {
-       $trick = $this->trickRepository->findOneBySlug($slug);
 
-       return $this->tricksMapper->getTrickDetails($trick);
+        $trick = $this->trickRepository->findOneBySlug($slug);
+
+        return $this->tricksMapper->getTrickDetails($trick);
+
     }
+
 
     /**
      * Summary of isTrickNameKnown
      *
      * @param string $trickName trickName
-     * 
+     *
      * @return bool
      */
     public function isTrickNameKnown(string $trickName): bool
     {
         $knownTrick = $this->trickRepository->findOneByName($trickName);
-        if($knownTrick){
+
+        if ($knownTrick) {
             return true;
         }
+
         return false;
+
     }
+
 
     /**
      * Summary of saveTrick
      *
      * @param Trick $trick Trick
-     * 
+     *
      * @return void
      */
     public function saveTrick(Trick $trick): void
     {
+
         $this->trickRepository->saveTrick($trick);
+
     }
+
 
     /**
      * Summary of deleteTrick
      *
      * @param Trick $trick Trick
-     * 
+     *
      * @return bool
      */
     public function deleteTrick(Trick $trick): bool
     {
-        if($this->trickRepository->findOneById($trick->getId()) === null){
+
+        if ($this->trickRepository->findOneById($trick->getId()) === null) {
             return false;
         }
+
         $this->trickRepository->delete($trick);
         return true;
+
     }
+
 
 }

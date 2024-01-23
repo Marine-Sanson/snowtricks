@@ -14,15 +14,36 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class TricksFixtures extends Fixture implements DependentFixtureInterface
 {
-   public function __construct(
-       private readonly MediaRepository $mediaRepository,
-       private readonly TypeMediaRepository $typeMediaRepository,
-       private readonly FixturesService $fixturesService,
-       private readonly SluggerInterface $slugger,
-   ) {}
 
+
+    /**
+     * Summary of function __construct
+     *
+     * @param MediaRepository     $mediaRepository     MediaRepository
+     * @param TypeMediaRepository $typeMediaRepository TypeMediaRepository
+     * @param FixturesService     $fixturesService     FixturesService
+     * @param SluggerInterface    $slugger             SluggerInterface
+     */
+    public function __construct(
+        private readonly MediaRepository $mediaRepository,
+        private readonly TypeMediaRepository $typeMediaRepository,
+        private readonly FixturesService $fixturesService,
+        private readonly SluggerInterface $slugger,
+    ) {
+
+    }
+
+
+    /**
+     * Summary of function load
+     *
+     * @param ObjectManager $manager ObjectManager
+     *
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
+
         for ($i = 0; $i < 19; $i++) {
             $date = $this->fixturesService->generateCreatedAt();
             $trickName = $this->fixturesService->faker->words(mt_rand(1, 3), true);
@@ -34,24 +55,34 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
                 ->setCreatedAt($date)
                 ->setUpdatedAt($this->fixturesService->generateUpdatedAt($date));
 
-            for ($j = 1; $j < mt_rand(1, 3); $j++)
-            {
+            for ($j = 1; $j < mt_rand(1, 3); $j++) {
                 $k = mt_rand(1, 5);
-                $trick->addTrickGroup($this->getReference('group' . $k));
+                $trick->addTrickGroup($this->getReference('group'.$k));
             }
 
-            $ref = 'trick' . $i;
+            $ref = 'trick'.$i;
             $this->addReference($ref, $trick);
 
             $manager->persist($trick);
             $manager->flush();
-        }
+        } //end for
+
     }
 
+
+    /**
+     * Summary of function getDependencies
+     *
+     * @return array
+     */
     public function getDependencies()
     {
+
         return [
             GroupFixtures::class,
         ];
+
     }
+
+
 }

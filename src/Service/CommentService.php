@@ -29,6 +29,8 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class CommentService
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -44,27 +46,56 @@ class CommentService
         private readonly UserRepository $userRepository,
         private readonly CommentMapper $commentMapper,
         private readonly MediaRepository $mediaRepository,
-        ) { }
+    ) {
 
-        public function getPaginatedTrickComments(TrickDetails $trick, int $page, int $limit): array
-        {
-            $data = $this->commentRepository->findCommentsPaginatedByTrick($trick->getId(), $page, $limit);
-            if ($data !== []){
-                foreach($data['comments'] as $comment){
-                    if($comment->getAuthor()->getAvatar() === null){
-                        $comment->getAuthor()->setAvatar($this->mediaRepository->findOneByName('avatar_default.webp'));
-                    }
+    }
+
+
+    /**
+     * Summary of function getPaginatedTrickComments
+     *
+     * @param TrickDetails $trick TrickDetails
+     * @param int          $page  page
+     * @param int          $limit limit
+     *
+     * @return array
+     */
+    public function getPaginatedTrickComments(TrickDetails $trick, int $page, int $limit): array
+    {
+
+        $data = $this->commentRepository->findCommentsPaginatedByTrick($trick->getId(), $page, $limit);
+
+        if ($data !== []) {
+            foreach ($data['comments'] as $comment) {
+                if ($comment->getAuthor()->getAvatar() === null) {
+                    $comment->getAuthor()->setAvatar($this->mediaRepository->findOneByName('avatar_default.webp'));
                 }
             }
-            return $data;
         }
 
-        public function addComment(string $content, int $trickId, int $userId): void
-        {
-            $trick = $this->trickRepository->findOneById($trickId);
-            $user = $this->userRepository->findOneById($userId);
-            $newComment = $this->commentMapper->getCommentEntity($content, $trick, $user);
-            $this->commentRepository->saveComment($newComment);
-        }
+        return $data;
+
+    }
+
+
+    /**
+     * Summary of function addComment
+     *
+     * @param string $content content
+     * @param int    $trickId trickId
+     * @param int    $userId  userId
+     *
+     * @return void
+     */
+    public function addComment(string $content, int $trickId, int $userId): void
+    {
+
+        $trick = $this->trickRepository->findOneById($trickId);
+        $user = $this->userRepository->findOneById($userId);
+        $newComment = $this->commentMapper->getCommentEntity($content, $trick, $user);
+        $this->commentRepository->saveComment($newComment);
+
+    }
+
 
 }

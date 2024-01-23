@@ -34,6 +34,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
  */
 class UserAuthenticator extends AbstractLoginFormAuthenticator
 {
+
     use TargetPathTrait;
 
     /**
@@ -43,6 +44,7 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
      */
     public const LOGIN_ROUTE = 'app_login';
 
+
     /**
      * Summary of function __construct
      *
@@ -50,7 +52,9 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
      */
     public function __construct(private UrlGeneratorInterface $urlGenerator)
     {
+
     }
+
 
     /**
      * Summary of authenticate
@@ -61,6 +65,7 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
      */
     public function authenticate(Request $request): Passport
     {
+
         $email = $request->request->get('email', '');
 
         $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $email);
@@ -71,7 +76,9 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
             [
                 new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),            ]
         );
+
     }
+
 
     /**
      * Summary of authenticate
@@ -84,13 +91,15 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
 
-        // For example:
         return new RedirectResponse($this->urlGenerator->generate('home'));
+
     }
+
 
     /**
      * Summary of getLoginUrl
@@ -101,6 +110,10 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
      */
     protected function getLoginUrl(Request $request): string
     {
+
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+
     }
+
+
 }

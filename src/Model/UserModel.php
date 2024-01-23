@@ -21,6 +21,8 @@ namespace App\Model;
  */
 class UserModel
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -32,7 +34,10 @@ class UserModel
         private readonly int $id,
         private readonly string $username,
         private readonly string $email
-    ) {}
+    ) {
+
+    }
+
 
     /**
      * Summary of function getId
@@ -41,8 +46,11 @@ class UserModel
      */
     public function getId(): int
     {
+
         return $this->id;
+
     }
+
 
     /**
      * Summary of function setId
@@ -53,10 +61,13 @@ class UserModel
      */
     public function setId(int $id): static
     {
+
         $this->id = $id;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getUsername
@@ -65,8 +76,11 @@ class UserModel
      */
     public function getUsername(): string
     {
+
         return $this->username;
+
     }
+
 
     /**
      * Summary of function setUsername
@@ -77,10 +91,13 @@ class UserModel
      */
     public function setUsername(string $username): static
     {
+
         $this->username = $username;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getEmail
@@ -89,8 +106,11 @@ class UserModel
      */
     public function getEmail(): string
     {
+
         return $this->email;
+
     }
+
 
     /**
      * Summary of function setEmail
@@ -101,9 +121,12 @@ class UserModel
      */
     public function setEmail(string $email): static
     {
+
         $this->email = $email;
 
         return $this;
+
     }
+
 
 }

@@ -24,6 +24,8 @@ use App\Model\HomeMedia;
  */
 class MediaMapper
 {
+
+
     /**
      * Summary of getMediasModel
      *
@@ -33,13 +35,16 @@ class MediaMapper
      */
     public function getMediasModel(array $medias): array
     {
+
         return array_map(
             function (Media $media) {
                 return $this->getMediaModel($media);
             },
             $medias
         );
+
     }
+
 
     /**
      * Summary of getTrickGroupModel
@@ -50,7 +55,10 @@ class MediaMapper
      */
     public function getMediaModel(Media $media): HomeMedia
     {
+
         return new HomeMedia($media->getId(), $media->getTypeMedia()->getType(), $media->getName());
+
     }
+
 
 }

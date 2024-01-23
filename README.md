@@ -39,9 +39,11 @@ For the database I use MySQL with HeidiSQL because they are in my development se
 
 ### Tools :
 
-<img src="https://img.shields.io/badge/Composer-2.6.5-%23885630?logo=composer" alt="composer banner"> <img src="https://img.shields.io/badge/fakerPHP-1.23.1-%23000000"  alt="fakerPHP banner"> <img src="https://img.shields.io/badge/Tools-GitHub-%23181717?logo=github" alt="GitHub banner"> <img src="https://img.shields.io/badge/fork-1.92.0.0-%2300AFF0" alt="Fork banner"> 
+<img src="https://img.shields.io/badge/Composer-2.6.5-%23885630?logo=composer" alt="composer banner"> <img src="https://img.shields.io/badge/Tools-GitHub-%23181717?logo=github" alt="GitHub banner"> <img src="https://img.shields.io/badge/fakerPHP-1.23.1-%23000000"  alt="fakerPHP banner"> <img src="https://img.shields.io/badge/MailHog-1.0.1-%23B10000" alt="MailHog banner"> <img src="https://img.shields.io/badge/fork-1.92.0.0-%2300AFF0" alt="Fork banner"> 
 
+I used <a href="https://getcomposer.org/">Composer</a> to install all the libraries and tools I needed.
 
+To test the function to send mail I used <a href="https://github.com/mailhog/MailHog">MailHog</a>
 To generate the fixtures I used <a href="https://fakerphp.github.io/">Fakerphp</a>
 
 This project is avaliable on <a href="https://github.com/">GitHub</a>, and received a **Platinum medal** in <a href="https://insight.symfony.com/">SymfonyInsight</a> ! You can see <a href="https://insight.symfony.com/projects/229e245e-bc90-4871-97cb-374f6bca10ee">the last analyse here.</a>

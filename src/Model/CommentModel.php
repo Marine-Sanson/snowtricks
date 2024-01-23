@@ -8,18 +8,43 @@ use DateTimeImmutable;
 
 class CommentModel
 {
+
+    /**
+     * Summary of id
+     *
+     * @var integer|null
+     */
     private readonly ?int $id;
 
+    /**
+     * Summary of trick
+     *
+     * @var Trick|null
+     */
     private ?Trick $trick;
 
+    /**
+     * Summary of author
+     *
+     * @var User|null
+     */
     private ?User $author;
 
+    /**
+     * Summary of content
+     *
+     * @var string|null
+     */
     private ?string $content;
 
+    /**
+     * Summary of updatedAt
+     *
+     * @var DateTimeImmutable|null
+     */
     private ?DateTimeImmutable $updatedAt;
-    
-    public function __construct(){}
-    
+
+
     /**
      * Summary of function getId
      *
@@ -27,8 +52,11 @@ class CommentModel
      */
     public function getId(): ?int
     {
+
         return $this->id;
+
     }
+
 
     /**
      * Summary of getTricks
@@ -37,8 +65,11 @@ class CommentModel
      */
     public function getTrick(): ?Trick
     {
+
         return $this->trick;
+
     }
+
 
     /**
      * Summary of function setTrick
@@ -49,10 +80,13 @@ class CommentModel
      */
     public function setTrick(?Trick $trick): static
     {
+
         $this->trick = $trick;
 
         return $this;
+
     }
+
 
     /**
      * Summary of getAuthor
@@ -61,8 +95,11 @@ class CommentModel
      */
     public function getAuthor(): ?User
     {
+
         return $this->author;
+
     }
+
 
     /**
      * Summary of function setAuthor
@@ -73,20 +110,26 @@ class CommentModel
      */
     public function setAuthor(?User $author): static
     {
+
         $this->author = $author;
 
         return $this;
+
     }
 
-        /**
+
+    /**
      * Summary of function getContent
      *
      * @return string|null
      */
     public function getContent(): ?string
     {
+
         return $this->content;
+
     }
+
 
     /**
      * Summary of function setContent
@@ -97,10 +140,13 @@ class CommentModel
      */
     public function setContent(?string $content): static
     {
+
         $this->content = $content;
 
         return $this;
+
     }
+
 
     /**
      * Summary of function getUpdatedAt
@@ -109,8 +155,11 @@ class CommentModel
      */
     public function getUpdatedAt(): ?DateTimeImmutable
     {
+
         return $this->updatedAt;
+
     }
+
 
     /**
      * Summary of function setUpdatedAt
@@ -121,9 +170,12 @@ class CommentModel
      */
     public function setUpdatedAt(DateTimeImmutable $updatedAt): static
     {
+
         $this->updatedAt = $updatedAt;
 
         return $this;
+
     }
+
 
 }

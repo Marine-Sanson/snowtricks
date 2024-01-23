@@ -31,6 +31,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class TrickController extends AbstractController
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -42,27 +44,31 @@ class TrickController extends AbstractController
         private readonly TrickService $trickService,
         private readonly CommentService $commentService,
         private readonly UserService $userService,
-        )
-    { }
+    ) {
+
+    }
+
 
     /**
      * Summary of function show
      *
      * Get tricks details to display it
      *
-     * @param string $slug Slug
+     * @param string  $slug    Slug
+     * @param Request $request Request
      *
      * @return Response
      */
     #[Route('/trick/{slug}', name: 'trickDetail', methods: ['GET', 'POST', 'HEAD'])]
     public function show(string $slug, Request $request): Response
     {
+
         $page = $request->query->getInt("page", 1);
         $trick = $this->trickService->getTrickDetails($slug);
 
         $dataPaginated = $this->commentService->getPaginatedTrickComments($trick, $page, 10);
 
-        if ($dataPaginated === []){
+        if ($dataPaginated === []) {
             $dataPaginated = [
                 'comments' => [],
                 'pages' => null,
@@ -78,33 +84,40 @@ class TrickController extends AbstractController
 
             $commentForm = $this->createForm(CommentFormType::class, $comment);
             $commentForm->handleRequest($request);
-    
-            if($commentForm->isSubmitted() && $commentForm->isValid()){
+
+            if ($commentForm->isSubmitted() && $commentForm->isValid()) {
                 $this->commentService->addComment(
-                    $commentForm->get("content")->getData(), 
-                    $commentForm->get("trickId")->getData(), 
-                    $commentForm->get("userId")->getData(), 
+                    $commentForm->get("content")->getData(),
+                    $commentForm->get("trickId")->getData(),
+                    $commentForm->get("userId")->getData(),
                 );
             }
 
-            return $this->render('trick/trick.html.twig', [
+            return $this->render(
+                'trick/trick.html.twig', [
+                    'trick' => $trick,
+                    'mainName' => $trick->getMainMedia()->getName(),
+                    'commentForm' => $commentForm,
+                    'comments' => $dataPaginated['comments'],
+                    'pages' => $dataPaginated['pages'],
+                    'page' => $dataPaginated['page'],
+                    'limit' => $dataPaginated['limit'],
+                ]
+            );
+        } //end if
+
+        return $this->render(
+            'trick/trick.html.twig', [
                 'trick' => $trick,
                 'mainName' => $trick->getMainMedia()->getName(),
-                'commentForm' => $commentForm,
                 'comments' => $dataPaginated['comments'],
                 'pages' => $dataPaginated['pages'],
                 'page' => $dataPaginated['page'],
                 'limit' => $dataPaginated['limit'],
-            ]);
-        }
+            ]
+        );
 
-        return $this->render('trick/trick.html.twig', [
-            'trick' => $trick,
-            'mainName' => $trick->getMainMedia()->getName(),
-            'comments' => $dataPaginated['comments'],
-            'pages' => $dataPaginated['pages'],
-            'page' => $dataPaginated['page'],
-            'limit' => $dataPaginated['limit'],
-        ]);
     }
+
+
 }

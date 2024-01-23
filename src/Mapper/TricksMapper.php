@@ -29,6 +29,8 @@ use App\Repository\MediaRepository;
  */
 class TricksMapper
 {
+
+
     /**
      * Summary of function __construct
      *
@@ -40,25 +42,30 @@ class TricksMapper
         private readonly MediaMapper $mediaMapper,
         private readonly GroupMapper $groupMapper,
         private readonly MediaRepository $mediaRepository,
-        )
-    { }
+    ) {
+
+    }
+
 
     /**
      * Summary of transformToHomeTricks
      *
-     * @param array<Trick> $trick array of tricks
+     * @param array<Trick> $tricks array of tricks
      *
      * @return array
      */
     public function transformToHomeTricks(array $tricks): array
     {
+
         return array_map(
             function (Trick $trick) {
                 return $this->getHomeTrick($trick);
             },
             $tricks
         );
+
     }
+
 
     /**
      * Summary of getHomeTrick
@@ -69,12 +76,13 @@ class TricksMapper
      */
     public function getHomeTrick(Trick $trick): HomeTrick
     {
+
+        $media = null;
+
         $allMedias = $trick->getMedia();
 
         if ($allMedias[0] !== null) {
             $media = $this->mediaMapper->getMediaModel($allMedias[0]);
-        } else {
-            $media = null;
         }
 
         return new HomeTrick(
@@ -86,22 +94,26 @@ class TricksMapper
 
     }
 
+
     /**
      * Summary of transformToTrickDetails
      *
-     * @param array<Trick> $trick array of tricks
+     * @param array<Trick> $tricks array of tricks
      *
      * @return array
      */
     public function transformToTricksDetails(array $tricks): array
     {
+
         return array_map(
             function (Trick $trick) {
                 return $this->getTrickDetails($trick);
             },
             $tricks
         );
+
     }
+
 
     /**
      * Summary of getTrickDetails
@@ -133,30 +145,39 @@ class TricksMapper
             $mediasModel,
             $mainMedia
         );
+
     }
+
 
     /**
      * Summary of getPaginatedHomeTricks
      *
-     * @param array<HomeMedia> $mediasModel  HomeMedia
-     * 
+     * @param array<HomeMedia> $mediasModel HomeMedia
+     *
      * @return HomeMedia
      */
     public function getMainMedia($mediasModel): HomeMedia
     {
+
         $homeMedia = null;
+
         for ($i = 0, $count = count($mediasModel); $i < $count; $i++) {
-            if ($mediasModel[$i]->getTypeMedia() === 'photo'){
+            if ($mediasModel[$i]->getTypeMedia() === 'photo') {
                 $homeMedia = $mediasModel[$i];
-                if ($homeMedia !== null){
+
+                if ($homeMedia !== null) {
                     return $homeMedia;
                 }
-            }   
+            }
         }
-        if ($homeMedia === null){
+
+        if ($homeMedia === null) {
             $homeMedia = $this->mediaMapper->getMediaModel($this->mediaRepository->findOneByName('photo_default.webp'));
         }
+
         return $homeMedia;
+
     }
+
 
 }
