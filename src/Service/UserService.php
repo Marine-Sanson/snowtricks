@@ -60,7 +60,7 @@ class UserService
      * Summary of register
      *
      * @param UserRegister $userRegister UserRegister
-     * 
+     *
      * @return string
      */
     public function register(UserRegister $userRegister): string
@@ -96,7 +96,7 @@ class UserService
      * Summary of getUserVerified
      *
      * @param int $userId userId
-     * 
+     *
      * @return User|null
      */
     public function getUserVerified(int $userId): ?User
@@ -104,7 +104,7 @@ class UserService
 
         $user = $this->userRepository->find($userId);
 
-        if ($user && !$user->getIsVerified()){
+        if ($user && !$user->getIsVerified()) {
             return $this->userRepository->updateIsVerify($user);
         }
 
@@ -117,7 +117,7 @@ class UserService
      * Summary of isUserVerifiedYet
      *
      * @param User $user User
-     * 
+     *
      * @return bool
      */
     public function isUserVerifiedYet(User $user): bool
@@ -132,7 +132,7 @@ class UserService
      * Summary of newRegisterToken
      *
      * @param UserModel $user UserModel
-     * 
+     *
      * @return string
      */
     public function newRegisterToken(UserModel $user): string
@@ -156,7 +156,7 @@ class UserService
      * Summary of getUserModel
      *
      * @param User $user User
-     * 
+     *
      * @return UserModel
      */
     public function getUserModel(User $user): UserModel
@@ -171,7 +171,7 @@ class UserService
      * Summary of isUserKnown
      *
      * @param string $email email
-     * 
+     *
      * @return UserModel|null
      */
     public function isUserKnown(string $email): ?UserModel
@@ -179,7 +179,7 @@ class UserService
 
         $user = $this->userRepository->findOneByEmail($email);
 
-        if (!$user){
+        if (!$user) {
             return null;
         }
 
@@ -192,7 +192,7 @@ class UserService
      * Summary of setToken
      *
      * @param UserModel $userModel UserModel
-     * 
+     *
      * @return string
      */
     public function setToken(UserModel $userModel): string
@@ -213,13 +213,14 @@ class UserService
      * Summary of findUserByResetToken
      *
      * @param string $token token
-     * 
+     *
      * @return UserModel
      */
     public function findUserByResetToken(string $token): UserModel
     {
 
         $user = $this->userRepository->findOneByResetToken($token);
+
         return $this->getUserModel($user);
 
     }
@@ -230,7 +231,7 @@ class UserService
      *
      * @param UserModel $userModel UserModel
      * @param string    $password  password
-     * 
+     *
      * @return void
      */
     public function setNewPassword(UserModel $userModel, string $password): void
@@ -249,6 +250,13 @@ class UserService
     }
 
 
+    /**
+     * Summary of getUser
+     *
+     * @param string $email email
+     *
+     * @return User
+     */
     public function getUser(string $email): User
     {
 
@@ -257,6 +265,13 @@ class UserService
     }
 
 
+    /**
+     * Summary of saveUser
+     *
+     * @param User $user User
+     *
+     * @return User
+     */
     public function saveUser(User $user): User
     {
 

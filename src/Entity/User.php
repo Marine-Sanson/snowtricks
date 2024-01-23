@@ -122,6 +122,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Collection $comments;
 
 
+    /**
+     * Summary of function __construct
+     */
     public function __construct()
     {
 
@@ -264,7 +267,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Summary of function eraseCredentials
      *
      * @see UserInterface
-     * 
+     *
      * @return void
      */
     public function eraseCredentials(): void
@@ -421,6 +424,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
 
     }
+
 
     /**
      * Summary of getComments

@@ -81,6 +81,8 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
         return [
             GroupFixtures::class,
         ];
+
     }
+
 
 }

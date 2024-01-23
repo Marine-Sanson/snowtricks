@@ -32,16 +32,16 @@ class JWTService
      * @param array  $payload  payload
      * @param string $secret   secret
      * @param int    $validity validity
-     * 
+     *
      * @return string
      */
     public function generate(array $header, array $payload, string $secret, int $validity=10800): string
     {
 
-        if($validity > 0){
+        if ($validity > 0) {
             $now = new DateTimeImmutable();
             $exp = ($now->getTimestamp() + $validity);
-    
+
             $payload['iat'] = $now->getTimestamp();
             $payload['exp'] = $exp;
         }
@@ -145,7 +145,7 @@ class JWTService
     /**
      * Summary of check
      *
-     * @param string $token token
+     * @param string $token  token
      * @param string $secret secret
      * 
      * @return bool

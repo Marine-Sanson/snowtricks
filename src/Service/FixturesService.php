@@ -38,8 +38,6 @@ class FixturesService
 
     /**
      * Summary of function __construct
-     *
-     * @param 
      */
     public function __construct()
     {
@@ -49,6 +47,11 @@ class FixturesService
     }
 
 
+    /**
+     * Summary of function generateCreatedAt
+     *
+     * @return DateTimeImmutable
+     */
     public function generateCreatedAt(): DateTimeImmutable
     {
 
@@ -56,6 +59,14 @@ class FixturesService
 
     }
 
+
+    /**
+     * Summary of function generateUpdatedAt
+     *
+     * @param DateTimeImmutable
+     *
+     * @return DateTimeImmutable
+     */
     public function generateUpdatedAt(DateTimeImmutable $date): DateTimeImmutable
     {
 

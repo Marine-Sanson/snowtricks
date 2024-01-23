@@ -18,7 +18,7 @@ class AppFixtures extends Fixture
     /**
      * Summary of function __construct
      *
-     * @param UserPasswordHasherInterface $trickService        UserPasswordHasherInterface
+     * @param UserPasswordHasherInterface $userPasswordHasher  UserPasswordHasherInterface
      * @param MediaRepository             $mediaRepository     MediaRepository
      * @param TypeMediaRepository         $typeMediaRepository TypeMediaRepository
      * @param FixturesService             $fixturesService     FixturesService

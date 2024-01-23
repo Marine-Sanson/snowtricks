@@ -53,7 +53,7 @@ class MediaService
      * @param UploadedFile $image     image
      * @param string       $folder    folder
      * @param int          $typeMedia typeMedia
-     * 
+     *
      * @return Media
      */
     public function addNewImage(Object $image, string $folder, string $typeMedia): Media
@@ -65,6 +65,7 @@ class MediaService
         return $mediaImg;
 
     }
+
 
     /**
      * Summary of addImage
@@ -82,11 +83,11 @@ class MediaService
         $file = md5(uniqid(rand(), true)).'.webp';
         $imageInfos = getimagesize($image);
 
-        if ($imageInfos === false){
+        if ($imageInfos === false) {
             throw new Exception('Format d\'image incorrect');
         }
 
-        $imageSource = match($imageInfos['mime']){
+        $imageSource = match ($imageInfos['mime']) {
             'image/png' => imagecreatefrompng($image),
             'image/jpeg' => imagecreatefromjpeg($image),
             'image/webp' => imagecreatefromwebp($image),
@@ -96,17 +97,17 @@ class MediaService
         $imageWidth = $imageInfos[0];
         $imageHeight = $imageInfos[1];
 
-        $squareSize = match(true){
+        $squareSize = match (true) {
             $imageWidth <= $imageHeight => $imageWidth,
             $imageWidth > $imageHeight => $imageHeight,
         };
 
-        $srcX = match(true){
+        $srcX = match (true) {
             $imageWidth <= $imageHeight => 0,
             $imageWidth > $imageHeight => (($imageWidth - $squareSize) / 2),
         };
 
-        $srcY = match(true){
+        $srcY = match (true) {
             $imageWidth < $imageHeight => (($imageHeight - $squareSize) / 2),
             $imageWidth >= $imageHeight => 0,
         };
@@ -116,7 +117,7 @@ class MediaService
 
         $path = $this->params->get('images_directory').$folder;
 
-        if(!file_exists($path.'/mini/')){
+        if (!file_exists($path.'/mini/')) {
             mkdir($path.'/mini/', 0755, true);
         }
 
@@ -144,23 +145,22 @@ class MediaService
 
         $success = false;
 
-        if($file !== 'photo_default.jpg'){
+        if ($file !== 'photo_default.jpg') {
             $path = $this->params->get('images_directory').$folder;
 
             $mini = $path.'/mini/'.$width.'x'.$height.'-'.$file;
 
-            if(file_exists($mini)){
+            if (file_exists($mini)) {
                 unlink($mini);
                 $success = true;
             }
 
             $original = $path.'/'.$file;
 
-            if(file_exists($original)){
+            if (file_exists($original)) {
                 unlink($original);
                 $success = true;
             }
-
         }
 
         return $success;
@@ -197,6 +197,7 @@ class MediaService
         $mediaVid->setName('https://www.youtube.com/embed/'.substr($video, 0, 11));
         $mediaVid->setTypeMedia($this->getTypeMedia('video'));
         $this->addVideo($mediaVid);
+
         return $mediaVid;
 
     }
@@ -205,7 +206,7 @@ class MediaService
     /**
      * Summary of getTypeMedia
      *
-     * @param int $id id
+     * @param string $name name
      * 
      * @return TypeMedia
      */
@@ -228,6 +229,7 @@ class MediaService
     {
 
         $this->mediaRepository->save($video);
+
     }
 
 
@@ -262,10 +264,11 @@ class MediaService
     public function deleteMediaImage(Media $media, string $folder): bool
     {
 
-        if($this->deleteImage($media->getName(), $folder, 300, 300)){
+        if ($this->deleteImage($media->getName(), $folder, 300, 300)) {
             $this->removeMediaFromDb($media);
             return true;
         }
+
         return false;
 
     }
@@ -287,6 +290,13 @@ class MediaService
     }
 
 
+    /**
+     * Summary of getMedia
+     *
+     * @param int $id id
+     * 
+     * @return Media
+     */
     public function getMedia(int $id): Media
     {
 
@@ -294,6 +304,14 @@ class MediaService
 
     }
 
+
+    /**
+     * Summary of getMediaByName
+     *
+     * @param string $name name
+     * 
+     * @return Media
+     */
     public function getMediaByName(string $name): Media
     {
 

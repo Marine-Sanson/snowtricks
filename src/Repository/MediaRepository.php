@@ -51,7 +51,7 @@ class MediaRepository extends ServiceEntityRepository
      * Summary of delete
      *
      * @param Media $media Media
-     * 
+     *
      * @return void
      */
     public function delete(Media $media): void
@@ -77,5 +77,6 @@ class MediaRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
 
     }
+
 
 }

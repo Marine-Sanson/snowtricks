@@ -122,7 +122,6 @@ class ProfilController extends AbstractController
             } //end if
 
             if ($avatar) {
-
                 if (!$oldAvatar || $oldAvatar !== $avatar) {
                     $avatar = $this->mediaService->addNewImage($avatar, 'avatars', 'avatar');
                     $user->setAvatar($avatar);
@@ -131,7 +130,6 @@ class ProfilController extends AbstractController
                 if ($oldAvatar !== null && $oldAvatar->getName() !== $defaultAvatar->getName()) {
                     $this->mediaService->deleteMediaImage($oldAvatar, 'avatars');
                 }
-
             }
 
             $user = $this->userService->saveUser($user);

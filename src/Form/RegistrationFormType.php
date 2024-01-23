@@ -57,9 +57,11 @@ class RegistrationFormType extends AbstractType
                     ],
                     'label' => 'Adresse email',
                     'constraints' => [
-                        new Email([
-                            'message' => 'Vous devez entrer un email valide.'
-                        ]),
+                        new Email(
+                            [
+                                'message' => 'Vous devez entrer un email valide.'
+                            ]
+                        ),
                     ],
                 ]
             )
@@ -75,9 +77,11 @@ class RegistrationFormType extends AbstractType
                 'agreeTerms', CheckboxType::class, [
                     'mapped' => false,
                     'constraints' => [
-                        new IsTrue([
-                            'message' => 'Vous devez acceptez les conditions d\'utilisation du site.',
-                        ]),
+                        new IsTrue(
+                            [
+                                'message' => 'Vous devez acceptez les conditions d\'utilisation du site.',
+                            ]
+                        ),
                     ],
                     'attr' => [
                         'class' => 'mt-3'
@@ -110,8 +114,7 @@ class RegistrationFormType extends AbstractType
                         ),
                     ],
                 ]
-            )
-        ;
+            );
 
     }
 
@@ -135,5 +138,6 @@ class RegistrationFormType extends AbstractType
         );
 
     }
+
 
 }

@@ -57,7 +57,7 @@ class TrickService
      *
      * @param int $page  page
      * @param int $limit limit
-     * 
+     *
      * @return array
      */
     public function getPaginatedHomeTricks(int $page, int $limit): array
@@ -78,6 +78,7 @@ class TrickService
 
     }
 
+
     /**
      * Summary of getTrickDetails
      *
@@ -88,9 +89,9 @@ class TrickService
     public function getTrickDetails(string $slug): TrickDetails
     {
 
-       $trick = $this->trickRepository->findOneBySlug($slug);
+        $trick = $this->trickRepository->findOneBySlug($slug);
 
-       return $this->tricksMapper->getTrickDetails($trick);
+        return $this->tricksMapper->getTrickDetails($trick);
 
     }
 
@@ -106,7 +107,7 @@ class TrickService
     {
         $knownTrick = $this->trickRepository->findOneByName($trickName);
 
-        if($knownTrick){
+        if ($knownTrick) {
             return true;
         }
 
@@ -140,7 +141,7 @@ class TrickService
     public function deleteTrick(Trick $trick): bool
     {
 
-        if($this->trickRepository->findOneById($trick->getId()) === null){
+        if ($this->trickRepository->findOneById($trick->getId()) === null) {
             return false;
         }
 

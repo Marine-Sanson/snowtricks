@@ -19,6 +19,12 @@ class CommentRepository extends ServiceEntityRepository
 {
 
 
+    /**
+     * Summary of function __construct
+     *
+     * @param ManagerRegistry $registry ManagerRegistry
+     */
+
     public function __construct(ManagerRegistry $registry)
     {
 
@@ -27,6 +33,13 @@ class CommentRepository extends ServiceEntityRepository
     }
 
 
+    /**
+     * Summary of function saveComment
+     *
+     * @param Comment $comment Comment
+     *
+     * @return Comment
+     */
     public function saveComment(Comment $comment): Comment
     {
 
@@ -47,8 +60,8 @@ class CommentRepository extends ServiceEntityRepository
      *
      * @return array
      */
-   public function findCommentsPaginatedByTrick(int $id, int $page, int $limit): array
-   {
+    public function findCommentsPaginatedByTrick(int $id, int $page, int $limit): array
+    {
 
         $limit = abs($limit);
 
@@ -73,10 +86,10 @@ class CommentRepository extends ServiceEntityRepository
         $result['pages'] = $pages;
         $result['page'] = $page;
         $result['limit'] = $limit;
-        
+
         return $result;
 
-   }
+    }
 
 
 }

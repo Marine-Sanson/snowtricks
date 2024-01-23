@@ -58,7 +58,7 @@ class TricksVoter extends Voter
      * Summary of authenticate
      *
      * @param string $attribute Attribute
-     * @param mixed  $trick
+     * @param mixed  $trick trick
      *
      * @return bool
      */
@@ -99,11 +99,11 @@ class TricksVoter extends Voter
             return false;
         }
 
-        if($this->security->isGranted('ROLE_ADMIN')){
+        if ($this->security->isGranted('ROLE_ADMIN')) {
             return true;
         }
 
-        return match($attribute) {
+        return match ($attribute) {
             self::EDIT => $this->canEdit($trick, $user),
             self::DELETE => $this->canDelete($trick, $user),
             default => throw new \LogicException('This code should not be reached!')
@@ -116,7 +116,7 @@ class TricksVoter extends Voter
      * Summary of canEdit
      *
      * @param Trick $trick Trick
-     * @param  User $user  User
+     * @param User  $user  User
      *
      * @return bool
      */

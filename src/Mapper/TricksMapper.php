@@ -98,7 +98,7 @@ class TricksMapper
     /**
      * Summary of transformToTrickDetails
      *
-     * @param array<Trick> $trick array of tricks
+     * @param array<Trick> $tricks array of tricks
      *
      * @return array
      */
@@ -168,7 +168,6 @@ class TricksMapper
                 if ($homeMedia !== null) {
                     return $homeMedia;
                 }
-
             }
         }
 

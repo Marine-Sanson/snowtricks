@@ -44,7 +44,7 @@ class GroupFixtures extends Fixture
 
         $manager->persist($group1);
         $manager->flush();
-        
+
         $date = $this->fixturesService->generateCreatedAt();
         $group2 = (new Group())
             ->setName('Rotation')

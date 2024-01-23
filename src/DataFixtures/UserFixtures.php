@@ -18,6 +18,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
 
     /**
+     * Summary of function __construct
+     *
      * @param UserPasswordHasherInterface $userPasswordHasher  UserPasswordHasherInterface
      * @param MediaRepository             $mediaRepository     MediaRepository
      * @param TypeMediaRepository         $typeMediaRepository TypeMediaRepository
@@ -52,7 +54,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 ->setName($mediaName)
                 ->setCreatedAt($date)
                 ->setUpdatedAt($this->fixturesService->generateUpdatedAt($date));
-                
+
             $manager->persist($media);
             $manager->flush();
 
@@ -100,5 +102,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         ];
 
     }
+
 
 }

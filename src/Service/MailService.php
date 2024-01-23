@@ -33,6 +33,7 @@ class MailService
      */
     public function __construct(private MailerInterface $mailer)
     {
+
     }
 
 
@@ -44,7 +45,7 @@ class MailService
      * @param string $subject  subject
      * @param string $template template
      * @param array  $context  context
-     * 
+     *
      * @return void
      */
     public function send(

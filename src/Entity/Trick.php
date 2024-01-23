@@ -354,6 +354,7 @@ class Trick
 
     }
 
+
     /**
      * Summary of getMedia
      *
@@ -374,7 +375,6 @@ class Trick
      *
      * @return static
      */
-
     public function addComment(Comment $comment): static
     {
 
