@@ -83,7 +83,7 @@ class TrickService
      * Summary of getTrickDetails
      *
      * @param string $slug slug
-     * 
+     *
      * @return TrickDetails
      */
     public function getTrickDetails(string $slug): TrickDetails

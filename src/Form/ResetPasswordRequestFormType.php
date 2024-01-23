@@ -68,7 +68,7 @@ class ResetPasswordRequestFormType extends AbstractType
 
         $resolver->setDefaults(
             [
-                // Configure your form options here
+                // Configure your form options here.
             ]
         );
 

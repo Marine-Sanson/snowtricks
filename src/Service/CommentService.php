@@ -55,8 +55,8 @@ class CommentService
      * Summary of function getPaginatedTrickComments
      *
      * @param TrickDetails $trick TrickDetails
-     * @param int $page page
-     * @param int $limit limit
+     * @param int          $page  page
+     * @param int          $limit limit
      *
      * @return array
      */

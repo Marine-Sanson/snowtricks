@@ -27,7 +27,6 @@ use DateTimeImmutable;
 class FixturesService
 {
 
-
     /**
      * Summary of faker
      *
@@ -63,7 +62,7 @@ class FixturesService
     /**
      * Summary of function generateUpdatedAt
      *
-     * @param DateTimeImmutable
+     * @param DateTimeImmutable $date
      *
      * @return DateTimeImmutable
      */

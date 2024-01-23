@@ -67,7 +67,7 @@ class MediaRepository extends ServiceEntityRepository
      * Summary of save
      *
      * @param Media $media Media
-     * 
+     *
      * @return void
      */
     public function save(Media $media): void

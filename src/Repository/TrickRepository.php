@@ -83,7 +83,7 @@ class TrickRepository extends ServiceEntityRepository
         $result['pages'] = $pages;
         $result['page'] = $page;
         $result['limit'] = $limit;
-        
+
         return $result;
 
     }
@@ -93,7 +93,7 @@ class TrickRepository extends ServiceEntityRepository
      * Summary of saveTrick
      *
      * @param Trick $trick Trick
-     * 
+     *
      * @return void
      */
     public function saveTrick(Trick $trick): void

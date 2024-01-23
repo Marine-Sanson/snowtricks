@@ -56,9 +56,10 @@ class TrickMediaFixtures extends Fixture implements DependentFixtureInterface
                     ->setUpdatedAt($this->fixturesService->generateUpdatedAt($date));
 
                 $manager->persist($media);
-    
+
                 $trick->addMedium($media);
                 $manager->persist($trick);
+
                 $manager->flush();
             }
         }

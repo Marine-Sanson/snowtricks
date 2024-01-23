@@ -24,7 +24,6 @@ class CommentRepository extends ServiceEntityRepository
      *
      * @param ManagerRegistry $registry ManagerRegistry
      */
-
     public function __construct(ManagerRegistry $registry)
     {
 

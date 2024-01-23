@@ -75,7 +75,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 ->setCreatedAt($date)
                 ->setUpdatedAt($this->fixturesService->generateUpdatedAt($date))
                 ->setAvatar($media);
-        
+
             $password = $this->userPasswordHasher->hashPassword($user, 'mdpass');
             $user->setPassword($password);
             

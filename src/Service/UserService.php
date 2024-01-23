@@ -39,8 +39,8 @@ class UserService
      *
      * @param JWTService                  $jWTService         JWTService
      * @param UserRepository              $userRepository     UserRepository
-     * @param EntityManagerInterface      $entityManager      EntityManagerInterface 
-     * @param UserPasswordHasherInterface $userPasswordHasher UserPasswordHasherInterface 
+     * @param EntityManagerInterface      $entityManager      EntityManagerInterface
+     * @param UserPasswordHasherInterface $userPasswordHasher UserPasswordHasherInterface
      * @param TokenGeneratorInterface     $tokenGenerator     TokenGeneratorInterface
      * @param ParameterBagInterface       $params             ParameterBagInterface
      */

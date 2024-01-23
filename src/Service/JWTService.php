@@ -71,7 +71,7 @@ class JWTService
      * Summary of isValid
      *
      * @param string $token token
-     * 
+     *
      * @return bool
      */
     public function isValid(string $token): bool

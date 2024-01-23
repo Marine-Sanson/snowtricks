@@ -58,7 +58,7 @@ class TricksVoter extends Voter
      * Summary of authenticate
      *
      * @param string $attribute Attribute
-     * @param mixed  $trick trick
+     * @param mixed  $trick     trick
      *
      * @return bool
      */
