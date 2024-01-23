@@ -1,0 +1,42 @@
+    {{ form_errors(trickForm) }}
+
+    {{ form_start(trickForm) }}
+        {{ form_row(trickForm.name) }}
+        {{ form_row(trickForm.description) }}
+
+        {{ form_row(trickForm.trickGroup) }}
+
+        <div class="container mb-3">
+            {% if app.request.attributes.get('_route') == 'app_admin_tricks_edit' %}
+                <h2>Images - vidéos</h2>
+                    {% if trick.media %}
+                        <div class="row card-deck">
+                        {% for oneMedia in trick.media|sort ((a, b) => a.typeMedia <=> b.typeMedia) %}
+                            <div class="card mx-auto my-3 align-self-start" style="max-width: 18rem;">
+                                {% if oneMedia.typeMedia.id == 1 %}
+                                    <img class="row mx-auto mt-2 object-fit-contain" src="{{ asset('assets/img/uploads/tricks/mini/300x300-') ~ oneMedia.name }}" alt="Photo d'illustration" width="150">
+                                    <div class="d-flex">
+                                        <a href="{{ path('app_admin_tricks_delete_media', {id: oneMedia.id}) }}"class="row m-auto" width="200"><i class="fa-solid fa-trash-can m-3"></i></i></a>
+                                    </div>
+                                {% elseif oneMedia.typeMedia.id == 2 %}
+                                    <span class="row m-auto mt-2 object-fit-contain">
+                                        <iframe width="240" height="160" src="{{oneMedia.name}}"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                    </span>
+                                    <div class="d-flex">
+                                        <a href="{{ path('app_admin_tricks_delete_media', {id: oneMedia.id}) }}"class="row m-auto" width="200"><i class="fa-solid fa-trash-can m-3"></i></a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+
+            {% endif %}
+        </div>
+
+        {{ form_row(trickForm.images) }}
+        {{ form_row(trickForm.videos) }}
+
+        <button type="submit" class="btn btn-lg btn-primary d-flex mx-auto my-5">{{ button_label|default('Créer') }}</button>
+
+    {{ form_end(trickForm) }}

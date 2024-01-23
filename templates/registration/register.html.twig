@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<section class="container mainSection">
+    <h1>Inscription</h1>
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.username) }}
+        {{ form_row(registrationForm.email) }}
+
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+    {{ form_row(registrationForm.agreeTerms) }}
+
+    <div class="d-flex d-lg-inline flex-column flex-lg-row">
+        <button type="submit" class="btn btn-lg btn-primary mt-3 mt-lg-5 mx-auto">M'inscrire</button>
+        <a href="{{ path('app_login') }}" class="btn btn-secondary mt-3 mt-lg-5 mx-auto">Me connecter</a>
+        <a href="{{ path('forgotten_password') }}" class="btn btn-secondary mt-3 mt-lg-5 mx-auto">Mot de passe oublié</a>
+    </div>
+    {{ form_end(registrationForm) }}
+
+</section>
+{% endblock %}

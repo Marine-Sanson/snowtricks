@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section id="hero" class="container d-flex justify-content-center">
+        <div class="d-flex text-center align-items-end">
+            <div class="h-25">
+                <h1 class="alert alert-primary">Bienvenue sur SNOWTRICKS !</h1>
+                <p id="heroP" class="display-sm-6 lead alert alert-primary ">Le site de référence pour les tricks en snowboard !</p>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end align-items-end" id="homeArrow">
+            <h3><a href="#homeTricks"><i class="fa-solid fa-arrow-down"></i></a></h3>
+        </div>
+    </section>
+    <section id="homeTricks" class="container text-center mt-5">
+        <h2>Les Tricks</h2>
+
+        <div class="card-deck row mx-auto">
+            {% for trick in tricks %}
+
+                <div class="card border-primary mx-auto my-3 mx-lg-3" style="max-width: 18rem;">
+                    {% if trick.media == false or trick.media.typeMedia == 'video' %}
+                        <img class="card-img-top mt-2 object-fit-contain" src="{{ asset('assets/img/uploads/tricks/mini/300x300-photo_default.webp') }}">
+                    {% else %}
+                        <img class="card-img-top mt-2 object-fit-contain" src="{{ asset('assets/img/uploads/tricks/mini/300x300-') ~ trick.media.name }}">
+                    {% endif %}
+
+                    <div class="card-body d-flex align-items-center justify-content-between my-auto">
+                        <a href="{{ path('trickDetail', { slug: trick.slug }) }}" class="text-decoration-none text-left">
+                            {{ trick.name | capitalize }}
+                        </a>
+
+                        {% if app.user and app.user.isVerified == true %}
+                            <div class="d-flex justify-content-end align-items-end">
+                                <a href="{{ path('app_admin_tricks_edit', {id: trick.id}) }}" class="m-auto text-end"><i class="fa-solid fa-pencil mx-2"></i></a>
+                            {% if app.user.roles[0] == "ROLE_ADMIN" %}
+                                <a href="#homeTricks" class="m-auto text-right" role="button" data-bs-target="#modal" data-bs-toggle="modal"><i class="fa-solid fa-trash-can mx-2"></i></a>
+                            
+                                <div class="modal" id="modal">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Suppression de trick</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Attention, ce trick va être supprimé définitivement, ainsi que les images qui lui sont associées. Etes vous sûr ?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary"><a href="{{ path('app_admin_tricks_delete_trick', {id: trick.id}) }}" class="text-decoration-none text-white">Oui</a></button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+
+        {% set slug = null %}
+        {% set path ='home' %}
+        {% set pages = pages %}
+        {% set separator = '/' %}
+        {% set currentPage = page %}
+        {% include "partials/pagination.html.twig" %}
+    </section>
+{% endblock %}

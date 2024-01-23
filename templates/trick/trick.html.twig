@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Snowtricks - {{ trick.name }}{% endblock %}
+{% block body %}
+
+    <section class="container card border-primary" id="singleTrick">
+
+        <div class="position-relative text-center my-sd-2 my-5 mx-auto">
+            <img class="card-img-top rounded mw-100" src="{{ asset('assets/img/uploads/tricks/') ~ mainName }}"
+                    alt="image" id="singleTrickImgTop">
+            <h1 class="text-primary card-title bg-secondary position-absolute top-50 start-50 translate-middle p-2 rounded"
+                style="--bs-bg-opacity: .7;">{{ trick.name | capitalize }}</h1>
+        </div>
+
+        <div class="card-deck row mx-auto showComp hideSmart" id="mediaToggle" data-target="#mediaToggle" >
+
+            {% if trick.media %}
+                {% for oneMedia in trick.media|sort ((a, b) => a.typeMedia <=> b.typeMedia) %}
+                    <div class="singleTrickMedias card mx-auto my-5 border-0" style="max-width: 18rem;">
+                        {% if oneMedia.typeMedia == 'photo' %}
+                            <img class="card-img-top singleTrickMedia img-fluid mt-3 mx-auto" src="{{ asset('assets/img/uploads/tricks/') ~ oneMedia.name }}" class="singleTrickMedias my-3 mx-auto">
+                            {% if app.user and app.user.isVerified == true %}
+                                <div class="d-flex justify-content-end">
+                                    <a href="{{ path('app_admin_tricks_delete_media', {id: oneMedia.id}) }}"><i class="fa-solid fa-trash-can m-3"></i></a>
+                                </div>
+                            {% endif %}
+                        {% else %}
+                            <span class="card-img-top singleTrickMedias mt-3 mx-auto">
+                                <iframe class="card-img-top singleTrickMedia img-fluid" src="{{oneMedia.name}}"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            </span>
+                            {% if app.user and app.user.isVerified == true %}
+                                <div class="d-flex justify-content-end">
+                                    <a href="{{ path('app_admin_tricks_delete_media', {id: oneMedia.id}) }}"><i class="fa-solid fa-trash-can m-3"></i></a>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="my-5">Il n'y a pas encore d'image pour ce trick</p>
+            {% endif %}
+        </div>
+        <div class="row mx-auto showSmart hideComp" id="buttonToggle">
+            <button type="button" class="btn btn-primary" data-target="#mediaToggle" data-toggle="show">Voir les medias</button>
+        </div>
+
+        <div class="container row mx-auto">
+            <p class="card-text p-2 my-3 mx-auto mw-100 justify">{{ trick.description }}</p>
+            <div class="text-center">
+                <span class="badge bg-primary p-2 m-2">Dernière modification : {{ trick.updatedAt | date('d/m/Y') }}</span>
+                {% for eachGroup in trick.trickGroup %}
+                    <span class="badge bg-primary p-2 m-2">Groupe : {{ eachGroup.name }}</span>
+                {% endfor %}
+            <div>
+        </div>
+
+        <div class="mb-5">
+            {% if app.user and app.user.isVerified == true %}
+                <hr class="w-75 mx-auto my-5 text-primary font-weight-bold">
+                {% include "trick/_commentform.html.twig" %}
+            {% endif %}
+            <hr class="w-75 mx-auto my-5 text-primary font-weight-bold">
+            {% for comment in comments %}
+                <div class="row-lg d-lg-flex justify-content-lg-between mx-auto my-3">
+
+                    <div class="col-lg-2 d-lg-flex mx-auto my-3 m-lg-auto">
+                        <img src="{{ asset('assets/img/uploads/avatars/mini/300x300-') ~ comment.author.avatar.name }}" class="w-100 rounded-circle">
+                    </div>
+                    <div class="col-lg-8 d-lg-flex border rounded">
+                        <p class="my-auto p-2 justify">De <strong>{{ comment.author.username | capitalize }}</strong> le {{ comment.updatedAt | date('d/m/Y') }} : {{ comment.content}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% set slug = trick.slug %}
+        {% set path = 'trickDetail' %}
+        {% set pages = pages %}
+        {% set separator = '/' %}
+        {% set currentPage = page %}
+        {% include "partials/pagination.html.twig" %}
+
+    </section>
+
+{% endblock %}

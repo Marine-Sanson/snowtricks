@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Snowtricks - Profil{% endblock %}
+
+{% block body %}
+<section class="container mainSection">
+    <div>
+        <h1 class="mt-5 text-center">Hello {{ user.username|capitalize }}, voici ton profil !</h1>
+        <p class="mt-3 mb-5 text-center fs-4">Ici tu peux modifier tes informations</p>
+    </div>
+
+    <div class="row mt-5 ">
+        <div class="d-flex offset-lg-1 col-lg-4 offset-lg-1 mx-auto my-3">
+            <img class="m-auto w-75 rounded" src="{{ asset('assets/img/uploads/avatars/') ~ user.avatar.name }}" alt="Photo d'illustration">
+        </div>
+
+        <div class="d-flex offset-lg-1 col-lg-4 offset-lg-1 mx-auto my-3">
+
+            <ul class="list-group mx-auto w-75">
+                <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center">
+                    Nom d'utilisateur :
+                </li>
+                <li class="list-group-item list-group-item-success d-flex justify-content-center align-items-center">
+                    {{ user.username|capitalize }}
+                </li>
+                <li class="list-group-item list-group-item-warning d-flex justify-content-between align-items-center">
+                    Email :
+                </li>
+                <li class="list-group-item list-group-item-danger d-flex justify-content-center align-items-center">
+                    {{ user.email }}
+                </li>
+                <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                    Utilisateur vérifié : 
+                    {% if user.isVerified == true %}
+                        <span class="badge bg-success rounded-pill"><i class="fa-solid fa-check success"></i></span>
+                    {% else %}
+                        <span class="badge bg-danger rounded-pill"><i class="fa-solid fa-xmark danger"></i></span>
+                    {% endif %}
+                </li>
+                <li class="list-group-item list-group-item-secondary d-flex justify-content-center align-items-center">
+                    {% if user.roles[0] == "ROLE_ADMIN" %}
+                        Role : Admin
+                    {% elseif user.roles[0] == "ROLE_USER" %}
+                        Role : Utilisateur
+                    {% else %}
+                        Aucun role
+                    {% endif %}
+                </li>
+                <li class="list-group-item list-group-item-info d-flex justify-content-between align-items-center">
+                    Modifier mes infos :
+                    <a href="{{ path('app_admin_profil_edit', { id: user.id }) }}">
+                        <button type="button" class="btn btn-info btn-sm rounded-pill">Cliquer ici</button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

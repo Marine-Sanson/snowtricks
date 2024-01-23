@@ -1,0 +1,97 @@
+a:hover,
+button{
+    cursor: url("../img/icon.png"), pointer;
+}
+
+#hero {
+    background: url("../img/hero.jpg") no-repeat center;
+    min-height: 60rem;
+    position: relative;
+    max-width: 100%;
+    background-size: cover;
+}
+
+#heroP{
+    letter-spacing: .2rem;
+}
+
+#homeArrow{
+    position: absolute;
+    top: 90%;
+    left:90%;
+}
+
+#singleTrick{
+    margin: 10rem auto;
+}
+
+.singleTrickMedias{
+    max-width: 15rem;
+    width: auto;
+    max-height: 10rem;
+    height: auto;
+    border-radius: 25px;
+}
+
+.singleTrickMedia{
+    max-height: 100%;
+    width: auto;
+}
+
+#singleTrickImgTop{
+    max-height: 50rem;
+    width:auto;
+}
+
+.justify{
+    text-align: justify;
+}
+
+@media (max-width: 576px)
+{
+    #singleTrick{
+        max-width: 80vw;
+        margin: 5rem auto;
+    }
+
+    #singleTrickImgTop{
+        max-height: 12rem;
+        width:auto;
+        max-width: 15rem;
+        height: auto;
+    }
+}
+
+.mainSection{
+    margin: 5rem auto;
+}
+
+#flashMess{
+    margin-top: 5rem;
+    max-width: 50%
+}
+
+
+@media (max-width: 767px){
+    .hideSmart{
+        display: none;
+        opacity: 0;
+    }
+    
+    .showSmart{
+        display: flex;
+        opacity: 1;
+    }
+}
+
+@media (min-width: 768px){
+    .showComp{
+        display: flex;
+        opacity: 1;
+    }
+    
+    .hideComp{
+        display: none;
+        opacity: 0;
+    }
+}
