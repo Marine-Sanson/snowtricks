@@ -2,6 +2,7 @@
 Project for OpenClasssrooms : develop a website using Symfony
 
 <div align="center">
+    <br>
     <img src="https://upload.wikimedia.org/wikipedia/fr/0/0d/Logo_OpenClassrooms.png" width="120" height="120" alt="logo OpenClassrooms">
 </div>
 
@@ -43,11 +44,17 @@ To test the function to send mail I used <a href="https://github.com/mailhog/Mai
 To generate the fixtures I used <a href="https://fakerphp.github.io/">Fakerphp</a>
 
 This project is avaliable on <a href="https://github.com/">GitHub</a>, and received a **Platinum medal** in <a href="https://insight.symfony.com/">SymfonyInsight</a> ! You can see <a href="https://insight.symfony.com/projects/229e245e-bc90-4871-97cb-374f6bca10ee">the last analyse here.</a>
+
+<div align="center">
+    <img src="https://insight.symfony.com/projects/229e245e-bc90-4871-97cb-374f6bca10ee/big.svg" alt="code quality from SymfonyInsight">
+    <br>
+</div>
+
 It also received a **A** notation in <a href="https://www.codacy.com/">Codacy</a> ! You can see the last analysis here : <a href="https://app.codacy.com/gh/Marine-Sanson/snowtricks/dashboard">https://app.codacy.com/gh/Marine-Sanson/snowtricks/dashboard</a>
 
 <div align="center">
-    <img src="https://insight.symfony.com/projects/229e245e-bc90-4871-97cb-374f6bca10ee/big.svg" alt="code quality from SymfonyInsight"> 
     <img src="https://img.shields.io/codacy/grade/591cf51d80244641be9c2514f607a6ce" alt="code quality from Codacy">
+    <br>
 </div>
 
 ## How to run this project :
