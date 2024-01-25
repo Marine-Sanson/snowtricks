@@ -48,6 +48,8 @@ This project is avaliable on <a href="https://github.com/">GitHub</a>, and recei
 <div align="center">
     <img src="https://insight.symfony.com/projects/229e245e-bc90-4871-97cb-374f6bca10ee/big.svg" alt="code quality from SymfonyInsight">
     <br>
+    <br>
+    <br>
 </div>
 
 It also received a **A** notation in <a href="https://www.codacy.com/">Codacy</a> ! You can see the last analysis here : <a href="https://app.codacy.com/gh/Marine-Sanson/snowtricks/dashboard">https://app.codacy.com/gh/Marine-Sanson/snowtricks/dashboard</a>
