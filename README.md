@@ -54,7 +54,7 @@ This project is avaliable on <a href="https://github.com/">GitHub</a>, and recei
 It also received a **A** notation in <a href="https://www.codacy.com/">Codacy</a> ! You can see <a href="https://app.codacy.com/gh/Marine-Sanson/snowtricks/dashboard">the last analysis here</a>.
 
 <div align="center">
-    [![Codacy Badge](https://app.codacy.com/project/badge/Grade/745b766c3a114b0a89a1dd817694f032)](https://app.codacy.com/gh/Marine-Sanson/snowtricks/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+    <img src="[![Codacy Badge](https://app.codacy.com/project/badge/Grade/745b766c3a114b0a89a1dd817694f032)](https://app.codacy.com/gh/Marine-Sanson/snowtricks/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)>
     <br>
     <br>
 </div>
