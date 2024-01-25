@@ -99,9 +99,8 @@ Start Mailhog to catch the emails. Go to <a href="http://localhost:8025">http://
 
 
 ### Warning ###
-To connect you, pick an email in the database and use it. The password is "mdpass" for all fake users.
-<br>
-Be careful when you try this application with fake fixtures, I cheat with the pictures, I use the same several times. If you delete one it may disappear for several tricks. Of course it won't happen with real datas.
+* To connect you, pick an email in the database and use it. The password is "mdpass" for all fake users.  
+* Be careful when you try this application with fake fixtures, I cheat with the pictures, I use the same several times. If you delete one it may disappear for several tricks. Of course it won't happen with real datas.
 
 ## GitHub stats : ##
 
