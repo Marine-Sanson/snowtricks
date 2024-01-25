@@ -54,11 +54,10 @@ This project is avaliable on <a href="https://github.com/">GitHub</a>, and recei
 It also received a **A** notation in <a href="https://www.codacy.com/">Codacy</a> ! You can see <a href="https://app.codacy.com/gh/Marine-Sanson/snowtricks/dashboard">the last analysis here</a>.
 
 <div align="center">
-    <img src="https://app.codacy.com/gh/Marine-Sanson/snowtricks/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade">
+    <img src="https://img.shields.io/codacy/grade/591cf51d80244641be9c2514f607a6ce" alt="code quality from Codacy">
     <br>
     <br>
 </div>
-
 
 
 ## How to run this project :
