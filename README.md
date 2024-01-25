@@ -57,6 +57,8 @@ It also received a **A** notation in <a href="https://www.codacy.com/">Codacy</a
 <div align="center">
     <img src="https://img.shields.io/codacy/grade/591cf51d80244641be9c2514f607a6ce" alt="code quality from Codacy">
     <br>
+    <br>
+    <br>
 </div>
 
 ## How to run this project :
@@ -96,10 +98,11 @@ symfony server:start -d
 Start Mailhog to catch the emails. Go to <a href="http://localhost:8025">http://localhost:8025</a> to read them.
 
 
-#### Warning ####
-To connect you pick an email in the database and use it. The password is "mdpass" for all fake users.
+### Warning ###
+To connect you, pick an email in the database and use it. The password is "mdpass" for all fake users.
+<br>
 Be careful when you try this application with fake fixtures, I cheat with the pictures, I use the same several times. If you delete one it may disappear for several tricks. Of course it won't happen with real datas.
 
-## GitHub stats :
+## GitHub stats : ##
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Marine-Sanson&layout=compact)](https://github.com/Marine-Sanson/snowtricks/tree/develop)
