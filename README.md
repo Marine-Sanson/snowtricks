@@ -1,13 +1,10 @@
-# SnowTricks
-6ème projet de ma formation Développeuse d'applications chez OpenClassrooms. Premier projet avec Symfony
-
-<div align="center">
-    <img src="https://upload.wikimedia.org/wikipedia/fr/0/0d/Logo_OpenClassrooms.png" width="120" height="120" alt="logo OpenClassrooms">
-</div>
-
-
 # Snowtricks
 Project for OpenClasssrooms : develop a website using Symfony
+
+<div align="center">
+    <br>
+    <img src="https://upload.wikimedia.org/wikipedia/fr/0/0d/Logo_OpenClassrooms.png" width="120" height="120" alt="logo OpenClassrooms">
+</div>
 
 
 ## What I used for this project :
@@ -43,15 +40,25 @@ For the database I use MySQL with HeidiSQL because they are in my development se
 
 I used <a href="https://getcomposer.org/">Composer</a> to install all the libraries and tools I needed.
 
-To test the function to send mail I used <a href="https://github.com/mailhog/MailHog">MailHog</a>
-To generate the fixtures I used <a href="https://fakerphp.github.io/">Fakerphp</a>
+To test the function to send mail I used <a href="https://github.com/mailhog/MailHog">MailHog</a>.
+To generate the fixtures I used <a href="https://fakerphp.github.io/">Fakerphp</a>.
 
-This project is avaliable on <a href="https://github.com/">GitHub</a>, and received a **Platinum medal** in <a href="https://insight.symfony.com/">SymfonyInsight</a> ! You can see <a href="https://insight.symfony.com/projects/229e245e-bc90-4871-97cb-374f6bca10ee">the last analyse here.</a>
+This project is avaliable on <a href="https://github.com/">GitHub</a>, and received a **Platinum medal** in <a href="https://insight.symfony.com/">SymfonyInsight</a> ! You can see <a href="https://insight.symfony.com/projects/229e245e-bc90-4871-97cb-374f6bca10ee">the last analysis here</a>.
 
 <div align="center">
-    <img src="https://insight.symfony.com/projects/229e245e-bc90-4871-97cb-374f6bca10ee/big.svg" alt="code quality from Codacy">
+    <img src="https://insight.symfony.com/projects/229e245e-bc90-4871-97cb-374f6bca10ee/big.svg" alt="code quality from SymfonyInsight">
+    <br>
     <br>
 </div>
+
+It also received a **A** notation in <a href="https://www.codacy.com/">Codacy</a> ! You can see <a href="https://app.codacy.com/gh/Marine-Sanson/snowtricks/dashboard">the last analysis here</a>.
+
+<div align="center">
+    <img src="https://img.shields.io/codacy/grade/591cf51d80244641be9c2514f607a6ce" alt="code quality from Codacy">
+    <br>
+    <br>
+</div>
+
 
 ## How to run this project :
 
@@ -61,7 +68,7 @@ To run this project, you need to use composer, and run :
 composer install
 ```
 
-For your connection informations (database and SMTP), copy the ```.env``` file in a ```.env.local``` file and replace the data by yours
+For your secret informations (database, SMTP and so on..), copy the ```.env``` file in a ```.env.local``` file and replace all the data that begins by *your_* by yours
 
 To create the database run :
 
@@ -87,7 +94,13 @@ To run the project in your navigator first run the symfony server :
 symfony server:start -d
 ```
 
+Start Mailhog to catch the emails. Go to <a href="http://localhost:8025">http://localhost:8025</a> to read them.
 
-## GitHub stats :
+
+### Warnings : ###
+* To connect you, pick an email in the database and use it. The password is *mdpass* for all fake users.  
+* Be careful when you try this application with fake fixtures, I cheat with the pictures, I use the same several times. If you delete one it may disappear for several tricks. Of course it won't happen with real datas.
+
+## GitHub stats : ##
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Marine-Sanson&layout=compact)](https://github.com/Marine-Sanson/snowtricks/tree/develop)
