@@ -59,6 +59,8 @@ It also received a **A** notation in <a href="https://www.codacy.com/">Codacy</a
     <br>
 </div>
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/745b766c3a114b0a89a1dd817694f032)](https://app.codacy.com/gh/Marine-Sanson/snowtricks/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
 ## How to run this project :
 
 To run this project, you need to use composer, and run :
